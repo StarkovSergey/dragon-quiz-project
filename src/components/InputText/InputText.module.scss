@@ -1,0 +1,33 @@
+.box {
+  width: 300px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--color-brand-light);
+  font-size: 16px;
+}
+
+.input {
+  display: block;
+  padding: 8px 12px 5px 8px;
+  background-color: var(--color-dark-blue);
+  border: none;
+  color: var(--color-white);
+  font-size: 14px;
+  line-height: 22px;
+  border-bottom: 3px solid var(--color-dark-blue);
+  transition: 200ms;
+
+  &:focus {
+    outline: none;
+    border-bottom: 3px solid var(--color-brand-light);
+  }
+}
+
+.span {
+
+}
+
+

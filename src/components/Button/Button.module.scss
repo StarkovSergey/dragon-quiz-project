@@ -1,0 +1,70 @@
+.box {
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+  background-color: var(--color-dark-blue);
+  margin-right: 14px;
+  margin-top: 14px;
+
+  &--art {
+    margin-right: 85px;
+  }
+}
+
+.button {
+  position: relative;
+  top: -12px;
+  left: 12px;
+  padding: 10px 20px;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: inherit;
+  background-color: #f07b61;
+  color: #153956;
+
+  cursor: pointer;
+
+  transition: all 200ms ease;
+
+  &:active {
+    top: -6px;
+    left: 6px;
+  }
+}
+
+.star-wrapper {
+  position: absolute;
+  top: 0;
+  right: -100px;
+  width: 100px;
+  height: 40px;
+}
+
+
+.star {
+  position: absolute;
+  background-image: url("../../assets/icons/star.svg");
+  background-size: cover;
+}
+
+.star-big {
+  top: 35px;
+  left: 28px;
+  width: 14px;
+  height: 14px;
+
+}
+
+.star-mid {
+  top: 25px;
+  left: 55px;
+  width: 8px;
+  height: 8px;
+}
+
+.star-far {
+  top: 40px;
+  left: 75px;
+  width: 8px;
+  height: 8px;
+}
