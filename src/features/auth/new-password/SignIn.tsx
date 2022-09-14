@@ -1,5 +1,3 @@
 export const NewPassword = () => {
-  return (
-    <div>New password</div>
-  )
+  return <h1>New password</h1>
 }

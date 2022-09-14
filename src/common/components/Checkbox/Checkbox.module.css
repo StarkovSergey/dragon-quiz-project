@@ -1,26 +1,30 @@
 .label {
+  cursor: pointer;
+
   display: inline-flex;
   align-items: center;
-  cursor: pointer;
 }
 
 .checkbox {
-  appearance: none;
-
-  margin-right: 10px;
-  width: 20px;
-  height: 20px;
-  background-color: var(--color-dark-blue);
-  transform: rotateY(0deg);
-
-  border: 2px solid var(--color-brand);
-  transition: 200ms;
   cursor: pointer;
 
+  transform: rotateY(0deg);
+
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+
+  background-color: var(--color-dark-blue);
+  border: 2px solid var(--color-brand);
+
+  transition: 200ms;
+
+  appearance: none;
 }
 
 .checkbox:checked {
   transform: rotateY(180deg);
-  background-image: url("checked2.svg");
+
+  background-image: url('checked2.svg');
   background-size: cover;
 }

@@ -1,5 +1,3 @@
 export const SignUp = () => {
-  return (
-    <div>Sign up</div>
-  )
+  return <h1>Sign up</h1>
 }

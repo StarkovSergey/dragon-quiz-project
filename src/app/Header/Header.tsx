@@ -1,15 +1,14 @@
 import { NavLink } from 'react-router-dom'
-import style from './Header.module.scss'
+import style from './Header.module.css'
 import whiteTree from '../../assets/images/white-tree.png'
 
 export const Header = () => {
   return (
     <header>
       <nav className={style.nav}>
-
-        <div className='logo'>
+        <div className="logo">
           <NavLink to="/">
-            <img width="70" height="70" src={whiteTree} alt="logo"/>
+            <img width="70" height="70" src={whiteTree} alt="logo" />
           </NavLink>
         </div>
 

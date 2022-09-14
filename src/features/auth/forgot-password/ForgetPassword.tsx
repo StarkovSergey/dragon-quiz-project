@@ -1,5 +1,3 @@
 export const SignIn = () => {
-  return (
-    <div>Sign in</div>
-  )
+  return <h1>Sign in</h1>
 }

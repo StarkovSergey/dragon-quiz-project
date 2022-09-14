@@ -5,19 +5,22 @@
 }
 
 html {
-  height: 100%;
   scroll-behavior: smooth;
+
+  height: 100%;
 }
 
 body {
   height: 100%;
   margin: 0;
-  color: var(--color-white);
-  font-weight: 400;
-  line-height: 1.4;
-  background-color: var(--color-blue);
+
   font-family: 'Roboto', sans-serif;
   font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--color-white);
+
+  background-color: var(--color-blue);
 }
 
 a {
@@ -27,27 +30,30 @@ a {
 
 button {
   padding: 0;
-  border: none;
-  color: inherit;
+
   font: inherit;
+  color: inherit;
+
   background: transparent;
+  border: none;
 }
 
 .visually-hidden {
   position: absolute;
+
+  overflow: hidden;
+
   width: 1px;
   height: 1px;
   margin: -1px;
   padding: 0;
-  border: 0;
-  overflow: hidden;
+
   white-space: nowrap;
+
   clip: rect(0 0 0 0);
   clip-path: inset(100%);
+  border: 0;
 }
-
-
-
 
 #root {
   height: 100%;
@@ -56,16 +62,17 @@ button {
 img {
   max-width: 100%;
   height: auto;
+
   vertical-align: top;
 }
 
 ul {
   margin: 0;
   padding: 0;
+
   list-style: none;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-  monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }

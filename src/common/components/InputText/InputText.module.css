@@ -4,30 +4,33 @@
 
 .label {
   display: block;
+
   margin-bottom: 5px;
-  color: var(--color-brand-light);
+
   font-size: 16px;
+  color: var(--color-brand-light);
 }
 
 .input {
   display: block;
+
   padding: 8px 12px 5px 8px;
-  background-color: var(--color-dark-blue);
-  border: none;
-  color: var(--color-white);
+
   font-size: 14px;
   line-height: 22px;
-  border-bottom: 3px solid var(--color-dark-blue);
-  transition: 200ms;
+  color: var(--color-white);
 
-  &:focus {
-    outline: none;
-    border-bottom: 3px solid var(--color-brand-light);
-  }
+  background-color: var(--color-dark-blue);
+  border: none;
+  border-bottom: 3px solid var(--color-dark-blue);
+
+  transition: 200ms;
+}
+
+.input:focus {
+  border-bottom: 3px solid var(--color-brand-light);
+  outline: none;
 }
 
 .span {
-
 }
-
-
