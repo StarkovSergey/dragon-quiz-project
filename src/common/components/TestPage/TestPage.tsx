@@ -12,7 +12,7 @@ export const TestPage = () => {
         <Button art>Art button</Button>
       </div>
       <div style={{ marginBottom: '10px' }}>
-        <InputText label="Name" />
+        <InputText label="Name" error="some error" />
       </div>
       <Checkbox label="I like dragons" />
     </div>

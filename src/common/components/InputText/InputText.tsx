@@ -1,4 +1,4 @@
-import React, { ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent } from 'react'
+import React, { ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent, useState } from 'react'
 
 import style from './InputText.module.css'
 
@@ -19,10 +19,13 @@ export const InputText: React.FC<PropsType> = ({
   onKeyDown,
   onEnter,
   error,
-  className,
   ...restProps
 }) => {
+  const [showError, setShowError] = useState<boolean>(!!error)
+
   const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
+    setShowError(false)
+
     onChange && // если есть пропс onChange
       onChange(e) // то передать ему е (поскольку onChange не обязателен)
 
@@ -47,7 +50,7 @@ export const InputText: React.FC<PropsType> = ({
         className={style.input}
         {...restProps}
       />
-      {error && <span className={style.span}>{error}</span>}
+      {error && showError && <span className={style.error}>{error}</span>}
     </div>
   )
 }
