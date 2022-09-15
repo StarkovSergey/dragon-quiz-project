@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Dragon quiz project",
+  "name": "quiz-cards designed app for learning",
   "icons": [
     {
       "src": "favicon.ico",
