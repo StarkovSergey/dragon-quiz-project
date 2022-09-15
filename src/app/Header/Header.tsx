@@ -1,6 +1,8 @@
 import { NavLink } from 'react-router-dom'
-import style from './Header.module.css'
+
 import whiteTree from '../../assets/images/white-tree.png'
+
+import style from './Header.module.css'
 
 export const Header = () => {
   return (

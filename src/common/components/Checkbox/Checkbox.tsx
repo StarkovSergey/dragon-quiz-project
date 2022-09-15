@@ -1,10 +1,8 @@
 import React, { ChangeEvent, DetailedHTMLProps, InputHTMLAttributes } from 'react'
+
 import style from './Checkbox.module.css'
 
-type DefaultInputPropsType = DetailedHTMLProps<
-  InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
->
+type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
 type PropsType = DefaultInputPropsType & {
   onChangeChecked?: (checked: boolean) => void
