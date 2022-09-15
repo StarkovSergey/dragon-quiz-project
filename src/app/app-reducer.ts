@@ -1,19 +1,35 @@
-const initialState: AppStateType = {
+import { createSlice } from '@reduxjs/toolkit'
 
+import { AppThunk } from './store'
+
+const initialState: AppStateType = {
+  status: 'idle',
+  error: null,
+  isInitialized: false,
 }
 
-export const appReducer = (state: AppStateType = initialState, action: AppActionsType): AppStateType => {
-  switch (action.type) {
-    default:
-      return state
+const slice = createSlice({
+  name: 'app',
+  initialState,
+  reducers: {},
+})
+
+export const appReducer = slice.reducer
+
+// thunks
+export const initializedAppTC = (): AppThunk => async dispatch => {
+  try {
+    //
+  } catch (e) {
+    //
   }
 }
 
-// actions
-
-
 // types
-export type AppStateType = {
-}
+export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
-export type AppActionsType = any
+export type AppStateType = {
+  status: RequestStatusType
+  error: null | string
+  isInitialized: boolean
+}

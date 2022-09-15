@@ -1,7 +1,8 @@
 import React from 'react'
-import { Button } from '../components/Button/Button'
-import { InputText } from '../components/InputText/InputText'
-import { Checkbox } from '../components/Checkbox/Checkbox'
+
+import { Button } from '../Button/Button'
+import { Checkbox } from '../Checkbox/Checkbox'
+import { InputText } from '../InputText/InputText'
 
 export const TestPage = () => {
   return (
