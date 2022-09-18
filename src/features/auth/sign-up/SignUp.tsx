@@ -6,7 +6,6 @@ import { Navigate, NavLink } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../app/store'
 import { Button } from '../../../common/components/Button/Button'
 import { InputText } from '../../../common/components/InputText/InputText'
-import { SignIn } from '../forgot-password/ForgetPassword'
 
 import { setRegisteredInTC } from './signUp-reducer'
 import style from './signUp.module.css'

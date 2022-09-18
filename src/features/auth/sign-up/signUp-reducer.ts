@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { AppThunk } from '../../../app/store'
-import { signUpAPI, signUpType } from '../auth-api'
+import { authAPI, signUpType } from '../auth-api'
 
 const initialState = {
   isRegister: false,
@@ -25,7 +25,7 @@ export const setRegisteredInTC =
   (data: signUpType): AppThunk =>
   async dispatch => {
     try {
-      const res = await signUpAPI.signUp(data)
+      const res = await authAPI.signUp(data)
 
       dispatch(setRegisteredIn({ isRegister: true }))
     } catch (e) {

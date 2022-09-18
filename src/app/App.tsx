@@ -3,12 +3,13 @@ import React from 'react'
 import './App.css'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
+import { ErrorSnackbar } from '../common/components/ErrorSnackbar/ErrorSnackbar'
 import Page404 from '../common/components/Page404/Page404'
 import { TestPage } from '../common/components/TestPage/TestPage'
 import { CheckEmail } from '../features/auth/check-email/CheckEmail'
-import { SignIn } from '../features/auth/forgot-password/ForgetPassword'
+import { ForgotPassword } from '../features/auth/forgot-password/ForgetPassword'
 import { NewPassword } from '../features/auth/new-password/SignIn'
-import { ForgotPassword } from '../features/auth/sign-in/SignIn'
+import { SignIn } from '../features/auth/sign-in/SignIn'
 import { SignUp } from '../features/auth/sign-up/SignUp'
 import { Profile } from '../features/profile/Profile'
 
@@ -32,6 +33,7 @@ export const App = () => {
           <Route path="404" element={<Page404 />} />
         </Routes>
       </main>
+      <ErrorSnackbar />
       <footer></footer>
     </div>
   )
