@@ -37,8 +37,7 @@ export const loginTC =
       dispatch(login(res.data))
     } catch (e) {
       if (axios.isAxiosError(e)) {
-        // @ts-ignore
-        dispatch(setAppError(e.response.data.error))
+        dispatch(setAppError(e))
       }
     }
   }
