@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 
 import { AppRootStateType, useAppDispatch } from '../../../app/store'
-import { loginAT } from '../auth-reducer'
+import { loginTC } from '../auth-reducer'
 
 export const SignIn = () => {
   const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
@@ -31,7 +31,7 @@ export const SignIn = () => {
       return errors
     },
     onSubmit: values => {
-      dispatch(loginAT(values))
+      dispatch(loginTC(values))
       formik.resetForm()
     },
   })

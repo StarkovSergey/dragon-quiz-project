@@ -1,6 +1,7 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 
+import { setAppError } from '../../app/app-reducer'
 import { AppThunk } from '../../app/store'
 
 import { loginAPI } from './auth-api'
@@ -14,47 +15,46 @@ const initialState = {
 export const slice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
-  extraReducers: builder => {
-    builder.addCase(loginAT.fulfilled, (state, action) => {
+  reducers: {
+    login: (state, action: PayloadAction<ProfileType>) => {
       state.profile = action.payload
       state.isLoggedIn = true
-    })
+    },
   },
 })
 
-//export const { login } = slice.actions
+export const { login } = slice.actions
 export const authReducer = slice.reducer
 
 // thunks
-export const loginAT = createAsyncThunk('auth/login', async (loginData: LoginFormDataType) => {
-  try {
-    const res = await loginAPI.login(loginData)
-
-    return res.data
-  } catch (e) {
-    if (axios.isAxiosError(e)) {
-      // @ts-ignore
-      alert(e.response.data.error)
-    }
-  }
-})
-// export const loginTC =
-//   (loginFormData: LoginFormDataType): AppThunk =>
-//   async dispatch => {
-//     try {
-//       const res = await loginAPI.login(loginFormData)
+// export const loginAT = createAsyncThunk('auth/login', async (loginData: LoginFormDataType) => {
+//   try {
+//     const res = await loginAPI.login(loginData)
 //
-//       console.log(res)
-//       dispatch(login(res.data))
-//     } catch (e) {
-//       console.log(e)
-//       if (axios.isAxiosError(e)) {
-//         // @ts-ignore
-//         alert(e.response.data.error)
-//       }
+//     console.log(res)
+//
+//     return res.data
+//   } catch (e) {
+//     if (axios.isAxiosError(e)) {
+//       // @ts-ignore
+//       return e.response.data.error
 //     }
 //   }
+// })
+export const loginTC =
+  (loginFormData: LoginFormDataType): AppThunk =>
+  async dispatch => {
+    try {
+      const res = await loginAPI.login(loginFormData)
+
+      dispatch(login(res.data))
+    } catch (e) {
+      if (axios.isAxiosError(e)) {
+        // @ts-ignore
+        dispatch(setAppError(e.response.data.error))
+      }
+    }
+  }
 // types
 export type ProfileType = {
   _id: string
