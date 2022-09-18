@@ -4,12 +4,13 @@ import axios from 'axios'
 import { setAppError } from '../../app/app-reducer'
 import { AppThunk } from '../../app/store'
 
-import { authAPI, ProfileType } from './auth-api'
+import { authAPI, ProfileType, signUpType } from './auth-api'
 import { LoginFormDataType } from './sign-in/SignIn'
 
 const initialState = {
   isLoggedIn: false,
   profile: {} as ProfileType,
+  isRegister: false,
 }
 
 export const slice = createSlice({
@@ -20,10 +21,13 @@ export const slice = createSlice({
       state.profile = action.payload
       state.isLoggedIn = true
     },
+    setRegisteredIn(state, action: PayloadAction<{ isRegister: boolean }>) {
+      state.isRegister = action.payload.isRegister
+    },
   },
 })
 
-export const { login } = slice.actions
+export const { login, setRegisteredIn } = slice.actions
 export const authReducer = slice.reducer
 
 // thunks
@@ -38,6 +42,20 @@ export const loginTC =
     } catch (e) {
       if (axios.isAxiosError(e)) {
         dispatch(setAppError(e))
+      }
+    }
+  }
+
+export const setRegisteredInTC =
+  (data: signUpType): AppThunk =>
+  async dispatch => {
+    try {
+      const res = await authAPI.signUp(data)
+
+      dispatch(setRegisteredIn({ isRegister: true }))
+    } catch (e) {
+      if (axios.isAxiosError(e)) {
+        console.log(e)
       }
     }
   }

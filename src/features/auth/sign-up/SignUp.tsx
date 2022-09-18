@@ -6,9 +6,8 @@ import { Navigate, NavLink } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../app/store'
 import { Button } from '../../../common/components/Button/Button'
 import { InputText } from '../../../common/components/InputText/InputText'
+import { setRegisteredInTC } from '../auth-reducer'
 
-import { setRegisteredInTC } from './signUp-reducer'
-import style from './signUp.module.css'
 import { validateSignUp } from './validateSignUp'
 
 export type SignUpFormType = {
@@ -19,7 +18,7 @@ export type SignUpFormType = {
 
 export const SignUp = () => {
   const dispatch = useAppDispatch()
-  const isRegister = useAppSelector(state => state.signUp.isRegister)
+  const isRegister = useAppSelector(state => state.auth.isRegister)
 
   const formik = useFormik({
     initialValues: {
@@ -38,7 +37,7 @@ export const SignUp = () => {
   }
 
   return (
-    <div className={style.signUpBlock}>
+    <div>
       <div>
         <form onSubmit={formik.handleSubmit}>
           <h2>Sign Up</h2>
