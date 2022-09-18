@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { AppThunk } from '../../app/store'
@@ -14,34 +14,47 @@ const initialState = {
 export const slice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {
-    login: (state, action: PayloadAction<ProfileType>) => {
+  reducers: {},
+  extraReducers: builder => {
+    builder.addCase(loginAT.fulfilled, (state, action) => {
       state.profile = action.payload
       state.isLoggedIn = true
-    },
+    })
   },
 })
 
-export const { login } = slice.actions
+//export const { login } = slice.actions
 export const authReducer = slice.reducer
 
 // thunks
-export const loginTC =
-  (loginFormData: LoginFormDataType): AppThunk =>
-  async dispatch => {
-    try {
-      const res = await loginAPI.login(loginFormData)
+export const loginAT = createAsyncThunk('auth/login', async (loginData: LoginFormDataType) => {
+  try {
+    const res = await loginAPI.login(loginData)
 
-      console.log(res)
-      dispatch(login(res.data))
-    } catch (e) {
-      console.log(e)
-      if (axios.isAxiosError(e)) {
-        // @ts-ignore
-        alert(e.response.data.error)
-      }
+    return res.data
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      // @ts-ignore
+      alert(e.response.data.error)
     }
   }
+})
+// export const loginTC =
+//   (loginFormData: LoginFormDataType): AppThunk =>
+//   async dispatch => {
+//     try {
+//       const res = await loginAPI.login(loginFormData)
+//
+//       console.log(res)
+//       dispatch(login(res.data))
+//     } catch (e) {
+//       console.log(e)
+//       if (axios.isAxiosError(e)) {
+//         // @ts-ignore
+//         alert(e.response.data.error)
+//       }
+//     }
+//   }
 // types
 export type ProfileType = {
   _id: string
