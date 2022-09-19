@@ -3,9 +3,12 @@ import { useSelector } from 'react-redux'
 import { Navigate, NavLink } from 'react-router-dom'
 
 import { AppRootStateType, useAppDispatch } from '../../../app/store'
+import eyeImg from '../../../assets/icons/eye.webp'
+import { showPassword } from '../../../common/components/customShowPassword/showPassword'
 import { loginTC } from '../auth-reducer'
 
 export const SignIn = () => {
+  const { show, setShowPassword } = showPassword()
   const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
   const dispatch = useAppDispatch()
   const formik = useFormik({
@@ -53,8 +56,16 @@ export const SignIn = () => {
         {formik.errors.password && formik.touched.password && (
           <div style={{ color: 'red', fontWeight: 'bold' }}>{formik.errors.password}</div>
         )}
-        <div>
-          <input {...formik.getFieldProps('password')} type={'password'} name={'password'} placeholder={'password'} />
+        <div style={{ display: 'flex' }}>
+          <input
+            {...formik.getFieldProps('password')}
+            type={show ? 'password' : 'text'}
+            name={'password'}
+            placeholder={'password'}
+          />
+          <div onClick={setShowPassword}>
+            <img src={eyeImg} alt="eye" style={{ width: '30px' }} />
+          </div>
         </div>
         <div>
           <input {...formik.getFieldProps('rememberMe')} type={'checkbox'} name={'rememberMe'} />
