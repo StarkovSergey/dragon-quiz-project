@@ -1,16 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 
+import { setAppError } from '../../app/app-reducer'
 import { AppThunk } from '../../app/store'
 import { handleServerNetworkError } from '../../common/utilites/handleNetworkError'
 
-import { authAPI, ProfileType, signUpType } from './auth-api'
+import { authAPI, ProfileType, signUpType, UpdateProfileModelType } from './auth-api'
 import { LoginFormDataType } from './sign-in/SignIn'
 
 const initialState = {
   isLoggedIn: false,
+  profile: {} as ProfileType, // исправить на null || ProfileType
   isRegister: false,
-  profile: {} as ProfileType,
 }
 
 export const slice = createSlice({
@@ -24,13 +25,29 @@ export const slice = createSlice({
     setRegisteredIn(state, action: PayloadAction<{ isRegister: boolean }>) {
       state.isRegister = action.payload.isRegister
     },
+    updateProfile(state, action: PayloadAction<{ profile: ProfileType }>) {
+      state.profile = action.payload.profile
+    },
   },
 })
 
-export const { login, setRegisteredIn } = slice.actions
+export const { login, setRegisteredIn, updateProfile } = slice.actions
 export const authReducer = slice.reducer
 
 // thunks
+export const updateProfileTC =
+  (model: UpdateProfileModelType): AppThunk =>
+  async dispatch => {
+    try {
+      const response = await authAPI.updateProfile(model)
+
+      dispatch(updateProfile({ profile: response.data.updatedUser }))
+    } catch (e) {
+      if (axios.isAxiosError(e)) {
+        handleServerNetworkError(e, dispatch)
+      }
+    }
+  }
 
 export const loginTC =
   (loginFormData: LoginFormDataType): AppThunk =>
