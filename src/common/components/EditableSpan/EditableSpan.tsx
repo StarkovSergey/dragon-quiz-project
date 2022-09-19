@@ -20,6 +20,11 @@ export const EditableSpan = (props: PropsType) => {
   }
 
   const turnOffEditMode = () => {
+    setEditMode(false)
+    setInputText(props.text)
+  }
+
+  const changeText = () => {
     if (inputText.trim() && inputText !== props.text) {
       props.changeText(inputText)
     }
@@ -32,6 +37,10 @@ export const EditableSpan = (props: PropsType) => {
 
   const inputKeyDownHandler = (evt: KeyboardEvent<HTMLInputElement>) => {
     if (evt.key === 'Enter') {
+      changeText()
+    }
+
+    if (evt.key === 'Escape') {
       turnOffEditMode()
     }
   }
@@ -43,9 +52,10 @@ export const EditableSpan = (props: PropsType) => {
         value={inputText}
         onChange={inputChangeHandler}
         onKeyDown={inputKeyDownHandler}
+        onBlur={changeText}
         autoFocus
       />
-      <Button onClick={turnOffEditMode}>Save</Button>
+      <Button onClick={changeText}>Save</Button>
     </div>
   ) : (
     <div className="box">
