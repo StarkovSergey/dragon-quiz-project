@@ -37,6 +37,7 @@ export const App = () => {
         }}
       >
         <CircularProgress color={'secondary'} size={200} />
+        <ErrorSnackbar />
       </div>
     )
   }

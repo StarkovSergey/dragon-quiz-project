@@ -1,7 +1,9 @@
 import { setAppError, setAppStatus } from '../../app/app-reducer'
 import { AppDispatch } from '../../app/store'
 
-export const handleServerNetworkError = (error: { message: string }, dispatch: AppDispatch) => {
-  dispatch(setAppError(error.message ? error.message : 'Some error occurred'))
+export const handleServerNetworkError = (e: any, dispatch: AppDispatch) => {
+  const error = e.response ? (e.response.data as { error: string }).error : e.message
+
+  dispatch(setAppError(error))
   dispatch(setAppStatus('failed'))
 }

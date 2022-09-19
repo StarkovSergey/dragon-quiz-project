@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import axios, { AxiosError } from 'axios'
+import axios from 'axios'
 
 import { handleServerNetworkError } from '../common/utilites/handleNetworkError'
 import { authAPI } from '../features/auth/auth-api'
@@ -41,6 +41,8 @@ export const initializedAppTC = (): AppThunk => async dispatch => {
     if (axios.isAxiosError(error)) {
       handleServerNetworkError(error, dispatch)
     }
+  } finally {
+    dispatch(setInitialized(true))
   }
 }
 
