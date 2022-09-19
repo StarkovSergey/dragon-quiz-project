@@ -25,6 +25,7 @@ export const App = () => {
   useEffect(() => {
     dispatch(initializedAppTC())
   }, [])
+
   if (!isInitialized) {
     return (
       <div

@@ -1,16 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import axios from 'axios'
 
-import { setAppError } from '../../app/app-reducer'
 import { AppThunk } from '../../app/store'
 import { handleServerNetworkError } from '../../common/utilites/handleNetworkError'
 
 import { authAPI, ProfileType, signUpType, UpdateProfileModelType } from './auth-api'
 import { LoginFormDataType } from './sign-in/SignIn'
 
-const initialState = {
+const initialState: AuthStateType = {
   isLoggedIn: false,
-  profile: {} as ProfileType, // исправить на null || ProfileType
+  profile: null,
   isRegister: false,
 }
 
@@ -22,6 +20,10 @@ export const slice = createSlice({
       state.profile = action.payload
       state.isLoggedIn = true
     },
+    logout(state) {
+      state.isLoggedIn = false
+      state.profile = null
+    },
     setRegisteredIn(state, action: PayloadAction<{ isRegister: boolean }>) {
       state.isRegister = action.payload.isRegister
     },
@@ -31,7 +33,7 @@ export const slice = createSlice({
   },
 })
 
-export const { login, setRegisteredIn, updateProfile } = slice.actions
+export const { login, logout, setRegisteredIn, updateProfile } = slice.actions
 export const authReducer = slice.reducer
 
 // thunks
@@ -43,9 +45,7 @@ export const updateProfileTC =
 
       dispatch(updateProfile({ profile: response.data.updatedUser }))
     } catch (e) {
-      if (axios.isAxiosError(e)) {
-        handleServerNetworkError(e, dispatch)
-      }
+      handleServerNetworkError(e, dispatch)
     }
   }
 
@@ -57,11 +57,18 @@ export const loginTC =
 
       dispatch(login(res.data))
     } catch (e) {
-      if (axios.isAxiosError(e)) {
-        handleServerNetworkError(e, dispatch)
-      }
+      handleServerNetworkError(e, dispatch)
     }
   }
+
+export const logoutTC = (): AppThunk => async dispatch => {
+  try {
+    await authAPI.logout()
+    dispatch(logout())
+  } catch (e) {
+    handleServerNetworkError(e, dispatch)
+  }
+}
 
 export const setRegisteredInTC =
   (data: signUpType): AppThunk =>
@@ -71,10 +78,13 @@ export const setRegisteredInTC =
 
       dispatch(setRegisteredIn({ isRegister: true }))
     } catch (e) {
-      if (axios.isAxiosError(e)) {
-        handleServerNetworkError(e, dispatch)
-      }
+      handleServerNetworkError(e, dispatch)
     }
   }
 
 // types
+type AuthStateType = {
+  isLoggedIn: boolean
+  isRegister: boolean
+  profile: ProfileType | null
+}

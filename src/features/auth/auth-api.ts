@@ -14,6 +14,9 @@ export const authAPI = {
   login(loginData: LoginFormDataType) {
     return instance.post(`auth/login`, loginData)
   },
+  logout() {
+    return instance.delete<{ info: string }>(`auth/me`)
+  },
   signUp(data: signUpType) {
     return instance.post<ResponseSignUpType>('/auth/register', data)
   },
