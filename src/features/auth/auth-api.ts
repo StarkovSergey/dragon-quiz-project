@@ -8,6 +8,9 @@ export const instance = axios.create({
   withCredentials: true,
 })
 export const authAPI = {
+  me() {
+    return instance.post(`auth/me`, {})
+  },
   login(loginData: LoginFormDataType) {
     return instance.post(`auth/login`, loginData)
   },

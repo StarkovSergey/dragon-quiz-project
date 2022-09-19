@@ -1,16 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { setAppError } from '../../app/app-reducer'
 import { AppThunk } from '../../app/store'
+import { handleServerNetworkError } from '../../common/utilites/handleNetworkError'
 
 import { authAPI, ProfileType, signUpType } from './auth-api'
 import { LoginFormDataType } from './sign-in/SignIn'
 
 const initialState = {
   isLoggedIn: false,
-  profile: {} as ProfileType,
   isRegister: false,
+  profile: {} as ProfileType,
 }
 
 export const slice = createSlice({
@@ -41,7 +41,7 @@ export const loginTC =
       dispatch(login(res.data))
     } catch (e) {
       if (axios.isAxiosError(e)) {
-        dispatch(setAppError(e))
+        handleServerNetworkError(e, dispatch)
       }
     }
   }
@@ -55,8 +55,9 @@ export const setRegisteredInTC =
       dispatch(setRegisteredIn({ isRegister: true }))
     } catch (e) {
       if (axios.isAxiosError(e)) {
-        console.log(e)
+        handleServerNetworkError(e, dispatch)
       }
     }
   }
+
 // types
