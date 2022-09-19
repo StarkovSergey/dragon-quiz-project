@@ -1,6 +1,6 @@
 import { useFormik } from 'formik'
 import { useSelector } from 'react-redux'
-import { Navigate } from 'react-router-dom'
+import { Navigate, NavLink } from 'react-router-dom'
 
 import { AppRootStateType, useAppDispatch } from '../../../app/store'
 import { loginTC } from '../auth-reducer'
@@ -59,9 +59,15 @@ export const SignIn = () => {
         <div>
           <input {...formik.getFieldProps('rememberMe')} type={'checkbox'} name={'rememberMe'} />
         </div>
+        <div>
+          <NavLink to={'/forgot-password'}>Forgot password?</NavLink>
+        </div>
         <button type={'submit'} value={'Send'}>
-          send
+          Sign In
         </button>
+        <div>
+          <NavLink to={'/sign-up'}>Sign Up</NavLink>
+        </div>
       </form>
     </div>
   )
