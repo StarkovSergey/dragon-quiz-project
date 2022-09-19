@@ -1,3 +1,12 @@
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  max-width: 300px;
+  margin: 0 auto;
+}
+
 .photo {
   position: relative;
 
@@ -16,4 +25,12 @@
   height: 100%;
 
   object-fit: cover;
+}
+
+.profile-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-bottom: 10px;
 }

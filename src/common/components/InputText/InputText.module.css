@@ -1,7 +1,5 @@
 .box {
   position: relative;
-
-  width: 300px;
 }
 
 .label {
@@ -50,11 +48,14 @@
 }
 
 .error::before {
+  content: '';
+
   position: absolute;
   top: -4px;
-  content: '';
+  transform: rotate(45deg);
+
   width: 8px;
   height: 8px;
-  transform: rotate(45deg);
+
   background-color: var(--color-white);
 }

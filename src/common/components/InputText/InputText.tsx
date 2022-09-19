@@ -5,7 +5,7 @@ import style from './InputText.module.css'
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
 type PropsType = DefaultInputPropsType & {
-  label: string
+  label?: string
   onChangeText?: (value: string) => void
   onEnter?: () => void
   error?: string

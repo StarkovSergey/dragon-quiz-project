@@ -3,6 +3,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './styles/variables.css'
 import './styles/global.css'
+import './styles/common-classes.css'
 import { Provider } from 'react-redux'
 import { HashRouter } from 'react-router-dom'
 

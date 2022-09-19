@@ -25,12 +25,14 @@ export const Profile = () => {
   }
 
   return (
-    <div>
-      <h1>Personal information</h1>
-      <div className={style.photo}>
-        <img src={dragonImg} alt="user photo" />
+    <div className={style.box}>
+      <h1 className="section-title">Personal information</h1>
+      <div className={style['profile-data']}>
+        <div className={style.photo}>
+          <img src={dragonImg} alt="user photo" />
+        </div>
+        <EditableSpan text={profile?.name || 'anonymous'} changeText={changeName} />
       </div>
-      <EditableSpan text={profile?.name || 'anonymous'} changeText={changeName} />
       <Button onClick={logout}>Log out</Button>
     </div>
   )
