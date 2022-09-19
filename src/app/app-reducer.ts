@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import { handleServerNetworkError } from '../common/utilites/handleNetworkError'
 import { authAPI } from '../features/auth/auth-api'
+import { login } from '../features/auth/auth-reducer'
 
 import { AppThunk } from './store'
 
@@ -36,7 +37,7 @@ export const initializedAppTC = (): AppThunk => async dispatch => {
   try {
     const res = await authAPI.me()
 
-    dispatch(setInitialized(true))
+    dispatch(login(res.data))
   } catch (error) {
     if (axios.isAxiosError(error)) {
       handleServerNetworkError(error, dispatch)

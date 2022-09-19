@@ -12,8 +12,6 @@ export const Profile = () => {
   const profile = useAppSelector(state => state.auth.profile)
   const dispatch = useAppDispatch()
 
-  console.log(isLoggedIn)
-
   if (!isLoggedIn) {
     return <SignIn />
   }
