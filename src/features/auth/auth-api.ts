@@ -15,7 +15,7 @@ export const authAPI = {
     return instance.post<ResponseSignUpType>('/auth/register', data)
   },
   updateProfile(model: UpdateProfileModelType) {
-    return instance.put<ProfileType>(`auth/me`, model)
+    return instance.put<UpdateProfileResponseType>(`auth/me`, model)
   },
 }
 
@@ -23,6 +23,11 @@ export const authAPI = {
 export type UpdateProfileModelType = {
   name?: string
   avatar?: string
+}
+
+export type UpdateProfileResponseType = {
+  updatedUser: ProfileType
+  error?: string
 }
 
 export type ResponseSignUpType = {

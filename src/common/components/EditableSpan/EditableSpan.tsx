@@ -3,7 +3,6 @@ import { ChangeEvent, KeyboardEvent, useState } from 'react'
 import EditIcon from '@mui/icons-material/Edit'
 import { IconButton } from '@mui/material'
 
-import { useAppSelector } from '../../../app/store'
 import { Button } from '../Button/Button'
 import { InputText } from '../InputText/InputText'
 
@@ -15,8 +14,6 @@ type PropsType = {
 export const EditableSpan = (props: PropsType) => {
   const [editMode, setEditMode] = useState<boolean>(false)
   const [inputText, setInputText] = useState(props.text)
-
-  const name = useAppSelector(state => state.auth.profile.name)
 
   const turnOnEditMode = () => {
     setEditMode(true)
@@ -52,7 +49,7 @@ export const EditableSpan = (props: PropsType) => {
     </div>
   ) : (
     <div className="box">
-      <b>{name}</b>
+      <b>{props.text}</b>
       <IconButton onClick={turnOnEditMode}>
         <EditIcon />
       </IconButton>

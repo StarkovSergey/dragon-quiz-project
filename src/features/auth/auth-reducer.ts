@@ -40,9 +40,11 @@ export const updateProfileTC =
     try {
       const response = await authAPI.updateProfile(model)
 
-      dispatch(updateProfile({ profile: response.data }))
+      dispatch(updateProfile({ profile: response.data.updatedUser }))
     } catch (e) {
-      // error handling
+      if (axios.isAxiosError(e)) {
+        dispatch(setAppError(e.message))
+      }
     }
   }
 
