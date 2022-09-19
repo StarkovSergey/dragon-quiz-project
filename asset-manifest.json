@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/dragon-quiz-project/static/css/main.0121448a.css",
-    "main.js": "/dragon-quiz-project/static/js/main.bcf1c936.js",
+    "main.css": "/dragon-quiz-project/static/css/main.d8f9b4bb.css",
+    "main.js": "/dragon-quiz-project/static/js/main.8807ce1a.js",
     "static/js/787.86a528bf.chunk.js": "/dragon-quiz-project/static/js/787.86a528bf.chunk.js",
     "static/media/dragon.png": "/dragon-quiz-project/static/media/dragon.4cf0316812177f7894cb.png",
     "static/media/white-tree.png": "/dragon-quiz-project/static/media/white-tree.54f8f9515b30b5198c7e.png",
@@ -9,12 +9,12 @@
     "static/media/checked2.svg": "/dragon-quiz-project/static/media/checked2.b7184d2bb5ede1f01537.svg",
     "index.html": "/dragon-quiz-project/index.html",
     "static/media/star.svg": "/dragon-quiz-project/static/media/star.8ced2c99262f577fe9b8.svg",
-    "main.0121448a.css.map": "/dragon-quiz-project/static/css/main.0121448a.css.map",
-    "main.bcf1c936.js.map": "/dragon-quiz-project/static/js/main.bcf1c936.js.map",
+    "main.d8f9b4bb.css.map": "/dragon-quiz-project/static/css/main.d8f9b4bb.css.map",
+    "main.8807ce1a.js.map": "/dragon-quiz-project/static/js/main.8807ce1a.js.map",
     "787.86a528bf.chunk.js.map": "/dragon-quiz-project/static/js/787.86a528bf.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0121448a.css",
-    "static/js/main.bcf1c936.js"
+    "static/css/main.d8f9b4bb.css",
+    "static/js/main.8807ce1a.js"
   ]
 }
