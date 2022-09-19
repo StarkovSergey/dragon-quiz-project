@@ -14,9 +14,17 @@ export const authAPI = {
   signUp(data: signUpType) {
     return instance.post<ResponseSignUpType>('/auth/register', data)
   },
+  updateProfile(model: UpdateProfileModelType) {
+    return instance.put<ProfileType>(`auth/me`, model)
+  },
 }
 
 // type
+export type UpdateProfileModelType = {
+  name?: string
+  avatar?: string
+}
+
 export type ResponseSignUpType = {
   addedUser: {
     _id: string
