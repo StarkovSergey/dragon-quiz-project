@@ -20,10 +20,10 @@ export const InputText: React.FC<PropsType> = ({
   error,
   ...restProps
 }) => {
-  const [showError, setShowError] = useState<boolean>(!!error)
+  // const [showError, setShowError] = useState<boolean>(!!error)
 
   const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
-    setShowError(false)
+    // setShowError(false)
 
     onChange && // если есть пропс onChange
       onChange(e) // то передать ему е (поскольку onChange не обязателен)
@@ -47,9 +47,10 @@ export const InputText: React.FC<PropsType> = ({
         onChange={onChangeCallback}
         onKeyDown={onKeyDownCallback}
         className={style.input}
+        autoComplete="off"
         {...restProps}
       />
-      {error && showError && <span className={style.error}>{error}</span>}
+      {error && <span className={style.error}>{error}</span>}
     </div>
   )
 }

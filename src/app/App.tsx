@@ -48,7 +48,7 @@ export const App = () => {
       <main>
         <Routes>
           <Route path="/" element={<Profile />} />
-          <Route path="sing-in" element={<SignIn />} />
+          <Route path="sign-in" element={<SignIn />} />
           <Route path="sign-up" element={<SignUp />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="new-password" element={<NewPassword />} />

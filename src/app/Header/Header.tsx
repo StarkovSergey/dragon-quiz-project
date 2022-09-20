@@ -12,7 +12,7 @@ export const Header = () => {
   const navigate = useNavigate()
 
   const navigateToSignIn = () => {
-    navigate('sing-in')
+    navigate('sign-in')
   }
 
   return (

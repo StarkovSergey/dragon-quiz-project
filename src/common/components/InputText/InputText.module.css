@@ -35,7 +35,7 @@
 .error {
   position: absolute;
   z-index: 1;
-  bottom: -35px;
+  top: 70px;
   left: 10px;
 
   padding: 5px 10px;

@@ -11,6 +11,7 @@ import { InputText } from '../../../common/components/InputText/InputText'
 import { setRegisteredInTC } from '../auth-reducer'
 import authStyle from '../auth.module.css'
 
+import style from './SignUp.module.css'
 import { validateSignUp } from './validateSignUp'
 
 export type SignUpFormType = {
@@ -45,41 +46,49 @@ export const SignUp = () => {
       <div>
         <form onSubmit={formik.handleSubmit}>
           <h2 className="section-title">Sign Up</h2>
-          <InputText label={'Email'} id={'email'} {...formik.getFieldProps('email')} />
-          {formik.touched.email && formik.errors.email && <div style={{ color: 'red' }}>{formik.errors.email}</div>}
 
-          <div>
-            <div style={{ display: 'flex' }}>
-              <InputText label={'Password'} type={show ? 'password' : 'text'} {...formik.getFieldProps('password')} />
-              <div onClick={setShowPassword}>
-                <img src={eyeImg} alt="eye" style={{ width: '30px' }} />
+          <div className={style['input-box']}>
+            <InputText
+              label={'Email'}
+              id={'email'}
+              {...formik.getFieldProps('email')}
+              error={formik.touched.email && formik.errors.email ? formik.errors.email : ''}
+            />
+
+            <div>
+              <div className={style['password-box']}>
+                <InputText
+                  label={'Password'}
+                  type={show ? 'password' : 'text'}
+                  {...formik.getFieldProps('password')}
+                  error={formik.touched.password && formik.errors.password ? formik.errors.password : ''}
+                />
+                <div onClick={setShowPassword} className={`${style.eye} ${show ? '' : style.cross}`}>
+                  <img src={eyeImg} alt="eye" width="30px" />
+                </div>
               </div>
             </div>
 
-            {formik.touched.password && formik.errors.password && (
-              <div style={{ color: 'red' }}>{formik.errors.password}</div>
-            )}
-          </div>
-          <div>
-            <div style={{ display: 'flex' }}>
-              <InputText
-                label={'Confirm password'}
-                type={showConfirm ? 'password' : 'text'}
-                {...formik.getFieldProps('confirmPassword')}
-              />
-              <div onClick={setShowConfirmPassword}>
-                <img src={eyeImg} alt="eye" style={{ width: '30px' }} />
+            <div>
+              <div className={style['password-box']}>
+                <InputText
+                  label={'Confirm password'}
+                  type={showConfirm ? 'password' : 'text'}
+                  {...formik.getFieldProps('confirmPassword')}
+                  error={
+                    formik.touched.confirmPassword && formik.errors.confirmPassword ? formik.errors.confirmPassword : ''
+                  }
+                />
+                <div onClick={setShowConfirmPassword} className={style.eye}>
+                  <img src={eyeImg} alt="eye" width="30px" />
+                </div>
               </div>
             </div>
-
-            {formik.touched.confirmPassword && formik.errors.confirmPassword && (
-              <div style={{ color: 'red' }}>{formik.errors.confirmPassword}</div>
-            )}
           </div>
 
           <Button type={'submit'}>Sign Up</Button>
           <p>Already have an account?</p>
-          <NavLink to={''}>Sign In</NavLink>
+          <NavLink to={'/sign-in'}>Sign In</NavLink>
         </form>
       </div>
     </div>
