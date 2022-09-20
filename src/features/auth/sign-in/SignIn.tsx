@@ -6,6 +6,7 @@ import { AppRootStateType, useAppDispatch } from '../../../app/store'
 import eyeImg from '../../../assets/icons/eye.webp'
 import { showPassword } from '../../../common/components/customShowPassword/showPassword'
 import { loginTC } from '../auth-reducer'
+import authStyle from '../auth.module.css'
 
 export const SignIn = () => {
   const { show, setShowPassword } = showPassword()
@@ -44,17 +45,31 @@ export const SignIn = () => {
   }
 
   return (
-    <div>
-      <h1>Sign in</h1>
+    <div className={authStyle.container}>
+      <h1 className="section-title">Sign in</h1>
       <form onSubmit={formik.handleSubmit}>
         {formik.errors.email && formik.touched.email && (
-          <div style={{ color: 'red', fontWeight: 'bold' }}>{formik.errors.email}</div>
+          <div
+            style={{
+              color: 'red',
+              fontWeight: 'bold',
+            }}
+          >
+            {formik.errors.email}
+          </div>
         )}
         <div>
           <input {...formik.getFieldProps('email')} name={'email'} placeholder={'email'} />
         </div>
         {formik.errors.password && formik.touched.password && (
-          <div style={{ color: 'red', fontWeight: 'bold' }}>{formik.errors.password}</div>
+          <div
+            style={{
+              color: 'red',
+              fontWeight: 'bold',
+            }}
+          >
+            {formik.errors.password}
+          </div>
         )}
         <div style={{ display: 'flex' }}>
           <input

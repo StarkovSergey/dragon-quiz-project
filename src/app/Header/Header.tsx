@@ -8,7 +8,7 @@ export const Header = () => {
   return (
     <header>
       <nav className={style.nav}>
-        <div className="logo">
+        <div className={style.logo}>
           <NavLink to="/">
             <img width="70" height="70" src={whiteTree} alt="logo" />
           </NavLink>

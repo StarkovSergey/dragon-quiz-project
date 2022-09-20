@@ -3,6 +3,7 @@ import dragonImg from '../../assets/images/dragon.png'
 import { Button } from '../../common/components/Button/Button'
 import { EditableSpan } from '../../common/components/EditableSpan/EditableSpan'
 import { logoutTC, updateProfileTC } from '../auth/auth-reducer'
+import authStyle from '../auth/auth.module.css'
 import { SignIn } from '../auth/sign-in/SignIn'
 
 import style from './Profile.module.css'
@@ -25,7 +26,7 @@ export const Profile = () => {
   }
 
   return (
-    <div className={style.box}>
+    <div className={`${style.box} ${authStyle.container}`}>
       <h1 className="section-title">Personal information</h1>
       <div className={style['profile-data']}>
         <div className={style.photo}>

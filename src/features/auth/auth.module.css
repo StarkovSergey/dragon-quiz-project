@@ -1,0 +1,23 @@
+.container {
+  position: relative;
+
+  width: fit-content;
+  min-width: 400px;
+  margin: 0 auto;
+  padding: 25px;
+
+  border: 8px solid var(--color-dark-blue);
+}
+
+.container::after {
+  content: '';
+
+  position: absolute;
+  right: 20px;
+  bottom: -208px;
+
+  width: 65px;
+  height: 208px;
+
+  background-image: url('../../assets/images/spaceship-fire.svg');
+}

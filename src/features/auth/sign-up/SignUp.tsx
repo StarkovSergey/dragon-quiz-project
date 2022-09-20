@@ -9,8 +9,10 @@ import { Button } from '../../../common/components/Button/Button'
 import { showPassword } from '../../../common/components/customShowPassword/showPassword'
 import { InputText } from '../../../common/components/InputText/InputText'
 import { setRegisteredInTC } from '../auth-reducer'
+import authStyle from '../auth.module.css'
 
 import { validateSignUp } from './validateSignUp'
+
 export type SignUpFormType = {
   email?: string
   password?: string
@@ -39,10 +41,10 @@ export const SignUp = () => {
   }
 
   return (
-    <div>
+    <div className={authStyle.container}>
       <div>
         <form onSubmit={formik.handleSubmit}>
-          <h2>Sign Up</h2>
+          <h2 className="section-title">Sign Up</h2>
           <InputText label={'Email'} id={'email'} {...formik.getFieldProps('email')} />
           {formik.touched.email && formik.errors.email && <div style={{ color: 'red' }}>{formik.errors.email}</div>}
 
