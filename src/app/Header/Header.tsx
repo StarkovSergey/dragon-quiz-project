@@ -1,10 +1,14 @@
 import { NavLink } from 'react-router-dom'
 
 import whiteTree from '../../assets/images/white-tree.png'
+import { ProfileLink } from '../../features/profile/ProfileLink/ProfileLink'
+import { useAppSelector } from '../store'
 
 import style from './Header.module.css'
 
 export const Header = () => {
+  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+
   return (
     <header>
       <nav className={style.nav}>
@@ -16,23 +20,22 @@ export const Header = () => {
 
         <ul className={style['nav-list']}>
           <li>
-            <NavLink to="sing-in">Sign in</NavLink>
-          </li>
-          <li>
-            <NavLink to="sign-up">Sign up</NavLink>
-          </li>
-          <li>
-            <NavLink to="forgot-password">Forgot password</NavLink>
-          </li>
-          <li>
             <NavLink to="new-password">New password</NavLink>
           </li>
           <li>
             <NavLink to="check-email">Check email</NavLink>
           </li>
-          <li>
-            <NavLink to="profile">Profile</NavLink>
-          </li>
+          {isLoggedIn ? (
+            <li>
+              <NavLink to="profile">
+                <ProfileLink />
+              </NavLink>
+            </li>
+          ) : (
+            <li>
+              <NavLink to="sing-in">Sign in</NavLink>
+            </li>
+          )}
         </ul>
       </nav>
     </header>
