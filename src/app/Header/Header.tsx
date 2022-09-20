@@ -1,6 +1,7 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 import whiteTree from '../../assets/images/white-tree.png'
+import { Button } from '../../common/components/Button/Button'
 import { ProfileLink } from '../../features/profile/ProfileLink/ProfileLink'
 import { useAppSelector } from '../store'
 
@@ -8,6 +9,11 @@ import style from './Header.module.css'
 
 export const Header = () => {
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+  const navigate = useNavigate()
+
+  const navigateToSignIn = () => {
+    navigate('sing-in')
+  }
 
   return (
     <header>
@@ -26,9 +32,9 @@ export const Header = () => {
               </NavLink>
             </li>
           ) : (
-            <li>
-              <NavLink to="sing-in">Sign in</NavLink>
-            </li>
+            <Button onClick={navigateToSignIn} art>
+              Sign in
+            </Button>
           )}
         </ul>
       </nav>
