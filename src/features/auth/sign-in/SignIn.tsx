@@ -1,12 +1,19 @@
+import React from 'react'
+
 import { useFormik } from 'formik'
 import { useSelector } from 'react-redux'
 import { Navigate, NavLink } from 'react-router-dom'
 
 import { AppRootStateType, useAppDispatch } from '../../../app/store'
 import eyeImg from '../../../assets/icons/eye.webp'
+import { Button } from '../../../common/components/Button/Button'
+import { Checkbox } from '../../../common/components/Checkbox/Checkbox'
 import { showPassword } from '../../../common/components/customShowPassword/showPassword'
+import { InputText } from '../../../common/components/InputText/InputText'
 import { loginTC } from '../auth-reducer'
 import authStyle from '../auth.module.css'
+
+import style from './SignIn.module.css'
 
 export const SignIn = () => {
   const { show, setShowPassword } = showPassword()
@@ -48,51 +55,41 @@ export const SignIn = () => {
     <div className={authStyle.container}>
       <h1 className="section-title">Sign in</h1>
       <form onSubmit={formik.handleSubmit}>
-        {formik.errors.email && formik.touched.email && (
-          <div
-            style={{
-              color: 'red',
-              fontWeight: 'bold',
-            }}
-          >
-            {formik.errors.email}
-          </div>
-        )}
-        <div>
-          <input {...formik.getFieldProps('email')} name={'email'} placeholder={'email'} />
-        </div>
-        {formik.errors.password && formik.touched.password && (
-          <div
-            style={{
-              color: 'red',
-              fontWeight: 'bold',
-            }}
-          >
-            {formik.errors.password}
-          </div>
-        )}
-        <div style={{ display: 'flex' }}>
-          <input
-            {...formik.getFieldProps('password')}
-            type={show ? 'password' : 'text'}
-            name={'password'}
-            placeholder={'password'}
+        <div className={authStyle['input-box']}>
+          <InputText
+            {...formik.getFieldProps('email')}
+            name={'email'}
+            label="Email"
+            error={formik.touched.email && formik.errors.email}
           />
-          <div onClick={setShowPassword}>
-            <img src={eyeImg} alt="eye" style={{ width: '30px' }} />
+
+          <div className={authStyle['password-box']}>
+            <InputText
+              {...formik.getFieldProps('password')}
+              name={'password'}
+              label="Password"
+              type={show ? 'password' : 'text'}
+              error={formik.touched.password && formik.errors.password}
+            />
+            <div onClick={setShowPassword} className={`${authStyle.eye} ${show ? '' : authStyle.cross}`}>
+              <img src={eyeImg} alt="eye" width="30px" />
+            </div>
           </div>
+
+          <Checkbox {...formik.getFieldProps('rememberMe')} name={'rememberMe'} label="Remember me" />
         </div>
-        <div>
-          <input {...formik.getFieldProps('rememberMe')} type={'checkbox'} name={'rememberMe'} />
-        </div>
-        <div>
-          <NavLink to={'/forgot-password'}>Forgot password?</NavLink>
-        </div>
-        <button type={'submit'} value={'Send'}>
-          Sign In
-        </button>
-        <div>
-          <NavLink to={'/sign-up'}>Sign Up</NavLink>
+
+        <div className={authStyle['button-box']}>
+          <NavLink className={`link ${style['password-link']}`} to={'/forgot-password'}>
+            Forgot password?
+          </NavLink>
+
+          <Button type={'submit'} className={style['submit-button']}>
+            Sign In
+          </Button>
+          <NavLink className="link" to={'/sign-up'}>
+            Sign Up
+          </NavLink>
         </div>
       </form>
     </div>

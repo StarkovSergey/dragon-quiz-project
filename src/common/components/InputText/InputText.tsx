@@ -8,7 +8,7 @@ type PropsType = DefaultInputPropsType & {
   label?: string
   onChangeText?: (value: string) => void
   onEnter?: () => void
-  error?: string
+  error?: string | boolean
 }
 
 export const InputText: React.FC<PropsType> = ({

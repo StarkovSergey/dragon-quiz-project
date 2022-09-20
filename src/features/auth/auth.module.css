@@ -29,6 +29,62 @@
   }
 
   .container::after {
-    
+
   }
 }
+
+.password-box {
+  position: relative;
+
+  width: fit-content;
+}
+
+.eye {
+  cursor: pointer;
+
+  position: absolute;
+  top: 32px;
+  right: 5px;
+
+  width: 30px;
+  height: 30px;
+}
+
+.cross::before,
+.cross::after {
+  content: '';
+
+  position: absolute;
+  left: calc(50% - 2px / 2);
+
+  width: 2px;
+  height: 30px;
+
+  opacity: 0.3;
+  background-color: var(--color-brand-light);
+}
+
+.cross::before {
+  transform: rotate(45deg);
+}
+
+.cross::after {
+  transform: rotate(-45deg);
+}
+
+.input-box {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+
+  margin-bottom: 20px;
+}
+
+.button-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+

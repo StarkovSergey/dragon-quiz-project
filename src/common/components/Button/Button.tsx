@@ -8,9 +8,9 @@ type PropsType = DefaultButtonPropsType & {
   art?: boolean // add decorations
 }
 
-export const Button: React.FC<PropsType> = ({ art, ...restProps }) => {
+export const Button: React.FC<PropsType> = ({ art, className, ...restProps }) => {
   return (
-    <div className={`${style.box} ${art && style['box--art']}`}>
+    <div className={`${style.box} ${art && style['box--art']} ${className}`}>
       <button
         className={`${style.button} ${art && style.art}`}
         {...restProps} // отдаём кнопке остальные пропсы если они есть (children там внутри)

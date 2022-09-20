@@ -46,46 +46,44 @@ export const SignUp = () => {
       <form onSubmit={formik.handleSubmit}>
         <h2 className="section-title">Sign Up</h2>
 
-        <div className={style['input-box']}>
+        <div className={authStyle['input-box']}>
           <InputText
             label={'Email'}
             id={'email'}
             {...formik.getFieldProps('email')}
-            error={formik.touched.email && formik.errors.email ? formik.errors.email : ''}
+            error={formik.touched.email && formik.errors.email}
           />
 
           <div>
-            <div className={style['password-box']}>
+            <div className={authStyle['password-box']}>
               <InputText
                 label={'Password'}
                 type={show ? 'password' : 'text'}
                 {...formik.getFieldProps('password')}
-                error={formik.touched.password && formik.errors.password ? formik.errors.password : ''}
+                error={formik.touched.password && formik.errors.password}
               />
-              <div onClick={setShowPassword} className={`${style.eye} ${show ? '' : style.cross}`}>
+              <div onClick={setShowPassword} className={`${authStyle.eye} ${show ? '' : authStyle.cross}`}>
                 <img src={eyeImg} alt="eye" width="30px" />
               </div>
             </div>
           </div>
 
           <div>
-            <div className={style['password-box']}>
+            <div className={authStyle['password-box']}>
               <InputText
                 label={'Confirm password'}
                 type={showConfirm ? 'password' : 'text'}
                 {...formik.getFieldProps('confirmPassword')}
-                error={
-                  formik.touched.confirmPassword && formik.errors.confirmPassword ? formik.errors.confirmPassword : ''
-                }
+                error={formik.touched.confirmPassword && formik.errors.confirmPassword}
               />
-              <div onClick={setShowConfirmPassword} className={style.eye}>
+              <div onClick={setShowConfirmPassword} className={authStyle.eye}>
                 <img src={eyeImg} alt="eye" width="30px" />
               </div>
             </div>
           </div>
         </div>
 
-        <div className={style['button-box']}>
+        <div className={authStyle['button-box']}>
           <Button type={'submit'}>Sign Up</Button>
           <p className={style.text}>Already have an account?</p>
           <NavLink className="link" to={'/sign-in'}>
