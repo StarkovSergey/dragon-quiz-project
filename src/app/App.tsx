@@ -46,17 +46,19 @@ export const App = () => {
     <div className="app">
       <Header />
       <main>
-        <Routes>
-          <Route path="/" element={<Profile />} />
-          <Route path="sign-in" element={<SignIn />} />
-          <Route path="sign-up" element={<SignUp />} />
-          <Route path="forgot-password" element={<ForgotPassword />} />
-          <Route path="new-password" element={<NewPassword />} />
-          <Route path="check-email" element={<CheckEmail />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="*" element={<Navigate to="404" />} />
-          <Route path="404" element={<Page404 />} />
-        </Routes>
+        <div className="container">
+          <Routes>
+            <Route path="/" element={<Profile />} />
+            <Route path="sign-in" element={<SignIn />} />
+            <Route path="sign-up" element={<SignUp />} />
+            <Route path="forgot-password" element={<ForgotPassword />} />
+            <Route path="new-password" element={<NewPassword />} />
+            <Route path="check-email" element={<CheckEmail />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="*" element={<Navigate to="404" />} />
+            <Route path="404" element={<Page404 />} />
+          </Routes>
+        </div>
       </main>
       <ErrorSnackbar />
       <footer></footer>
