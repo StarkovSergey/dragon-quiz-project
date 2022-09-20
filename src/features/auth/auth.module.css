@@ -21,3 +21,14 @@
 
   background-image: url('../../assets/images/spaceship-fire.svg');
 }
+
+@media (max-width: 500px) {
+  .container {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .container::after {
+    
+  }
+}

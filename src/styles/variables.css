@@ -5,4 +5,17 @@
   --color-blue-light: #8ca7ce;
   --color-blue: #153956;
   --color-dark-blue: #002e4d;
+
+  --basic-fz: 18px;
+  --title-fz: 22px;
+  --button-fz: 20px;
 }
+
+@media (max-width: 500px) {
+  :root {
+    --basic-fz: 14px;
+    --title-fz: 18px;
+    --button-fz: 16px;
+  }
+}
+

@@ -2,12 +2,12 @@
   margin: 0;
   margin-bottom: 10px;
 
-  font-size: 22px;
+  font-size: var(--title-fz);
   font-weight: 500;
   text-align: center;
 }
 
 .link {
-  font-size: 18px;
+  font-size: var(--basic-fz);
   color: var(--color-blue-light)
 }
