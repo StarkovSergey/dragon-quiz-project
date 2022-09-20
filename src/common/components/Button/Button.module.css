@@ -47,6 +47,16 @@
   height: 40px;
 }
 
+@media (max-width: 500px) {
+  .star-wrapper {
+    display: none;
+  }
+
+  .box--art {
+    margin-right: 10px;
+  }
+}
+
 .star {
   position: absolute;
 
