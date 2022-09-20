@@ -16,9 +16,6 @@ export const Header = () => {
 
         <ul className={style['nav-list']}>
           <li>
-            <NavLink to="test">Test page</NavLink>
-          </li>
-          <li>
             <NavLink to="sing-in">Sign in</NavLink>
           </li>
           <li>

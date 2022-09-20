@@ -6,7 +6,6 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 
 import { ErrorSnackbar } from '../common/components/ErrorSnackbar/ErrorSnackbar'
 import Page404 from '../common/components/Page404/Page404'
-import { TestPage } from '../common/components/TestPage/TestPage'
 import { CheckEmail } from '../features/auth/check-email/CheckEmail'
 import { ForgotPassword } from '../features/auth/forgot-password/ForgetPassword'
 import { NewPassword } from '../features/auth/new-password/SignIn'
@@ -49,7 +48,6 @@ export const App = () => {
       <main>
         <Routes>
           <Route path="/" element={<Profile />} />
-          <Route path="test" element={<TestPage />} />
           <Route path="sing-in" element={<SignIn />} />
           <Route path="sign-up" element={<SignUp />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
