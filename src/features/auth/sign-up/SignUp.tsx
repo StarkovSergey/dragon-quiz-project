@@ -38,7 +38,7 @@ export const SignUp = () => {
   })
 
   if (isRegister) {
-    return <Navigate to={'/sing-in'} />
+    return <Navigate to={'/sign-in'} />
   }
 
   return (
