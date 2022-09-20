@@ -1,6 +1,7 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 
-import whiteTree from '../../assets/images/white-tree.png'
+import logo from '../../assets/images/logo--dark-theme.svg'
+import mobileLogo from '../../assets/images/logo-mobile--dark-theme.svg'
 import { Button } from '../../common/components/Button/Button'
 import { ProfileLink } from '../../features/profile/ProfileLink/ProfileLink'
 import { useAppSelector } from '../store'
@@ -17,27 +18,32 @@ export const Header = () => {
 
   return (
     <header>
-      <nav className={style.nav}>
-        <div className={style.logo}>
-          <NavLink to="/">
-            <img width="70" height="70" src={whiteTree} alt="logo" />
-          </NavLink>
-        </div>
+      <div className="container">
+        <nav className={style.nav}>
+          <div className={style.logo}>
+            <NavLink to="/">
+              <picture>
+                <source media="(max-width: 500px)" srcSet={mobileLogo} />
+                <img width="200" src={logo} alt="logo" />
+              </picture>
+            </NavLink>
+          </div>
 
-        <ul className={style['nav-list']}>
-          {isLoggedIn ? (
-            <li>
-              <NavLink to="profile">
-                <ProfileLink />
-              </NavLink>
-            </li>
-          ) : (
-            <Button onClick={navigateToSignIn} art>
-              Sign in
-            </Button>
-          )}
-        </ul>
-      </nav>
+          <ul className={style['nav-list']}>
+            {isLoggedIn ? (
+              <li>
+                <NavLink to="profile">
+                  <ProfileLink />
+                </NavLink>
+              </li>
+            ) : (
+              <Button onClick={navigateToSignIn} art>
+                Sign in
+              </Button>
+            )}
+          </ul>
+        </nav>
+      </div>
     </header>
   )
 }
