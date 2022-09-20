@@ -19,12 +19,6 @@ export const Header = () => {
         </div>
 
         <ul className={style['nav-list']}>
-          <li>
-            <NavLink to="new-password">New password</NavLink>
-          </li>
-          <li>
-            <NavLink to="check-email">Check email</NavLink>
-          </li>
           {isLoggedIn ? (
             <li>
               <NavLink to="profile">
