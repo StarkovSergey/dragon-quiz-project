@@ -29,15 +29,13 @@ export const App = () => {
     return (
       <div
         style={{
-          width: '100vw',
-          height: '100vh',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
+          minHeight: '100vh',
         }}
       >
-        <CircularProgress color={'secondary'} size={200} />
-        <ErrorSnackbar />
+        <CircularProgress size="200px" color={'warning'} />
       </div>
     )
   }
