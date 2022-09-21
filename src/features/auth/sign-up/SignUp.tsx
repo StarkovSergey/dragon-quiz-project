@@ -3,11 +3,11 @@ import React from 'react'
 import { useFormik } from 'formik'
 import { Navigate, NavLink } from 'react-router-dom'
 
-import { useAppDispatch, useAppSelector } from '../../../app/store'
 import eyeImg from '../../../assets/icons/eye.webp'
 import { Button } from '../../../common/components/Button/Button'
 import { showPassword } from '../../../common/components/customShowPassword/showPassword'
 import { InputText } from '../../../common/components/InputText/InputText'
+import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
 import { setRegisteredInTC } from '../auth-reducer'
 import authStyle from '../auth.module.css'
 

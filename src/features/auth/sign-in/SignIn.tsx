@@ -4,12 +4,12 @@ import { useFormik } from 'formik'
 import { useSelector } from 'react-redux'
 import { Navigate, NavLink } from 'react-router-dom'
 
-import { AppRootStateType, useAppDispatch } from '../../../app/store'
 import eyeImg from '../../../assets/icons/eye.webp'
 import { Button } from '../../../common/components/Button/Button'
 import { Checkbox } from '../../../common/components/Checkbox/Checkbox'
 import { showPassword } from '../../../common/components/customShowPassword/showPassword'
 import { InputText } from '../../../common/components/InputText/InputText'
+import { AppRootStateType, useAppDispatch } from '../../../common/hooks/hooks'
 import { loginTC } from '../auth-reducer'
 import authStyle from '../auth.module.css'
 

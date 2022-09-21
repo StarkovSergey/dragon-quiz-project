@@ -6,6 +6,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 
 import { ErrorSnackbar } from '../common/components/ErrorSnackbar/ErrorSnackbar'
 import Page404 from '../common/components/Page404/Page404'
+import { useAppDispatch, useAppSelector } from '../common/hooks/hooks'
 import { CheckEmail } from '../features/auth/check-email/CheckEmail'
 import { ForgotPassword } from '../features/auth/forgot-password/ForgetPassword'
 import { NewPassword } from '../features/auth/new-password/NewPassword'
@@ -15,7 +16,6 @@ import { Profile } from '../features/profile/Profile'
 
 import { initializedAppTC } from './app-reducer'
 import { Header } from './Header/Header'
-import { useAppDispatch, useAppSelector } from './store'
 
 export const App = () => {
   const dispatch = useAppDispatch()

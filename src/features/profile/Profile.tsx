@@ -1,7 +1,7 @@
-import { useAppDispatch, useAppSelector } from '../../app/store'
 import dragonImg from '../../assets/images/dragon.png'
 import { Button } from '../../common/components/Button/Button'
 import { EditableSpan } from '../../common/components/EditableSpan/EditableSpan'
+import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks'
 import { logoutTC, updateProfileTC } from '../auth/auth-reducer'
 import authStyle from '../auth/auth.module.css'
 import { SignIn } from '../auth/sign-in/SignIn'
