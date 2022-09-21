@@ -1,23 +1,42 @@
-import React from 'react'
+import React, { ChangeEvent, useState } from 'react'
 
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 import { Button } from '../../../common/components/Button/Button'
 import { InputText } from '../../../common/components/InputText/InputText'
+import { useAppDispatch } from '../../../common/hooks/hooks'
+import { authAPI } from '../auth-api'
+import { forgotPasswordTC } from '../auth-reducer'
 import authStyle from '../auth.module.css'
 import style from '../sign-in/SignIn.module.css'
 
 export const ForgotPassword = () => {
+  const dispatch = useAppDispatch()
+  const [email, setEmail] = useState('')
+  const navigate = useNavigate()
+
+  const sendInctruction = () => {
+    dispatch(forgotPasswordTC(email, navigateInSuccess))
+  }
+
+  const inputEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.currentTarget.value)
+  }
+
+  const navigateInSuccess = () => {
+    navigate('/check-email')
+  }
+
   return (
     <div className={authStyle.container}>
       <h1 className="section-title">Forgot your password?</h1>
       <div className={authStyle['input-box']}>
-        <InputText placeholder="Email" />
+        <InputText value={email} onChange={inputEmailHandler} placeholder="Email" />
         <p className={authStyle.text}>Enter your email address and we will send you further instructions</p>
       </div>
 
       <div className={authStyle['button-box']}>
-        <Button type={'submit'} className={style['submit-button']}>
+        <Button className={style['submit-button']} onClick={sendInctruction}>
           Send Instructions
         </Button>
         <p className={authStyle.text}>Did you remember your password?</p>

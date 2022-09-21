@@ -38,6 +38,34 @@ export const { login, logout, setRegisteredIn, updateProfile } = slice.actions
 export const authReducer = slice.reducer
 
 // thunks
+export const forgotPasswordTC =
+  (email: string, navigate: () => void): AppThunk =>
+  async dispatch => {
+    dispatch(setAppStatus('loading'))
+
+    try {
+      await authAPI.forgotPassword(email)
+      navigate()
+      dispatch(setAppStatus('succeeded'))
+    } catch (e) {
+      handleServerNetworkError(e, dispatch)
+    }
+  }
+
+export const setNewPasswordTC =
+  (password: string, token: string, navigateInSuccess: () => void): AppThunk =>
+  async dispatch => {
+    dispatch(setAppStatus('loading'))
+
+    try {
+      await authAPI.setNewPassword(password, token)
+      navigateInSuccess()
+      dispatch(setAppStatus('succeeded'))
+    } catch (e) {
+      handleServerNetworkError(e, dispatch)
+    }
+  }
+
 export const updateProfileTC =
   (model: UpdateProfileModelType): AppThunk =>
   async dispatch => {

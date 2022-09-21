@@ -4,7 +4,9 @@ import { LoginFormDataType } from './sign-in/SignIn'
 
 export const instance = axios.create({
   baseURL:
-    process.env.NODE_ENV === 'development' ? 'http://localhost:7542/2.0/' : 'https://neko-back.herokuapp.com/2.0/',
+    process.env.NODE_ENV === 'development'
+      ? 'https://neko-back.herokuapp.com/2.0/' // 'http://localhost:7542/2.0/'
+      : 'https://neko-back.herokuapp.com/2.0/',
   withCredentials: true,
 })
 export const authAPI = {
@@ -18,10 +20,33 @@ export const authAPI = {
     return instance.delete<{ info: string }>(`auth/me`)
   },
   signUp(data: signUpType) {
-    return instance.post<ResponseSignUpType>('/auth/register', data)
+    return instance.post<ResponseSignUpType>('auth/register', data)
   },
   updateProfile(model: UpdateProfileModelType) {
     return instance.put<UpdateProfileResponseType>(`auth/me`, model)
+  },
+  forgotPassword(email: string) {
+    const message = `<div style='padding: 15px'>password recovery link: <a href='http://localhost:3000/#/set-new-password/$token$'>link</a></div>`
+
+    return axios.post<{ info: string; error: string }>(
+      `https://neko-back.herokuapp.com/2.0/auth/forgot`,
+      {
+        email,
+        message,
+        from: 'test-front-admin <ai73a@yandex.by>',
+      },
+      { withCredentials: true }
+    )
+  },
+  setNewPassword(password: string, resetPasswordToken: string) {
+    return axios.post<{ info: string; error: string }>(
+      `https://neko-back.herokuapp.com/2.0/auth/set-new-password`,
+      {
+        password,
+        resetPasswordToken,
+      },
+      { withCredentials: true }
+    )
   },
 }
 
