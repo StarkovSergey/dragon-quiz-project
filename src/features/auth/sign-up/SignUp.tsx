@@ -88,7 +88,7 @@ export const SignUp = () => {
 
         <div className={authStyle['button-box']}>
           <Button type={'submit'}>Sign Up</Button>
-          <p className={style.text}>Already have an account?</p>
+          <p className={authStyle.text}>Already have an account?</p>
           <NavLink className="link" to={'/sign-in'}>
             Sign In
           </NavLink>
