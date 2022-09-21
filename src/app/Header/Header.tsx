@@ -1,3 +1,4 @@
+import { LinearProgress } from '@mui/material'
 import { NavLink, useNavigate } from 'react-router-dom'
 
 import logo from '../../assets/images/logo--dark-theme.svg'
@@ -11,6 +12,7 @@ import style from './Header.module.css'
 export const Header = () => {
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
   const navigate = useNavigate()
+  const status = useAppSelector(state => state.app.status)
 
   const navigateToSignIn = () => {
     navigate('sign-in')
@@ -44,6 +46,16 @@ export const Header = () => {
           </ul>
         </nav>
       </div>
+      {status === 'loading' && (
+        <LinearProgress
+          sx={{
+            position: 'absolute',
+            width: '100%',
+            top: 0,
+          }}
+          color={'warning'}
+        />
+      )}
     </header>
   )
 }
