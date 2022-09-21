@@ -1,13 +1,17 @@
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 
 import { setAppError, setAppStatus } from '../../app/app-reducer'
 import { AppDispatch } from '../../app/store'
 
 export const handleServerNetworkError = (e: unknown, dispatch: AppDispatch) => {
-  if (axios.isAxiosError(e)) {
-    const error = e.response ? (e.response.data as { error: string }).error : e.message
+  const err = e as Error | AxiosError
+
+  if (axios.isAxiosError(err)) {
+    const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
 
     dispatch(setAppError(error))
+  } else {
+    dispatch(setAppError(`Native error ${err.message}`))
   }
   dispatch(setAppStatus('failed'))
 }

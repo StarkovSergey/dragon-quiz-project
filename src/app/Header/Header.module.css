@@ -1,11 +1,13 @@
 .header {
   position: relative;
 
+  min-height: 102px;
   margin-bottom: 30px;
 }
 
 @media (max-width: 500px) {
   .header {
+    min-height: 96px;
     margin-bottom: 0;
   }
 }

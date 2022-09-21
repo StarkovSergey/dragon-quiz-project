@@ -1,5 +1,5 @@
 import { LinearProgress } from '@mui/material'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate, useParams } from 'react-router-dom'
 
 import logo from '../../assets/images/logo--dark-theme.svg'
 import mobileLogo from '../../assets/images/logo-mobile--dark-theme.svg'
