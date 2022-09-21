@@ -44,8 +44,8 @@
   cursor: pointer;
 
   position: absolute;
-  top: 32px;
   right: 5px;
+  bottom: 5px;
 
   width: 30px;
   height: 30px;
