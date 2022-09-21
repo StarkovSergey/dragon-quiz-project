@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+import { setAppStatus } from '../../app/app-reducer'
 import { AppThunk } from '../../app/store'
 import { handleServerNetworkError } from '../../common/utilites/handleNetworkError'
 
@@ -40,10 +41,13 @@ export const authReducer = slice.reducer
 export const updateProfileTC =
   (model: UpdateProfileModelType): AppThunk =>
   async dispatch => {
+    dispatch(setAppStatus('loading'))
+
     try {
       const response = await authAPI.updateProfile(model)
 
       dispatch(updateProfile({ profile: response.data.updatedUser }))
+      dispatch(setAppStatus('succeeded'))
     } catch (e) {
       handleServerNetworkError(e, dispatch)
     }
@@ -52,19 +56,23 @@ export const updateProfileTC =
 export const loginTC =
   (loginFormData: LoginFormDataType): AppThunk =>
   async dispatch => {
+    dispatch(setAppStatus('loading'))
     try {
       const res = await authAPI.login(loginFormData)
 
       dispatch(login(res.data))
+      dispatch(setAppStatus('succeeded'))
     } catch (e) {
       handleServerNetworkError(e, dispatch)
     }
   }
 
 export const logoutTC = (): AppThunk => async dispatch => {
+  dispatch(setAppStatus('loading'))
   try {
     await authAPI.logout()
     dispatch(logout())
+    dispatch(setAppStatus('succeeded'))
   } catch (e) {
     handleServerNetworkError(e, dispatch)
   }
@@ -73,10 +81,13 @@ export const logoutTC = (): AppThunk => async dispatch => {
 export const setRegisteredInTC =
   (data: signUpType): AppThunk =>
   async dispatch => {
+    dispatch(setAppStatus('loading'))
+
     try {
       const res = await authAPI.signUp(data)
 
       dispatch(setRegisteredIn({ isRegister: true }))
+      dispatch(setAppStatus('succeeded'))
     } catch (e) {
       handleServerNetworkError(e, dispatch)
     }

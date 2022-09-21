@@ -76,7 +76,10 @@ export const SignUp = () => {
                 {...formik.getFieldProps('confirmPassword')}
                 error={formik.touched.confirmPassword && formik.errors.confirmPassword}
               />
-              <div onClick={setShowConfirmPassword} className={authStyle.eye}>
+              <div
+                onClick={setShowConfirmPassword}
+                className={`${authStyle.eye} ${showConfirm ? '' : authStyle.cross}`}
+              >
                 <img src={eyeImg} alt="eye" width="30px" />
               </div>
             </div>
