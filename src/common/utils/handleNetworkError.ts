@@ -9,7 +9,10 @@ export const handleServerNetworkError = (e: unknown, dispatch: AppDispatch) => {
   if (axios.isAxiosError(err)) {
     const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
 
-    dispatch(setAppError(error))
+    // condition against initial auth error
+    if (err.response?.status !== 401) {
+      dispatch(setAppError(error))
+    }
   } else {
     dispatch(setAppError(`Native error ${err.message}`))
   }
