@@ -1,17 +1,16 @@
 import React from 'react'
 
 import { useFormik } from 'formik'
-import { Navigate, NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 import eyeImg from '../../../assets/icons/eye.webp'
 import { Button } from '../../../common/components/Button/Button'
 import { showPassword } from '../../../common/components/customShowPassword/showPassword'
 import { InputText } from '../../../common/components/InputText/InputText'
-import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
+import { useAppDispatch } from '../../../common/hooks/hooks'
 import { setRegisteredInTC } from '../auth-reducer'
 import authStyle from '../auth.module.css'
 
-import style from './SignUp.module.css'
 import { validateSignUp } from './validateSignUp'
 
 export type SignUpFormType = {
@@ -22,8 +21,8 @@ export type SignUpFormType = {
 
 export const SignUp = () => {
   const { show, setShowPassword, showConfirm, setShowConfirmPassword } = showPassword()
+  const navigateSignUp = useNavigate()
   const dispatch = useAppDispatch()
-  const isRegister = useAppSelector(state => state.auth.isRegister)
 
   const formik = useFormik({
     initialValues: {
@@ -33,12 +32,12 @@ export const SignUp = () => {
     },
     validate: values => validateSignUp(values),
     onSubmit: values => {
-      dispatch(setRegisteredInTC(values))
+      dispatch(setRegisteredInTC(values, navigateInSuccess))
     },
   })
 
-  if (isRegister) {
-    return <Navigate to={'/sign-in'} />
+  const navigateInSuccess = () => {
+    navigateSignUp('/sign-in')
   }
 
   return (

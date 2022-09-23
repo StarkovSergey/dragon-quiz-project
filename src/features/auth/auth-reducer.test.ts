@@ -1,5 +1,5 @@
 import { ProfileType } from './auth-api'
-import { authReducer, AuthReducerStateType, login, logout, setRegisteredIn, updateProfile } from './auth-reducer'
+import { authReducer, AuthReducerStateType, login, logout, updateProfile } from './auth-reducer'
 
 let startState: AuthReducerStateType
 const mockProfile: ProfileType = {
@@ -22,10 +22,8 @@ beforeEach(() => {
   startState = {
     isLoggedIn: false,
     profile: null,
-    isRegister: false,
   }
 })
-
 test('isLogged property should be changed and profile should be added', () => {
   const endState = authReducer(startState, login({ profile: mockProfile }))
 
@@ -40,12 +38,6 @@ test('logout should work correctly', () => {
 
   expect(endState.isLoggedIn).toBe(false)
   expect(endState.profile).toBe(null)
-})
-
-test('isRegister should be changed', () => {
-  const endState = authReducer(startState, setRegisteredIn({ isRegister: true }))
-
-  expect(endState.isRegister).toBe(true)
 })
 
 test('profile should be updated', () => {

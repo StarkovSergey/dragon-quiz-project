@@ -10,7 +10,6 @@ import { LoginFormDataType } from './sign-in/SignIn'
 const initialState = {
   isLoggedIn: false,
   profile: null as ProfileType | null,
-  isRegister: false,
 }
 
 export const slice = createSlice({
@@ -25,16 +24,13 @@ export const slice = createSlice({
       state.isLoggedIn = false
       state.profile = null
     },
-    setRegisteredIn(state, action: PayloadAction<{ isRegister: boolean }>) {
-      state.isRegister = action.payload.isRegister
-    },
     updateProfile(state, action: PayloadAction<{ profile: ProfileType }>) {
       state.profile = action.payload.profile
     },
   },
 })
 
-export const { login, logout, setRegisteredIn, updateProfile } = slice.actions
+export const { login, logout, updateProfile } = slice.actions
 export const authReducer = slice.reducer
 
 // thunks
@@ -107,14 +103,14 @@ export const logoutTC = (): AppThunk => async dispatch => {
 }
 
 export const setRegisteredInTC =
-  (data: signUpType): AppThunk =>
+  (data: signUpType, navigate: () => void): AppThunk =>
   async dispatch => {
     dispatch(setAppStatus({ status: 'loading' }))
 
     try {
       const res = await authAPI.signUp(data)
 
-      dispatch(setRegisteredIn({ isRegister: true }))
+      navigate()
       dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e) {
       handleServerNetworkError(e, dispatch)
