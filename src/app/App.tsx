@@ -7,6 +7,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { ErrorSnackbar } from '../common/components/ErrorSnackbar/ErrorSnackbar'
 import Page404 from '../common/components/Page404/Page404'
 import { useAppDispatch, useAppSelector } from '../common/hooks/hooks'
+import { Paths } from '../common/routes'
 import { CheckEmail } from '../features/auth/check-email/CheckEmail'
 import { ForgotPassword } from '../features/auth/forgot-password/ForgetPassword'
 import { NewPassword } from '../features/auth/new-password/NewPassword'
@@ -47,14 +48,14 @@ export const App = () => {
         <div className="container">
           <Routes>
             <Route path="/" element={<Profile />} />
-            <Route path="sign-in" element={<SignIn />} />
-            <Route path="sign-up" element={<SignUp />} />
-            <Route path="forgot-password" element={<ForgotPassword />} />
-            <Route path="set-new-password/:token" element={<NewPassword />} />
-            <Route path="check-email" element={<CheckEmail />} />
-            <Route path="profile" element={<Profile />} />
+            <Route path={Paths.SingIn} element={<SignIn />} />
+            <Route path={Paths.SignUp} element={<SignUp />} />
+            <Route path={Paths.ForgotPassword} element={<ForgotPassword />} />
+            <Route path={Paths.SetNewPassword} element={<NewPassword />} />
+            <Route path={Paths.CheckEmail} element={<CheckEmail />} />
+            <Route path={Paths.Profile} element={<Profile />} />
             <Route path="*" element={<Navigate to="404" />} />
-            <Route path="404" element={<Page404 />} />
+            <Route path={Paths.Page404} element={<Page404 />} />
           </Routes>
         </div>
       </main>

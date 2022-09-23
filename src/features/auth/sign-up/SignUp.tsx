@@ -8,6 +8,7 @@ import { Button } from '../../../common/components/Button/Button'
 import { showPassword } from '../../../common/components/customShowPassword/showPassword'
 import { InputText } from '../../../common/components/InputText/InputText'
 import { useAppDispatch } from '../../../common/hooks/hooks'
+import { Paths } from '../../../common/routes'
 import { setRegisteredInTC } from '../auth-reducer'
 import authStyle from '../auth.module.css'
 
@@ -37,7 +38,7 @@ export const SignUp = () => {
   })
 
   const navigateInSuccess = () => {
-    navigateSignUp('/sign-in')
+    navigateSignUp(Paths.SingIn)
   }
 
   return (

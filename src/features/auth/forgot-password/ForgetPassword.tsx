@@ -5,6 +5,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { Button } from '../../../common/components/Button/Button'
 import { InputText } from '../../../common/components/InputText/InputText'
 import { useAppDispatch } from '../../../common/hooks/hooks'
+import { Paths } from '../../../common/routes'
 import { forgotPasswordTC } from '../auth-reducer'
 import authStyle from '../auth.module.css'
 import style from '../sign-in/SignIn.module.css'
@@ -23,7 +24,7 @@ export const ForgotPassword = () => {
   }
 
   const navigateInSuccess = () => {
-    navigate('/check-email')
+    navigate(Paths.CheckEmail)
   }
 
   const keyDownEmailHandler = (e: KeyboardEvent<HTMLInputElement>) => {

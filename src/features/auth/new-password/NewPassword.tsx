@@ -7,6 +7,7 @@ import { Button } from '../../../common/components/Button/Button'
 import { showPassword } from '../../../common/components/customShowPassword/showPassword'
 import { InputText } from '../../../common/components/InputText/InputText'
 import { useAppDispatch } from '../../../common/hooks/hooks'
+import { Paths } from '../../../common/routes'
 import { setNewPasswordTC } from '../auth-reducer'
 import authStyle from '../auth.module.css'
 import style from '../sign-in/SignIn.module.css'
@@ -28,7 +29,7 @@ export const NewPassword = () => {
   }
 
   const navigateInSuccess = () => {
-    navigate('/sign-in')
+    navigate(Paths.SingIn)
   }
 
   return (
