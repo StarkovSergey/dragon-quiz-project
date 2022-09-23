@@ -50,7 +50,7 @@ export const App = () => {
             <Route path="sign-in" element={<SignIn />} />
             <Route path="sign-up" element={<SignUp />} />
             <Route path="forgot-password" element={<ForgotPassword />} />
-            <Route path="new-password" element={<NewPassword />} />
+            <Route path="set-new-password/:token" element={<NewPassword />} />
             <Route path="check-email" element={<CheckEmail />} />
             <Route path="profile" element={<Profile />} />
             <Route path="*" element={<Navigate to="404" />} />

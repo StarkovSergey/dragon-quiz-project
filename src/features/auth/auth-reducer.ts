@@ -7,9 +7,9 @@ import { handleServerNetworkError } from '../../common/utils/handleNetworkError'
 import { authAPI, ProfileType, signUpType, UpdateProfileModelType } from './auth-api'
 import { LoginFormDataType } from './sign-in/SignIn'
 
-const initialState: AuthStateType = {
+const initialState = {
   isLoggedIn: false,
-  profile: null,
+  profile: null as ProfileType | null,
   isRegister: false,
 }
 
@@ -38,6 +38,34 @@ export const { login, logout, setRegisteredIn, updateProfile } = slice.actions
 export const authReducer = slice.reducer
 
 // thunks
+export const forgotPasswordTC =
+  (email: string, navigate: () => void): AppThunk =>
+  async dispatch => {
+    dispatch(setAppStatus('loading'))
+
+    try {
+      await authAPI.forgotPassword(email)
+      navigate()
+      dispatch(setAppStatus('succeeded'))
+    } catch (e) {
+      handleServerNetworkError(e, dispatch)
+    }
+  }
+
+export const setNewPasswordTC =
+  (password: string, token: string, navigateInSuccess: () => void): AppThunk =>
+  async dispatch => {
+    dispatch(setAppStatus('loading'))
+
+    try {
+      await authAPI.setNewPassword(password, token)
+      navigateInSuccess()
+      dispatch(setAppStatus('succeeded'))
+    } catch (e) {
+      handleServerNetworkError(e, dispatch)
+    }
+  }
+
 export const updateProfileTC =
   (model: UpdateProfileModelType): AppThunk =>
   async dispatch => {
@@ -92,10 +120,3 @@ export const setRegisteredInTC =
       handleServerNetworkError(e, dispatch)
     }
   }
-
-// types
-type AuthStateType = {
-  isLoggedIn: boolean
-  isRegister: boolean
-  profile: ProfileType | null
-}
