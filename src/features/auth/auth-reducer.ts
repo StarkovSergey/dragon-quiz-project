@@ -41,12 +41,12 @@ export const authReducer = slice.reducer
 export const forgotPasswordTC =
   (email: string, navigate: () => void): AppThunk =>
   async dispatch => {
-    dispatch(setAppStatus('loading'))
+    dispatch(setAppStatus({ status: 'loading' }))
 
     try {
       await authAPI.forgotPassword(email)
       navigate()
-      dispatch(setAppStatus('succeeded'))
+      dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e) {
       handleServerNetworkError(e, dispatch)
     }
@@ -55,12 +55,12 @@ export const forgotPasswordTC =
 export const setNewPasswordTC =
   (password: string, token: string, navigateInSuccess: () => void): AppThunk =>
   async dispatch => {
-    dispatch(setAppStatus('loading'))
+    dispatch(setAppStatus({ status: 'loading' }))
 
     try {
       await authAPI.setNewPassword(password, token)
       navigateInSuccess()
-      dispatch(setAppStatus('succeeded'))
+      dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e) {
       handleServerNetworkError(e, dispatch)
     }
@@ -69,13 +69,13 @@ export const setNewPasswordTC =
 export const updateProfileTC =
   (model: UpdateProfileModelType): AppThunk =>
   async dispatch => {
-    dispatch(setAppStatus('loading'))
+    dispatch(setAppStatus({ status: 'loading' }))
 
     try {
       const response = await authAPI.updateProfile(model)
 
       dispatch(updateProfile({ profile: response.data.updatedUser }))
-      dispatch(setAppStatus('succeeded'))
+      dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e) {
       handleServerNetworkError(e, dispatch)
     }
@@ -84,23 +84,23 @@ export const updateProfileTC =
 export const loginTC =
   (loginFormData: LoginFormDataType): AppThunk =>
   async dispatch => {
-    dispatch(setAppStatus('loading'))
+    dispatch(setAppStatus({ status: 'loading' }))
     try {
       const res = await authAPI.login(loginFormData)
 
       dispatch(login(res.data))
-      dispatch(setAppStatus('succeeded'))
+      dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e) {
       handleServerNetworkError(e, dispatch)
     }
   }
 
 export const logoutTC = (): AppThunk => async dispatch => {
-  dispatch(setAppStatus('loading'))
+  dispatch(setAppStatus({ status: 'loading' }))
   try {
     await authAPI.logout()
     dispatch(logout())
-    dispatch(setAppStatus('succeeded'))
+    dispatch(setAppStatus({ status: 'succeeded' }))
   } catch (e) {
     handleServerNetworkError(e, dispatch)
   }
@@ -109,13 +109,13 @@ export const logoutTC = (): AppThunk => async dispatch => {
 export const setRegisteredInTC =
   (data: signUpType): AppThunk =>
   async dispatch => {
-    dispatch(setAppStatus('loading'))
+    dispatch(setAppStatus({ status: 'loading' }))
 
     try {
       const res = await authAPI.signUp(data)
 
       dispatch(setRegisteredIn({ isRegister: true }))
-      dispatch(setAppStatus('succeeded'))
+      dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e) {
       handleServerNetworkError(e, dispatch)
     }

@@ -11,10 +11,10 @@ export const handleServerNetworkError = (e: unknown, dispatch: AppDispatch) => {
 
     // condition against initial auth error
     if (err.response?.status !== 401) {
-      dispatch(setAppError(error))
+      dispatch(setAppError({ error }))
     }
   } else {
-    dispatch(setAppError(`Native error ${err.message}`))
+    dispatch(setAppError({ error: `Native error ${err.message}` }))
   }
-  dispatch(setAppStatus('failed'))
+  dispatch(setAppStatus({ status: 'failed' }))
 }

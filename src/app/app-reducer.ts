@@ -16,14 +16,14 @@ const slice = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    setInitialized: (state, action: PayloadAction<boolean>) => {
-      state.isInitialized = action.payload
+    setInitialized: (state, action: PayloadAction<{ isInitialized: boolean }>) => {
+      state.isInitialized = action.payload.isInitialized
     },
-    setAppError: (state, action) => {
-      state.error = action.payload
+    setAppError: (state, action: PayloadAction<{ error: string | null }>) => {
+      state.error = action.payload.error
     },
-    setAppStatus: (state, action: PayloadAction<RequestStatusType>) => {
-      state.status = action.payload
+    setAppStatus: (state, action: PayloadAction<{ status: RequestStatusType }>) => {
+      state.status = action.payload.status
     },
   },
 })
@@ -42,7 +42,7 @@ export const initializedAppTC = (): AppThunk => async dispatch => {
       handleServerNetworkError(error, dispatch)
     }
   } finally {
-    dispatch(setInitialized(true))
+    dispatch(setInitialized({ isInitialized: true }))
   }
 }
 

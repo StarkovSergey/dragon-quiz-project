@@ -20,8 +20,8 @@ export function ErrorSnackbar() {
     if (reason === 'clickaway') {
       return
     }
-    dispatch(setAppError(null))
-    dispatch(setAppStatus('idle'))
+    dispatch(setAppError({ error: null }))
+    dispatch(setAppStatus({ status: 'idle' }))
   }
 
   return (
