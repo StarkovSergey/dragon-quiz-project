@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, KeyboardEvent, useState } from 'react'
 
 import { NavLink, useNavigate } from 'react-router-dom'
 
@@ -26,11 +26,17 @@ export const ForgotPassword = () => {
     navigate('/check-email')
   }
 
+  const keyDownEmailHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      sendInctruction()
+    }
+  }
+
   return (
     <div className={authStyle.container}>
       <h1 className="section-title">Forgot your password?</h1>
       <div className={authStyle['input-box']}>
-        <InputText value={email} onChange={inputEmailHandler} placeholder="Email" />
+        <InputText value={email} onChange={inputEmailHandler} onKeyDown={keyDownEmailHandler} placeholder="Email" />
         <p className={authStyle.text}>Enter your email address and we will send you further instructions</p>
       </div>
 
