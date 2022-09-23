@@ -7,9 +7,9 @@ import { handleServerNetworkError } from '../../common/utils/handleNetworkError'
 import { authAPI, ProfileType, signUpType, UpdateProfileModelType } from './auth-api'
 import { LoginFormDataType } from './sign-in/SignIn'
 
-const initialState: AuthStateType = {
+const initialState = {
   isLoggedIn: false,
-  profile: null,
+  profile: null as ProfileType | null,
   isRegister: false,
 }
 
@@ -120,10 +120,3 @@ export const setRegisteredInTC =
       handleServerNetworkError(e, dispatch)
     }
   }
-
-// types
-type AuthStateType = {
-  isLoggedIn: boolean
-  isRegister: boolean
-  profile: ProfileType | null
-}
