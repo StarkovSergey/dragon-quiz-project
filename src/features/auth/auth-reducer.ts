@@ -17,8 +17,8 @@ export const slice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    login: (state, action: PayloadAction<ProfileType>) => {
-      state.profile = action.payload
+    login: (state, action: PayloadAction<{ profile: ProfileType }>) => {
+      state.profile = action.payload.profile
       state.isLoggedIn = true
     },
     logout(state) {
@@ -120,3 +120,6 @@ export const setRegisteredInTC =
       handleServerNetworkError(e, dispatch)
     }
   }
+
+// types
+export type AuthReducerStateType = typeof initialState
