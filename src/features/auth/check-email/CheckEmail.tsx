@@ -3,10 +3,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 
 import mailImg from '../../../assets/images/mail.svg'
-import { Button } from '../../../common/components/Button/Button'
-import { InputText } from '../../../common/components/InputText/InputText'
 import authStyle from '../auth.module.css'
-import style from '../sign-in/SignIn.module.css'
 
 export const CheckEmail = () => {
   return (
@@ -17,7 +14,7 @@ export const CheckEmail = () => {
       </div>
 
       <div className={authStyle['button-box']}>
-        <p className={authStyle.text}>We’ve sent an Email with instructions to example@mail.com</p>
+        <p className={authStyle.text}>We’ve sent an Email with instructions to your email</p>
 
         <NavLink className="link" to={'/sign-in'}>
           Back to login
