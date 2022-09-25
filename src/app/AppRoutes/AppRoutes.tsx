@@ -9,12 +9,13 @@ import { ForgotPassword } from '../../features/auth/forgot-password/ForgetPasswo
 import { NewPassword } from '../../features/auth/new-password/NewPassword'
 import { SignIn } from '../../features/auth/sign-in/SignIn'
 import { SignUp } from '../../features/auth/sign-up/SignUp'
+import { Packs } from '../../features/packs/Packs'
 import { Profile } from '../../features/profile/Profile'
 
 export const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<Profile />} />
+      <Route path={'/'} element={<Packs />} />
       <Route path={Paths.SingIn} element={<SignIn />} />
       <Route path={Paths.SignUp} element={<SignUp />} />
       <Route path={Paths.ForgotPassword} element={<ForgotPassword />} />
