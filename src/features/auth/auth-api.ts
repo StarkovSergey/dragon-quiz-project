@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { instance } from '../packs/packs-reducer'
+import { instance } from '../../common/instance/instance'
 
 import { LoginFormDataType } from './sign-in/SignIn'
 
