@@ -84,7 +84,7 @@ export const loginTC =
     try {
       const res = await authAPI.login(loginFormData)
 
-      dispatch(login(res.data))
+      dispatch(login({ profile: res.data }))
       dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e) {
       handleServerNetworkError(e, dispatch)

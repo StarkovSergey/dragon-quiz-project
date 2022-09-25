@@ -9,6 +9,7 @@ import { ForgotPassword } from '../../features/auth/forgot-password/ForgetPasswo
 import { NewPassword } from '../../features/auth/new-password/NewPassword'
 import { SignIn } from '../../features/auth/sign-in/SignIn'
 import { SignUp } from '../../features/auth/sign-up/SignUp'
+import { Cards } from '../../features/cards/Cards'
 import { Packs } from '../../features/packs/Packs'
 import { Profile } from '../../features/profile/Profile'
 
@@ -22,6 +23,7 @@ export const AppRoutes = () => {
       <Route path={Paths.SetNewPassword} element={<NewPassword />} />
       <Route path={Paths.CheckEmail} element={<CheckEmail />} />
       <Route path={Paths.Profile} element={<Profile />} />
+      <Route path={Paths.Cards} element={<Cards />} />
       <Route path="*" element={<Navigate to="404" />} />
       <Route path={Paths.Page404} element={<Page404 />} />
     </Routes>
