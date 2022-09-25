@@ -4,15 +4,10 @@ import { setAppStatus } from '../../app/app-reducer'
 import { AppThunk } from '../../common/hooks/hooks'
 import { handleServerNetworkError } from '../../common/utils/handleNetworkError'
 
-import { packAPI } from './packs-api'
+import { packAPI, PackDataType } from './packs-api'
 
 const initialState = {
   cardsPack: [] as PackDataType[],
-  cardPacksTotalCount: 0,
-  maxCardsCount: 0,
-  minCardsCount: 0,
-  page: 0,
-  pageCount: 0,
 }
 
 export const slice = createSlice({
@@ -30,40 +25,22 @@ const { setPacks } = slice.actions
 export const packReducer = slice.reducer
 
 // thunk
-export const setPacksTC = (): AppThunk => async dispatch => {
-  dispatch(setAppStatus({ status: 'loading' }))
+export const setPacksTC =
+  (userId: string): AppThunk =>
+  async dispatch => {
+    dispatch(setAppStatus({ status: 'loading' }))
 
-  try {
-    const res = await packAPI.getPack()
+    try {
+      const res = await packAPI.getPack({ user_id: userId })
 
-    console.log(res.data)
-    dispatch(setPacks(res.data))
+      console.log(res.data)
+      dispatch(setPacks(res.data))
 
-    dispatch(setAppStatus({ status: 'succeeded' }))
-  } catch (e) {
-    handleServerNetworkError(e, dispatch)
+      dispatch(setAppStatus({ status: 'succeeded' }))
+    } catch (e) {
+      handleServerNetworkError(e, dispatch)
+    }
   }
-}
 
 // types
 type InitialStateType = typeof initialState
-
-type PackParamsType = {
-  packName?: string
-  min?: number
-  max?: number
-  sortPacks?: string
-  page?: number
-  pageCount?: number
-  user_id?: string
-}
-
-export type PackDataType = {
-  _id: string
-  user_id: string
-  name: string
-  cardsCount: number
-  created: string
-  updated: string
-  user_name: string
-}
