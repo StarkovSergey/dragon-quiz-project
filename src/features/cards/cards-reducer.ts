@@ -26,21 +26,37 @@ export const slice = createSlice({
       state.isMyPack = action.payload.isMyPack
     },
     createCard(state, action) {},
+    deleteCard(state, action) {},
   },
 })
 
 export const cardsReducer = slice.reducer
 
-export const { setCards, setPackID, setIsMyPack, createCard } = slice.actions
+export const { setCards, setPackID, setIsMyPack, createCard, deleteCard } = slice.actions
 
 // thunks
 export const createCardTC =
   (cardModel: CardModelType): AppThunk =>
   async dispatch => {
     try {
-      const response = await cardsAPI.createCard(cardModel)
+      await cardsAPI.createCard(cardModel)
 
       dispatch(setCardsTC(cardModel.cardsPack_id))
+    } catch (e) {
+      handleServerNetworkError(e, dispatch)
+    }
+  }
+
+export const deleteCardTC =
+  (packID: string, cardID: string): AppThunk =>
+  async dispatch => {
+    dispatch(setAppStatus({ status: 'loading' }))
+
+    try {
+      await cardsAPI.deleteCard(cardID)
+
+      dispatch(setCardsTC(packID))
+      dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e) {
       handleServerNetworkError(e, dispatch)
     }

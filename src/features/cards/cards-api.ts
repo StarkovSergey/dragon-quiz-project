@@ -18,6 +18,9 @@ export const cardsAPI = {
       },
     })
   },
+  deleteCard(cardID: string) {
+    return instance.delete(`cards/card?id=${cardID}`)
+  },
 }
 
 // types

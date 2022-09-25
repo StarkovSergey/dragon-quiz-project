@@ -1,12 +1,15 @@
 import React, { useEffect } from 'react'
 
-import { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Paper } from '@mui/material'
+import DeleteIcon from '@mui/icons-material/Delete'
+import ModeEditIcon from '@mui/icons-material/ModeEdit'
+import { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Paper, IconButton } from '@mui/material'
 import { useParams } from 'react-router-dom'
 
 import { Button } from '../../common/components/Button/Button'
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks'
 
 import { createCardTC, setCardsTC } from './cards-reducer'
+import { CardTableRow } from './CardTableRow/CardTableRow'
 
 export const Cards = () => {
   const dispatch = useAppDispatch()
@@ -40,21 +43,15 @@ export const Cards = () => {
             <TableRow>
               <TableCell>Question</TableCell>
               <TableCell>Answer</TableCell>
-              <TableCell>Last Updated</TableCell>
-              <TableCell>Grade</TableCell>
+              <TableCell align="right">Last Updated</TableCell>
+              <TableCell align="right">Grade</TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {cards.cards.map(card => (
-              <TableRow key={card._id}>
-                <TableCell component="th" scope="row">
-                  {card.question}
-                </TableCell>
-                <TableCell>{card.answer}</TableCell>
-                <TableCell>{card.updated}</TableCell>
-                <TableCell>{card.grade}</TableCell>
-              </TableRow>
-            ))}
+            {cards.cards.map(card => {
+              return <CardTableRow key={card._id} packID={packID!} card={card} isMyPack={isMyPack} />
+            })}
           </TableBody>
         </Table>
       </TableContainer>

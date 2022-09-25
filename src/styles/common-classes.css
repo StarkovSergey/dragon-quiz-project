@@ -11,3 +11,20 @@
   font-size: var(--basic-fz);
   color: var(--color-blue-light)
 }
+
+.back-link {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+
+  padding: 5px;
+
+  line-height: 1;
+  color: var(--color-blue-light);
+}
+
+@media (max-width: 500px) {
+  .back-link {
+    gap: 5px;
+  }
+}
