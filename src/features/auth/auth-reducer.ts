@@ -17,7 +17,6 @@ export const slice = createSlice({
   initialState,
   reducers: {
     login: (state, action: PayloadAction<{ profile: ProfileType }>) => {
-      console.log(action)
       state.profile = action.payload.profile
       state.isLoggedIn = true
     },

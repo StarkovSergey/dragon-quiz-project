@@ -6,23 +6,30 @@ import { useParams } from 'react-router-dom'
 import { Button } from '../../common/components/Button/Button'
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks'
 
-import { setCardsTC } from './cards-reducer'
+import { createCardTC, setCardsTC } from './cards-reducer'
 
 export const Cards = () => {
   const dispatch = useAppDispatch()
   const cards = useAppSelector(state => state.cards)
-  const userID = useAppSelector(state => state.auth.profile?._id)
   const isMyPack = useAppSelector(state => state.cards.isMyPack)
 
   const { packID } = useParams()
 
   useEffect(() => {
-    dispatch(setCardsTC(packID!, userID!))
+    dispatch(setCardsTC(packID!))
   }, [])
+
+  const addNewCard = () => {
+    dispatch(createCardTC({ cardsPack_id: packID! }))
+  }
 
   return (
     <div>
-      {isMyPack && <Button art>Add new card</Button>}
+      {isMyPack && (
+        <Button onClick={addNewCard} art>
+          Add new card
+        </Button>
+      )}
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead

@@ -4,7 +4,7 @@ import { setAppStatus } from '../../app/app-reducer'
 import { AppThunk } from '../../common/hooks/hooks'
 import { handleServerNetworkError } from '../../common/utils/handleNetworkError'
 
-import { cardsAPI, CardType, GetCardsParamsType } from './cards-api'
+import { CardModelType, cardsAPI, CardType, GetCardsParamsType } from './cards-api'
 
 const initialState = {
   cards: [] as CardType[],
@@ -25,21 +25,35 @@ export const slice = createSlice({
     setIsMyPack(state, action: PayloadAction<{ isMyPack: boolean }>) {
       state.isMyPack = action.payload.isMyPack
     },
+    createCard(state, action) {},
   },
 })
 
 export const cardsReducer = slice.reducer
 
-export const { setCards, setPackID, setIsMyPack } = slice.actions
+export const { setCards, setPackID, setIsMyPack, createCard } = slice.actions
 
 // thunks
-export const setCardsTC =
-  (packID: string, userID: string, params?: GetCardsParamsType): AppThunk =>
+export const createCardTC =
+  (cardModel: CardModelType): AppThunk =>
   async dispatch => {
+    try {
+      const response = await cardsAPI.createCard(cardModel)
+
+      dispatch(setCardsTC(cardModel.cardsPack_id))
+    } catch (e) {
+      handleServerNetworkError(e, dispatch)
+    }
+  }
+
+export const setCardsTC =
+  (packID: string, params?: GetCardsParamsType): AppThunk =>
+  async (dispatch, getState) => {
     dispatch(setAppStatus({ status: 'loading' }))
 
     try {
       const res = await cardsAPI.getCards(packID, params)
+      const userID = getState().auth.profile?._id
 
       const isMyPack = res.data.packUserId === userID
 

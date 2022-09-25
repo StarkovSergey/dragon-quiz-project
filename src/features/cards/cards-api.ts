@@ -9,9 +9,30 @@ export const cardsAPI = {
       },
     })
   },
+  createCard(card: CardModelType) {
+    return instance.post(`cards/card`, {
+      card: {
+        question: 'no question',
+        answer: 'no answer',
+        ...card,
+      },
+    })
+  },
 }
 
 // types
+export type CardModelType = {
+  cardsPack_id: string
+  question?: string
+  answer?: string
+  grade?: number
+  shots?: number
+  answerImg?: string
+  questionImg?: string
+  questionVideo?: string
+  answerVideo?: string
+}
+
 type getCardsResponseType = {
   cards: CardType[]
   cardsTotalCount: number
