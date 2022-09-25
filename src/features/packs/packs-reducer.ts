@@ -20,20 +20,19 @@ export const slice = createSlice({
   },
 })
 
-const { setPacks } = slice.actions
+export const { setPacks } = slice.actions
 
 export const packReducer = slice.reducer
 
 // thunk
 export const setPacksTC =
-  (userId: string): AppThunk =>
+  (userId: string | null): AppThunk =>
   async dispatch => {
     dispatch(setAppStatus({ status: 'loading' }))
 
     try {
       const res = await packAPI.getPack({ user_id: userId })
 
-      console.log(res.data)
       dispatch(setPacks(res.data))
 
       dispatch(setAppStatus({ status: 'succeeded' }))
