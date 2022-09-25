@@ -19,7 +19,7 @@ type getCardsResponseType = {
   minGrade: number
   page: number
   pageCount: number
-  packUserID: string
+  packUserId: string
 }
 
 export type CardType = {

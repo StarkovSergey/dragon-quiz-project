@@ -36,7 +36,7 @@ export const initializedAppTC = (): AppThunk => async dispatch => {
   try {
     const res = await authAPI.me()
 
-    dispatch(login(res.data))
+    dispatch(login({ profile: res.data }))
   } catch (error) {
     if (axios.isAxiosError(error)) {
       handleServerNetworkError(error, dispatch)

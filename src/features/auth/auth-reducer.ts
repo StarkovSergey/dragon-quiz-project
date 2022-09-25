@@ -17,6 +17,7 @@ export const slice = createSlice({
   initialState,
   reducers: {
     login: (state, action: PayloadAction<{ profile: ProfileType }>) => {
+      console.log(action)
       state.profile = action.payload.profile
       state.isLoggedIn = true
     },
@@ -84,7 +85,7 @@ export const loginTC =
     try {
       const res = await authAPI.login(loginFormData)
 
-      dispatch(login(res.data))
+      dispatch(login({ profile: res.data }))
       dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e) {
       handleServerNetworkError(e, dispatch)
