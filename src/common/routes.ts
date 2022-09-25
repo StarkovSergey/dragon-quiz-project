@@ -5,5 +5,6 @@ export enum Paths {
   SetNewPassword = '/set-new-password/:token',
   CheckEmail = '/check-email',
   Profile = '/profile',
+  Cards = '/cards/:packID',
   Page404 = '/404',
 }
