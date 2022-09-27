@@ -23,7 +23,7 @@ export const Packs = () => {
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
   const showMyPacks = () => {
-    dispatch(setPacksTC({ user_id: '6324a109005cc31ff0356f6d' }))
+    dispatch(setPacksTC({ user_id: userId! }))
   }
 
   const showAllPacks = () => {
