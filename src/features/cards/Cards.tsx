@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
-import { NavLink, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 import { BackLink } from '../../common/components/BackLink/BackLink'
 import { Button } from '../../common/components/Button/Button'
@@ -19,7 +19,7 @@ export const Cards = () => {
   const userId = useAppSelector(state => state.auth.profile?._id)
 
   const { packID } = useParams()
-  const pack = useAppSelector(state => state.pack.cardsPack.find(pack => pack._id === packID))
+  const pack = useAppSelector(state => state.packs.packs.find(pack => pack._id === packID))
 
   useEffect(() => {
     dispatch(setCardsTC(packID!))

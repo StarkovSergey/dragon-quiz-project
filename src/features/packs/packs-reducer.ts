@@ -7,7 +7,7 @@ import { handleServerNetworkError } from '../../common/utils/handleNetworkError'
 import { packAPI, PackDataType } from './packs-api'
 
 const initialState = {
-  cardsPack: [] as PackDataType[],
+  packs: [] as PackDataType[],
 }
 
 export const slice = createSlice({
@@ -15,14 +15,14 @@ export const slice = createSlice({
   initialState,
   reducers: {
     setPacks(state, action: PayloadAction<{ cardPacks: PackDataType[] }>) {
-      state.cardsPack = action.payload.cardPacks.map(pack => ({ ...pack }))
+      state.packs = action.payload.cardPacks.map(pack => ({ ...pack }))
     },
   },
 })
 
 export const { setPacks } = slice.actions
 
-export const packReducer = slice.reducer
+export const packsReducer = slice.reducer
 
 // thunk
 export const setPacksTC =

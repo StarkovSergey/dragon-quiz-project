@@ -1,21 +1,23 @@
 import { useEffect } from 'react'
 
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 import { Button } from '../../common/components/Button/Button'
 import { InputText } from '../../common/components/InputText/InputText'
 import { RangeSlider } from '../../common/components/Slider/Slider'
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks'
+import { Paths } from '../../common/routes'
 
 import { setPacksTC } from './packs-reducer'
 import style from './packs.module.css'
 
 export const Packs = () => {
-  const packs = useAppSelector(state => state.pack.cardsPack)
+  const packs = useAppSelector(state => state.packs.packs)
   const userId = useAppSelector(state => state.auth.profile?._id)
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
   const showMyPacks = () => {
     dispatch(setPacksTC('6324a109005cc31ff0356f6d'))
@@ -28,6 +30,10 @@ export const Packs = () => {
   useEffect(() => {
     dispatch(setPacksTC(null))
   }, [])
+
+  if (!isLoggedIn) {
+    return <Navigate to={Paths.SingIn} />
+  }
 
   return (
     <div>
