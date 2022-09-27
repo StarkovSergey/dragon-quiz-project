@@ -85,6 +85,3 @@ export const searchPacksTC =
       handleServerNetworkError(e, dispatch)
     }
   }
-
-// types
-type InitialStateType = typeof initialState

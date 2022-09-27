@@ -10,7 +10,7 @@ import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { setPacksTC } from '../packs/packs-reducer'
 
-import { createCardTC, setCardsTC } from './cards-reducer'
+import { createCardTC, searchCardsTC, setCardsTC } from './cards-reducer'
 import style from './Cards.module.css'
 import { CardTableRow } from './CardTableRow/CardTableRow'
 
@@ -34,7 +34,7 @@ export const Cards = () => {
   }
 
   const searchCard = (text: string) => {
-    dispatch(setCardsTC(packID!, { cardQuestion: text }))
+    dispatch(searchCardsTC(packID!, text))
   }
 
   return (

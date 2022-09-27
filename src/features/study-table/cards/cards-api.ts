@@ -1,11 +1,13 @@
 import { instance } from '../../../common/instance/instance'
 
 export const cardsAPI = {
-  getCards(cardsPackID: string, params?: GetCardsParamsType) {
+  getCards(cardsPackID: string, params: GetCardsParamsType) {
+    console.log(cardsPackID)
+
     return instance.get<getCardsResponseType>(`cards/card`, {
       params: {
         cardsPack_id: cardsPackID,
-        sortCards: '0created',
+        cardQuestion: params.search,
         ...params,
       },
     })
@@ -74,8 +76,7 @@ export type CardType = {
 }
 
 export type GetCardsParamsType = {
-  cardAnswer?: string
-  cardQuestion?: string
+  search: string
   min?: number
   max?: number
   sortCards?: string
