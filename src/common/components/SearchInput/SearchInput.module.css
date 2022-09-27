@@ -1,0 +1,19 @@
+.box {
+  position: relative;
+}
+
+.box::before {
+  content: '';
+
+  position: absolute;
+  z-index: 1;
+  bottom: 7px;
+  left: 5px;
+
+  width: 23px;
+  height: 23px;
+
+  background-image: url('../../../assets/icons/magnifier.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+}

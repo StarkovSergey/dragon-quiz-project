@@ -5,6 +5,7 @@ import { Navigate, useNavigate } from 'react-router-dom'
 
 import { Button } from '../../common/components/Button/Button'
 import { InputText } from '../../common/components/InputText/InputText'
+import { SearchInput } from '../../common/components/SearchInput/SearchInput'
 import { RangeSlider } from '../../common/components/Slider/Slider'
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks'
 import { Paths } from '../../common/routes'
@@ -43,8 +44,7 @@ export const Packs = () => {
       </div>
       <div className={style.settings}>
         <div>
-          <h4>Search</h4>
-          <InputText placeholder={'Provide your text'} />
+          <SearchInput />
         </div>
 
         <div>

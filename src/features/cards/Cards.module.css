@@ -9,3 +9,7 @@
 .title {
   font-size: var(--title-fz);
 }
+
+.search {
+  margin-bottom: 25px;
+}

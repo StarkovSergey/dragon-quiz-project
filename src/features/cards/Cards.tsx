@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 
 import { BackLink } from '../../common/components/BackLink/BackLink'
 import { Button } from '../../common/components/Button/Button'
+import { SearchInput } from '../../common/components/SearchInput/SearchInput'
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks'
 import { setPacksTC } from '../packs/packs-reducer'
 
@@ -46,30 +47,40 @@ export const Cards = () => {
         )}
       </div>
       {cards.cards.length !== 0 ? (
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 700 }} aria-label="customized table">
-            <TableHead
-              sx={{
-                backgroundColor: '#f2a278',
-              }}
-            >
-              <TableRow>
-                <TableCell>Question</TableCell>
-                <TableCell>Answer</TableCell>
-                <TableCell align="right">Last Updated</TableCell>
-                <TableCell align="right">Grade</TableCell>
-                <TableCell align="right"></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {cards.cards.map(card => {
-                return <CardTableRow key={card._id} packID={packID!} card={card} isMyPack={isMyPack} />
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <>
+          <div className={style.search}>
+            <SearchInput />
+          </div>
+
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 700 }} aria-label="customized table">
+              <TableHead
+                sx={{
+                  backgroundColor: '#f2a278',
+                }}
+              >
+                <TableRow>
+                  <TableCell>Question</TableCell>
+                  <TableCell>Answer</TableCell>
+                  <TableCell align="right">Last Updated</TableCell>
+                  <TableCell align="right">Grade</TableCell>
+                  <TableCell align="right"></TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {cards.cards.map(card => {
+                  return <CardTableRow key={card._id} packID={packID!} card={card} isMyPack={isMyPack} />
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </>
       ) : (
-        <p className="text">This pack is empty. Click add new card to fill this pack</p>
+        <p className="text">
+          {isMyPack
+            ? 'This pack is empty. Click add new card to fill this pack'
+            : 'This pack is empty. Click back to Packs list'}
+        </p>
       )}
     </div>
   )
