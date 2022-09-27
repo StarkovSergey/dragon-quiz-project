@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 
 import { Button } from '../../../common/components/Button/Button'
 import { InputText } from '../../../common/components/InputText/InputText'
-import { useAppDispatch } from '../../../common/hooks/hooks'
+import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { Paths } from '../../../common/routes'
 import { forgotPasswordTC } from '../auth-reducer'
 import authStyle from '../auth.module.css'

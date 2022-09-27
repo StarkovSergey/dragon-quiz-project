@@ -1,5 +1,5 @@
 import dragonImg from '../../../assets/images/dragon.png'
-import { useAppSelector } from '../../../common/hooks/hooks'
+import { useAppSelector } from '../../../common/hooks/useAppSelector'
 
 import style from './ProfileLink.module.css'
 

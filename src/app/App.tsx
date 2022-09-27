@@ -4,7 +4,8 @@ import './App.css'
 import { CircularProgress } from '@mui/material'
 
 import { ErrorSnackbar } from '../common/components/ErrorSnackbar/ErrorSnackbar'
-import { useAppDispatch, useAppSelector } from '../common/hooks/hooks'
+import { useAppDispatch } from '../common/hooks/useAppDispatch'
+import { useAppSelector } from '../common/hooks/useAppSelector'
 
 import { initializedAppTC } from './app-reducer'
 import { AppRoutes } from './AppRoutes/AppRoutes'

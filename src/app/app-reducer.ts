@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { AppThunk } from '../common/hooks/hooks'
 import { handleServerNetworkError } from '../common/utils/handleNetworkError'
 import { authAPI } from '../features/auth/auth-api'
 import { login } from '../features/auth/auth-reducer'
+
+import { AppThunk } from './store'
 
 const initialState: AppStateType = {
   status: 'idle',

@@ -4,13 +4,11 @@ import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow
 import { Navigate, useNavigate } from 'react-router-dom'
 
 import { Button } from '../../../common/components/Button/Button'
-import { InputText } from '../../../common/components/InputText/InputText'
 import { SearchBar } from '../../../common/components/SearchBar/SearchBar'
-import { SearchInput } from '../../../common/components/SearchInput/SearchInput'
 import { RangeSlider } from '../../../common/components/Slider/Slider'
-import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
+import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
+import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { Paths } from '../../../common/routes'
-import { setCardsTC } from '../cards/cards-reducer'
 
 import { setPacksTC } from './packs-reducer'
 import style from './packs.module.css'

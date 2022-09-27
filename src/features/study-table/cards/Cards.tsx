@@ -6,7 +6,8 @@ import { useParams } from 'react-router-dom'
 import { BackLink } from '../../../common/components/BackLink/BackLink'
 import { Button } from '../../../common/components/Button/Button'
 import { SearchBar } from '../../../common/components/SearchBar/SearchBar'
-import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
+import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
+import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { setPacksTC } from '../packs/packs-reducer'
 
 import { createCardTC, setCardsTC } from './cards-reducer'
@@ -34,7 +35,7 @@ export const Cards = () => {
   }
 
   const searchCard = (text: string) => {
-    dispatch(setCardsTC(packID!, { cardAnswer: text }))
+    dispatch(setCardsTC(packID!, { cardQuestion: text }))
   }
 
   return (
@@ -50,10 +51,9 @@ export const Cards = () => {
           <Button>Learn to pack</Button>
         )}
       </div>
-      {cards.cards.length !== 0 ? (
+      {pack?.cardsCount !== 0 ? (
         <>
           <SearchBar search={searchCard} />
-
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
               <TableHead

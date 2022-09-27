@@ -4,7 +4,7 @@ import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import logo from '../../assets/images/logo--dark-theme.svg'
 import mobileLogo from '../../assets/images/logo-mobile--dark-theme.svg'
 import { Button } from '../../common/components/Button/Button'
-import { useAppSelector } from '../../common/hooks/hooks'
+import { useAppSelector } from '../../common/hooks/useAppSelector'
 import { ProfileLink } from '../../features/profile/ProfileLink/ProfileLink'
 
 import style from './Header.module.css'
