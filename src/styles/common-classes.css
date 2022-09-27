@@ -17,3 +17,10 @@
     gap: 5px;
   }
 }
+
+.text {
+  font-size: var(--basic-fz);
+  color: var(--color-white);
+
+  opacity: 0.5;
+}

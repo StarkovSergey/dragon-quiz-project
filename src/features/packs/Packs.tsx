@@ -79,11 +79,7 @@ export const Packs = () => {
               }
 
               return (
-                <TableRow
-                  onClick={getPackId}
-                  key={pack.name}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
+                <TableRow onClick={getPackId} key={pack._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                   <TableCell component="th" scope="row">
                     {pack.name}
                   </TableCell>

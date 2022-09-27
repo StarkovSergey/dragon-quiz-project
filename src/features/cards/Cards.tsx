@@ -45,28 +45,32 @@ export const Cards = () => {
           <Button>Learn to pack</Button>
         )}
       </div>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 700 }} aria-label="customized table">
-          <TableHead
-            sx={{
-              backgroundColor: '#f2a278',
-            }}
-          >
-            <TableRow>
-              <TableCell>Question</TableCell>
-              <TableCell>Answer</TableCell>
-              <TableCell align="right">Last Updated</TableCell>
-              <TableCell align="right">Grade</TableCell>
-              <TableCell align="right"></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {cards.cards.map(card => {
-              return <CardTableRow key={card._id} packID={packID!} card={card} isMyPack={isMyPack} />
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      {cards.cards.length !== 0 ? (
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 700 }} aria-label="customized table">
+            <TableHead
+              sx={{
+                backgroundColor: '#f2a278',
+              }}
+            >
+              <TableRow>
+                <TableCell>Question</TableCell>
+                <TableCell>Answer</TableCell>
+                <TableCell align="right">Last Updated</TableCell>
+                <TableCell align="right">Grade</TableCell>
+                <TableCell align="right"></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {cards.cards.map(card => {
+                return <CardTableRow key={card._id} packID={packID!} card={card} isMyPack={isMyPack} />
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      ) : (
+        <p className="text">This pack is empty. Click add new card to fill this pack</p>
+      )}
     </div>
   )
 }
