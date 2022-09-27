@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 
 import { Button } from '../../common/components/Button/Button'
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks'
+import { setPacksTC } from '../packs/packs-reducer'
 
 import { createCardTC, setCardsTC } from './cards-reducer'
 import style from './Cards.module.css'
@@ -14,12 +15,16 @@ export const Cards = () => {
   const dispatch = useAppDispatch()
   const cards = useAppSelector(state => state.cards)
   const isMyPack = useAppSelector(state => state.cards.isMyPack)
+  const userId = useAppSelector(state => state.auth.profile?._id)
 
   const { packID } = useParams()
   const pack = useAppSelector(state => state.pack.cardsPack.find(pack => pack._id === packID))
 
   useEffect(() => {
     dispatch(setCardsTC(packID!))
+    if (!pack) {
+      dispatch(setPacksTC(userId!))
+    }
   }, [])
 
   const addNewCard = () => {
