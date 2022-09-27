@@ -3,6 +3,7 @@ import { IconButton } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 
 import dragonImg from '../../assets/images/dragon.png'
+import { BackLink } from '../../common/components/BackLink/BackLink'
 import { Button } from '../../common/components/Button/Button'
 import { EditableSpan } from '../../common/components/EditableSpan/EditableSpan'
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks'
@@ -32,10 +33,7 @@ export const Profile = () => {
 
   return (
     <div>
-      <NavLink className="back-link" to="/">
-        <ArrowBackIcon />
-        Back to Packs List
-      </NavLink>
+      <BackLink linkText="Back to Packs List" to="/" />
       <div className={`${style.box} ${authStyle.container}`}>
         <h1 className="section-title">Personal information</h1>
         <div className={style['profile-data']}>

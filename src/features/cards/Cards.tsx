@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
-import { useParams } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 
+import { BackLink } from '../../common/components/BackLink/BackLink'
 import { Button } from '../../common/components/Button/Button'
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks'
 import { setPacksTC } from '../packs/packs-reducer'
@@ -33,6 +34,7 @@ export const Cards = () => {
 
   return (
     <div>
+      <BackLink to="/" linkText="Back to Packs List" />
       <div className={style.header}>
         <h1 className={style.title}>{pack?.name}</h1>
         {isMyPack ? (
