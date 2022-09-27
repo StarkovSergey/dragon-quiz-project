@@ -10,35 +10,29 @@ import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { Paths } from '../../../common/routes'
 
-import { setPacksTC } from './packs-reducer'
+import { searchPacksTC, setIsMyPacksTC, setPacksTC } from './packs-reducer'
 import style from './packs.module.css'
 
 export const Packs = () => {
   const packs = useAppSelector(state => state.packs.packs)
-  const userId = useAppSelector(state => state.auth.profile?._id)
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
   const showMyPacks = () => {
-    dispatch(setPacksTC({ user_id: userId! }))
+    dispatch(setIsMyPacksTC(true))
   }
 
   const showAllPacks = () => {
-    dispatch(setPacksTC({ user_id: null }))
+    dispatch(setIsMyPacksTC(false))
   }
 
   useEffect(() => {
-    dispatch(setPacksTC({ user_id: null }))
+    dispatch(setPacksTC())
   }, [])
 
   const searchPack = (text: string) => {
-    dispatch(
-      setPacksTC({
-        user_id: userId!,
-        packName: text,
-      })
-    )
+    dispatch(searchPacksTC(text))
   }
 
   if (!isLoggedIn) {

@@ -18,7 +18,6 @@ export const Cards = () => {
   const dispatch = useAppDispatch()
   const cards = useAppSelector(state => state.cards)
   const isMyPack = useAppSelector(state => state.cards.isMyPack)
-  const userId = useAppSelector(state => state.auth.profile?._id)
 
   const { packID } = useParams()
   const pack = useAppSelector(state => state.packs.packs.find(pack => pack._id === packID))
@@ -26,7 +25,7 @@ export const Cards = () => {
   useEffect(() => {
     dispatch(setCardsTC(packID!))
     if (!pack) {
-      dispatch(setPacksTC({ user_id: userId! }))
+      dispatch(setPacksTC())
     }
   }, [])
 
