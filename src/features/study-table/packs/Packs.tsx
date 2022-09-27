@@ -3,12 +3,14 @@ import { useEffect } from 'react'
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import { Navigate, useNavigate } from 'react-router-dom'
 
-import { Button } from '../../common/components/Button/Button'
-import { InputText } from '../../common/components/InputText/InputText'
-import { SearchInput } from '../../common/components/SearchInput/SearchInput'
-import { RangeSlider } from '../../common/components/Slider/Slider'
-import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks'
-import { Paths } from '../../common/routes'
+import { Button } from '../../../common/components/Button/Button'
+import { InputText } from '../../../common/components/InputText/InputText'
+import { SearchBar } from '../../../common/components/SearchBar/SearchBar'
+import { SearchInput } from '../../../common/components/SearchInput/SearchInput'
+import { RangeSlider } from '../../../common/components/Slider/Slider'
+import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
+import { Paths } from '../../../common/routes'
+import { setCardsTC } from '../cards/cards-reducer'
 
 import { setPacksTC } from './packs-reducer'
 import style from './packs.module.css'
@@ -21,16 +23,25 @@ export const Packs = () => {
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
   const showMyPacks = () => {
-    dispatch(setPacksTC('6324a109005cc31ff0356f6d'))
+    dispatch(setPacksTC({ user_id: '6324a109005cc31ff0356f6d' }))
   }
 
   const showAllPacks = () => {
-    dispatch(setPacksTC(null))
+    dispatch(setPacksTC({ user_id: null }))
   }
 
   useEffect(() => {
-    dispatch(setPacksTC(null))
+    dispatch(setPacksTC({ user_id: null }))
   }, [])
+
+  const searchPack = (text: string) => {
+    dispatch(
+      setPacksTC({
+        user_id: userId!,
+        packName: text,
+      })
+    )
+  }
 
   if (!isLoggedIn) {
     return <Navigate to={Paths.SingIn} />
@@ -44,7 +55,7 @@ export const Packs = () => {
       </div>
       <div className={style.settings}>
         <div>
-          <SearchInput />
+          <SearchBar search={searchPack} />
         </div>
 
         <div>

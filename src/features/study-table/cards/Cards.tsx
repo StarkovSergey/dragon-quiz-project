@@ -3,10 +3,10 @@ import React, { useEffect } from 'react'
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import { useParams } from 'react-router-dom'
 
-import { BackLink } from '../../common/components/BackLink/BackLink'
-import { Button } from '../../common/components/Button/Button'
-import { SearchInput } from '../../common/components/SearchInput/SearchInput'
-import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks'
+import { BackLink } from '../../../common/components/BackLink/BackLink'
+import { Button } from '../../../common/components/Button/Button'
+import { SearchBar } from '../../../common/components/SearchBar/SearchBar'
+import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
 import { setPacksTC } from '../packs/packs-reducer'
 
 import { createCardTC, setCardsTC } from './cards-reducer'
@@ -25,12 +25,16 @@ export const Cards = () => {
   useEffect(() => {
     dispatch(setCardsTC(packID!))
     if (!pack) {
-      dispatch(setPacksTC(userId!))
+      dispatch(setPacksTC({ user_id: userId! }))
     }
   }, [])
 
   const addNewCard = () => {
     dispatch(createCardTC({ cardsPack_id: packID! }))
+  }
+
+  const searchCard = (text: string) => {
+    dispatch(setCardsTC(packID!, { cardAnswer: text }))
   }
 
   return (
@@ -48,9 +52,7 @@ export const Cards = () => {
       </div>
       {cards.cards.length !== 0 ? (
         <>
-          <div className={style.search}>
-            <SearchInput />
-          </div>
+          <SearchBar search={searchCard} />
 
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 700 }} aria-label="customized table">

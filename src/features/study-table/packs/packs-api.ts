@@ -1,7 +1,7 @@
-import { instance } from '../../common/instance/instance'
+import { instance } from '../../../common/instance/instance'
 
 export const packAPI = {
-  getPack(params: PackParamsType) {
+  getPack(params: GetPackParamsType) {
     return instance.get<ResponsePackType>('/cards/pack', {
       params: {
         pageCount: 10,
@@ -33,7 +33,7 @@ export type ResponsePackType = {
   tokenDeathTime: number
 }
 
-type PackParamsType = {
+export type GetPackParamsType = {
   packName?: string
   min?: number
   max?: number

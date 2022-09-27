@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { setAppStatus } from '../../app/app-reducer'
-import { AppThunk } from '../../common/hooks/hooks'
-import { handleServerNetworkError } from '../../common/utils/handleNetworkError'
+import { setAppStatus } from '../../../app/app-reducer'
+import { AppThunk } from '../../../common/hooks/hooks'
+import { handleServerNetworkError } from '../../../common/utils/handleNetworkError'
 
-import { packAPI, PackDataType } from './packs-api'
+import { GetPackParamsType, packAPI, PackDataType } from './packs-api'
 
 const initialState = {
   packs: [] as PackDataType[],
@@ -26,12 +26,12 @@ export const packsReducer = slice.reducer
 
 // thunk
 export const setPacksTC =
-  (userId: string | null): AppThunk =>
+  (params: GetPackParamsType): AppThunk =>
   async dispatch => {
     dispatch(setAppStatus({ status: 'loading' }))
 
     try {
-      const res = await packAPI.getPack({ user_id: userId })
+      const res = await packAPI.getPack({ ...params })
 
       dispatch(setPacks(res.data))
 
