@@ -5,6 +5,7 @@ export const cardsAPI = {
     return instance.get<getCardsResponseType>(`cards/card`, {
       params: {
         cardsPack_id: cardsPackID,
+        sortCards: '0created',
         ...params,
       },
     })
@@ -21,9 +22,23 @@ export const cardsAPI = {
   deleteCard(cardID: string) {
     return instance.delete(`cards/card?id=${cardID}`)
   },
+  updateCard(card: UpdateCardModelType) {
+    return instance.put(`cards/card`, { card })
+  },
 }
 
 // types
+export type UpdateCardModelType = {
+  _id: string
+  question?: string
+  answer?: string
+  shots?: number
+  answerImg?: string
+  questionImg?: string
+  questionVideo?: string
+  answerVideo?: string
+}
+
 export type CardModelType = {
   cardsPack_id: string
   question?: string

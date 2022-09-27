@@ -4,7 +4,7 @@ import { setAppStatus } from '../../app/app-reducer'
 import { AppThunk } from '../../common/hooks/hooks'
 import { handleServerNetworkError } from '../../common/utils/handleNetworkError'
 
-import { CardModelType, cardsAPI, CardType, GetCardsParamsType } from './cards-api'
+import { CardModelType, cardsAPI, CardType, GetCardsParamsType, UpdateCardModelType } from './cards-api'
 
 const initialState = {
   cards: [] as CardType[],
@@ -35,13 +35,29 @@ export const cardsReducer = slice.reducer
 export const { setCards, setPackID, setIsMyPack, createCard, deleteCard } = slice.actions
 
 // thunks
+export const updateCardTC =
+  (packID: string, cardModel: UpdateCardModelType): AppThunk =>
+  async dispatch => {
+    dispatch(setAppStatus({ status: 'loading' }))
+    try {
+      await cardsAPI.updateCard(cardModel)
+
+      dispatch(setCardsTC(packID))
+      dispatch(setAppStatus({ status: 'succeeded' }))
+    } catch (e) {
+      handleServerNetworkError(e, dispatch)
+    }
+  }
+
 export const createCardTC =
   (cardModel: CardModelType): AppThunk =>
   async dispatch => {
+    dispatch(setAppStatus({ status: 'loading' }))
     try {
       await cardsAPI.createCard(cardModel)
 
       dispatch(setCardsTC(cardModel.cardsPack_id))
+      dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e) {
       handleServerNetworkError(e, dispatch)
     }

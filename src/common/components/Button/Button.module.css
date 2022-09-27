@@ -40,8 +40,8 @@
 
 .star-wrapper {
   position: absolute;
-  top: 0;
   right: -100px;
+  bottom: 10px;
 
   width: 100px;
   height: 40px;

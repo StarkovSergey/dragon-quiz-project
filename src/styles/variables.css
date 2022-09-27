@@ -8,14 +8,14 @@
 
   --basic-fz: 18px;
   --title-fz: 22px;
-  --button-fz: 20px;
+  --button-fz: 16px;
 }
 
 @media (max-width: 500px) {
   :root {
     --basic-fz: 14px;
     --title-fz: 18px;
-    --button-fz: 16px;
+    --button-fz: 15px;
   }
 }
 

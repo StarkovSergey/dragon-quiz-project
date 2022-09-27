@@ -6,7 +6,7 @@ import { IconButton, TableCell, TableRow } from '@mui/material'
 
 import { useAppDispatch } from '../../../common/hooks/hooks'
 import { CardType } from '../cards-api'
-import { deleteCardTC } from '../cards-reducer'
+import { deleteCardTC, updateCardTC } from '../cards-reducer'
 
 type PropsType = {
   packID: string
@@ -21,6 +21,16 @@ export const CardTableRow = ({ packID, card, isMyPack }: PropsType) => {
     dispatch(deleteCardTC(packID, card._id))
   }
 
+  const updateCard = () => {
+    dispatch(
+      updateCardTC(packID, {
+        _id: card._id,
+        answer: `updated answer`,
+        question: `updated question`,
+      })
+    )
+  }
+
   return (
     <TableRow>
       <TableCell component="th" scope="row">
@@ -31,7 +41,7 @@ export const CardTableRow = ({ packID, card, isMyPack }: PropsType) => {
       <TableCell align="right">{card.grade}</TableCell>
       {isMyPack && (
         <TableCell align="right">
-          <IconButton>
+          <IconButton onClick={updateCard}>
             <ModeEditIcon />
           </IconButton>
           <IconButton onClick={deleteCard}>

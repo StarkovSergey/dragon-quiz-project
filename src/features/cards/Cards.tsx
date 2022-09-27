@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react'
 
-import DeleteIcon from '@mui/icons-material/Delete'
-import ModeEditIcon from '@mui/icons-material/ModeEdit'
-import { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Paper, IconButton } from '@mui/material'
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import { useParams } from 'react-router-dom'
 
 import { Button } from '../../common/components/Button/Button'
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks'
 
 import { createCardTC, setCardsTC } from './cards-reducer'
+import style from './Cards.module.css'
 import { CardTableRow } from './CardTableRow/CardTableRow'
 
 export const Cards = () => {
@@ -17,6 +16,7 @@ export const Cards = () => {
   const isMyPack = useAppSelector(state => state.cards.isMyPack)
 
   const { packID } = useParams()
+  const pack = useAppSelector(state => state.pack.cardsPack.find(pack => pack._id === packID))
 
   useEffect(() => {
     dispatch(setCardsTC(packID!))
@@ -28,11 +28,16 @@ export const Cards = () => {
 
   return (
     <div>
-      {isMyPack && (
-        <Button onClick={addNewCard} art>
-          Add new card
-        </Button>
-      )}
+      <div className={style.header}>
+        <h1 className={style.title}>{pack?.name}</h1>
+        {isMyPack ? (
+          <Button onClick={addNewCard} art>
+            Add new card
+          </Button>
+        ) : (
+          <Button>Learn to pack</Button>
+        )}
+      </div>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead

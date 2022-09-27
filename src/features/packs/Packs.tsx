@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { Button } from '../../common/components/Button/Button'
 import { InputText } from '../../common/components/InputText/InputText'
@@ -14,15 +14,20 @@ import style from './packs.module.css'
 export const Packs = () => {
   const packs = useAppSelector(state => state.pack.cardsPack)
   const userId = useAppSelector(state => state.auth.profile?._id)
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
-  useEffect(() => {
+  const showMyPacks = () => {
     dispatch(setPacksTC('6324a109005cc31ff0356f6d'))
-  }, [])
-
-  const navigateToCards = () => {
-    return <Navigate to={'cards/{packID}'} />
   }
+
+  const showAllPacks = () => {
+    dispatch(setPacksTC(null))
+  }
+
+  useEffect(() => {
+    dispatch(setPacksTC(null))
+  }, [])
 
   return (
     <div>
@@ -38,8 +43,8 @@ export const Packs = () => {
 
         <div>
           <h4>Show packs cards</h4>
-          <Button>My</Button>
-          <Button>All</Button>
+          <Button onClick={showMyPacks}>My</Button>
+          <Button onClick={showAllPacks}>All</Button>
         </div>
 
         <div>
@@ -62,16 +67,26 @@ export const Packs = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {packs.map(pack => (
-              <TableRow key={pack.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                <TableCell onClick={navigateToCards} component="th" scope="row">
-                  {pack.name}
-                </TableCell>
-                <TableCell align="right">{pack.cardsCount}</TableCell>
-                <TableCell align="right">{pack.updated.slice(0, 10)}</TableCell>
-                <TableCell align="right">{pack.user_name}</TableCell>
-              </TableRow>
-            ))}
+            {packs.map(pack => {
+              const getPackId = () => {
+                navigate(`/cards/${pack._id}`)
+              }
+
+              return (
+                <TableRow
+                  onClick={getPackId}
+                  key={pack.name}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    {pack.name}
+                  </TableCell>
+                  <TableCell align="right">{pack.cardsCount}</TableCell>
+                  <TableCell align="right">{pack.updated.slice(0, 10)}</TableCell>
+                  <TableCell align="right">{pack.user_name}</TableCell>
+                </TableRow>
+              )
+            })}
           </TableBody>
         </Table>
       </TableContainer>

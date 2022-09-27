@@ -3,9 +3,7 @@ import { instance } from '../../common/instance/instance'
 export const packAPI = {
   getPack(params: PackParamsType) {
     return instance.get<ResponsePackType>('/cards/pack', {
-      params: {
-        ...params,
-      },
+      params,
     })
   },
 }
@@ -39,5 +37,5 @@ type PackParamsType = {
   sortPacks?: string
   page?: number
   pageCount?: number
-  user_id: string
+  user_id: string | null
 }
