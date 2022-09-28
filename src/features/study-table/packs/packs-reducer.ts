@@ -93,10 +93,10 @@ export const searchPacksTC =
     }
   }
 
-export const addNewPckTC = (): AppThunk => async dispatch => {
+export const addNewPackTC = (): AppThunk => async dispatch => {
   dispatch(setAppStatus({ status: 'loading' }))
   const newPack = {
-    name: '111',
+    name: '222',
     deckCover: 'url or base64',
     private: false,
   }
@@ -104,7 +104,7 @@ export const addNewPckTC = (): AppThunk => async dispatch => {
   try {
     const res = await packAPI.addNewPack(newPack)
 
-    console.log(res)
+    dispatch(addPack(res.data))
     dispatch(setAppStatus({ status: 'succeeded' }))
   } catch (e) {
     handleServerNetworkError(e, dispatch)

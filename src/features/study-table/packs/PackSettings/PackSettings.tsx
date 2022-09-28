@@ -5,7 +5,7 @@ import { NumberOfCards } from '../../../../common/components/NumberOfCards/Numbe
 import { SearchBar } from '../../../../common/components/SearchBar/SearchBar'
 import { ShowCardsPack } from '../../../../common/components/ShowPacksCards/ShowCardsPack'
 import { useAppDispatch } from '../../../../common/hooks/useAppDispatch'
-import { addNewPckTC, searchPacksTC } from '../packs-reducer'
+import { addNewPackTC, searchPacksTC } from '../packs-reducer'
 import style from '../packs.module.css'
 
 export const PackSettings = () => {
@@ -16,7 +16,7 @@ export const PackSettings = () => {
   }
 
   const addNewPack = () => {
-    dispatch(addNewPckTC())
+    dispatch(addNewPackTC())
   }
 
   return (
