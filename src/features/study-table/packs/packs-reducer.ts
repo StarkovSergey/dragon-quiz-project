@@ -30,10 +30,14 @@ export const slice = createSlice({
     searchPacks(state, action: PayloadAction<{ search: string }>) {
       state.search = action.payload.search
     },
+    setValueSlider(state, action: PayloadAction<{ min: number; max: number }>) {
+      state.min = action.payload.min
+      state.max = action.payload.max
+    },
   },
 })
 
-export const { setPacks, setIsMyPacks, searchPacks } = slice.actions
+export const { setPacks, setIsMyPacks, searchPacks, setValueSlider } = slice.actions
 
 export const packsReducer = slice.reducer
 
@@ -43,6 +47,8 @@ export const setPacksTC = (): AppThunk => async (dispatch, getState) => {
 
   const { pageCount, page, sort, search, isMyPacks, min, max } = getState().packs
   const userID = getState().auth.profile?._id
+
+  console.log(min)
 
   try {
     const res = await packAPI.getPack({
