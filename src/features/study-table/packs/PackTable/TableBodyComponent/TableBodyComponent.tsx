@@ -8,7 +8,7 @@ import editSvg from '../../../../../assets/icons/Edit.svg'
 import teacherSvg from '../../../../../assets/icons/teacher.svg'
 import { useAppDispatch } from '../../../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../../../common/hooks/useAppSelector'
-import { deletePackTC } from '../../packs-reducer'
+import { deletePackTC, editPackTC } from '../../packs-reducer'
 
 export const TableBodyComponent = () => {
   const packs = useAppSelector(state => state.packs.packs)
@@ -27,6 +27,10 @@ export const TableBodyComponent = () => {
           dispatch(deletePackTC(pack._id))
         }
 
+        const editPack = () => {
+          dispatch(editPackTC(pack._id))
+        }
+
         return (
           <TableRow key={pack._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
             <TableCell onClick={getPackId} component="th" scope="row">
@@ -39,9 +43,9 @@ export const TableBodyComponent = () => {
             <TableCell align="right">
               {isMyPack ? (
                 <div>
-                  <img src={teacherSvg} alt="teacher" />
-                  <img src={editSvg} alt="edit" />
-                  <img src={deleteSvg} alt="delete" onClick={removePack} />
+                  <img src={teacherSvg} alt="teacher" style={{ cursor: 'pointer' }} />
+                  <img src={editSvg} alt="edit" onClick={editPack} style={{ cursor: 'pointer' }} />
+                  <img src={deleteSvg} alt="delete" onClick={removePack} style={{ cursor: 'pointer' }} />
                 </div>
               ) : (
                 <img src={teacherSvg} alt="teacher" />

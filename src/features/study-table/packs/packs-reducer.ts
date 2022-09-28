@@ -37,10 +37,15 @@ export const slice = createSlice({
     addPack(state, action: PayloadAction<{ cardPacks: PackDataType }>) {
       state.packs.push({ ...action.payload.cardPacks })
     },
+    updatePack(state, action: PayloadAction<{ _id: string; name: string }>) {
+      const index = state.packs.findIndex(pack => pack._id === action.payload._id)
+
+      state.packs[index].name = action.payload.name
+    },
   },
 })
 
-export const { setPacks, setIsMyPacks, searchPacks, setValueSlider, addPack } = slice.actions
+export const { setPacks, setIsMyPacks, searchPacks, setValueSlider, addPack, updatePack } = slice.actions
 
 export const packsReducer = slice.reducer
 
@@ -119,6 +124,22 @@ export const deletePackTC =
       await packAPI.deletePack(_id)
 
       dispatch(setPacksTC())
+      dispatch(setAppStatus({ status: 'succeeded' }))
+    } catch (e) {
+      handleServerNetworkError(e, dispatch)
+    }
+  }
+
+export const editPackTC =
+  (id: string): AppThunk =>
+  async dispatch => {
+    dispatch(setAppStatus({ status: 'loading' }))
+    const newName = 'new name'
+
+    try {
+      await packAPI.updatePack(id, newName)
+
+      dispatch(updatePack({ _id: id, name: newName }))
       dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e) {
       handleServerNetworkError(e, dispatch)
