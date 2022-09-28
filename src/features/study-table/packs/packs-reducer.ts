@@ -102,9 +102,9 @@ export const addNewPackTC = (): AppThunk => async dispatch => {
   }
 
   try {
-    const res = await packAPI.addNewPack(newPack)
+    await packAPI.addNewPack(newPack)
 
-    dispatch(addPack(res.data))
+    dispatch(setPacksTC())
     dispatch(setAppStatus({ status: 'succeeded' }))
   } catch (e) {
     handleServerNetworkError(e, dispatch)
