@@ -22,6 +22,9 @@ export const packAPI = {
   addNewPack(cardsPack: newPackType) {
     return instance.post('/cards/pack', { cardsPack })
   },
+  deletePack(id: string) {
+    return instance.delete(`/cards/pack?id=${id}`)
+  },
 }
 
 // types

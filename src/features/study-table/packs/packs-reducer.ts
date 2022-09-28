@@ -110,3 +110,17 @@ export const addNewPackTC = (): AppThunk => async dispatch => {
     handleServerNetworkError(e, dispatch)
   }
 }
+
+export const deletePackTC =
+  (_id: string): AppThunk =>
+  async dispatch => {
+    dispatch(setAppStatus({ status: 'loading' }))
+    try {
+      await packAPI.deletePack(_id)
+
+      dispatch(setPacksTC())
+      dispatch(setAppStatus({ status: 'succeeded' }))
+    } catch (e) {
+      handleServerNetworkError(e, dispatch)
+    }
+  }

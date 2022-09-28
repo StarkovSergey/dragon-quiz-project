@@ -6,11 +6,14 @@ import { useNavigate } from 'react-router-dom'
 import deleteSvg from '../../../../../assets/icons/Delete.svg'
 import editSvg from '../../../../../assets/icons/Edit.svg'
 import teacherSvg from '../../../../../assets/icons/teacher.svg'
+import { useAppDispatch } from '../../../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../../../common/hooks/useAppSelector'
+import { deletePackTC } from '../../packs-reducer'
 
 export const TableBodyComponent = () => {
   const packs = useAppSelector(state => state.packs.packs)
   const isMyPack = useAppSelector(state => state.packs.isMyPacks)
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   return (
@@ -20,9 +23,13 @@ export const TableBodyComponent = () => {
           navigate(`/cards/${pack._id}`)
         }
 
+        const removePack = () => {
+          dispatch(deletePackTC(pack._id))
+        }
+
         return (
-          <TableRow onClick={getPackId} key={pack._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-            <TableCell component="th" scope="row">
+          <TableRow key={pack._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+            <TableCell onClick={getPackId} component="th" scope="row">
               {pack.name}
             </TableCell>
             <TableCell align="right">{pack.cardsCount}</TableCell>
@@ -34,7 +41,7 @@ export const TableBodyComponent = () => {
                 <div>
                   <img src={teacherSvg} alt="teacher" />
                   <img src={editSvg} alt="edit" />
-                  <img src={deleteSvg} alt="delete" onClick={() => {}} />
+                  <img src={deleteSvg} alt="delete" onClick={removePack} />
                 </div>
               ) : (
                 <img src={teacherSvg} alt="teacher" />
