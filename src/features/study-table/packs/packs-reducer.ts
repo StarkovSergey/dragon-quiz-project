@@ -34,10 +34,13 @@ export const slice = createSlice({
       state.min = action.payload.min
       state.max = action.payload.max
     },
+    addPack(state, action: PayloadAction<{ cardPacks: PackDataType }>) {
+      state.packs.push({ ...action.payload.cardPacks })
+    },
   },
 })
 
-export const { setPacks, setIsMyPacks, searchPacks, setValueSlider } = slice.actions
+export const { setPacks, setIsMyPacks, searchPacks, setValueSlider, addPack } = slice.actions
 
 export const packsReducer = slice.reducer
 
@@ -47,8 +50,6 @@ export const setPacksTC = (): AppThunk => async (dispatch, getState) => {
 
   const { pageCount, page, sort, search, isMyPacks, min, max } = getState().packs
   const userID = getState().auth.profile?._id
-
-  console.log(min)
 
   try {
     const res = await packAPI.getPack({
@@ -91,3 +92,21 @@ export const searchPacksTC =
       handleServerNetworkError(e, dispatch)
     }
   }
+
+export const addNewPckTC = (): AppThunk => async dispatch => {
+  dispatch(setAppStatus({ status: 'loading' }))
+  const newPack = {
+    name: '111',
+    deckCover: 'url or base64',
+    private: false,
+  }
+
+  try {
+    const res = await packAPI.addNewPack(newPack)
+
+    console.log(res)
+    dispatch(setAppStatus({ status: 'succeeded' }))
+  } catch (e) {
+    handleServerNetworkError(e, dispatch)
+  }
+}

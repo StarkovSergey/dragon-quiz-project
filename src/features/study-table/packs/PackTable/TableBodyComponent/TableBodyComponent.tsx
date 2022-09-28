@@ -7,6 +7,7 @@ import { useAppSelector } from '../../../../../common/hooks/useAppSelector'
 
 export const TableBodyComponent = () => {
   const packs = useAppSelector(state => state.packs.packs)
+  const packID = useAppSelector(state => state.packs.isMyPacks)
   const navigate = useNavigate()
 
   return (
@@ -24,6 +25,7 @@ export const TableBodyComponent = () => {
             <TableCell align="right">{pack.cardsCount}</TableCell>
             <TableCell align="right">{pack.updated.slice(0, 10)}</TableCell>
             <TableCell align="right">{pack.user_name}</TableCell>
+            <TableCell align="right">{packID ? 'my' : 'not my'}</TableCell>
           </TableRow>
         )
       })}

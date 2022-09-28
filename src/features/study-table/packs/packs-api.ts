@@ -19,9 +19,18 @@ export const packAPI = {
       params,
     })
   },
+  addNewPack(body: newPackType) {
+    return instance.post('/cards/pack', { cardsPack: body })
+  },
 }
 
 // types
+
+type newPackType = {
+  name: string
+  private: boolean
+}
+
 export type PackDataType = {
   _id: string
   user_id: string
