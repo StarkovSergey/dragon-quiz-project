@@ -8,5 +8,8 @@ export const theme = createTheme({
       dark: '#002e4d',
       contrastText: '#ffffff',
     },
+    text: {
+      disabled: '#b2b1b1',
+    },
   },
 })
