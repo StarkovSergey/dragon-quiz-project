@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { RangeSlider } from '../../../../../common/components/RangeSlider/Slider'
 import { useAppDispatch } from '../../../../../common/hooks/useAppDispatch'
@@ -9,6 +9,13 @@ import style from '../../packs.module.css'
 export const NumberOfCards = () => {
   const minCardsCount = useAppSelector(state => state.packs.min)
   const maxCardsCount = useAppSelector(state => state.packs.max)
+
+  console.log(minCardsCount)
+  console.log(maxCardsCount)
+
+  useEffect(() => {
+    setValue([minCardsCount, maxCardsCount])
+  }, [minCardsCount, maxCardsCount])
 
   const [value, setValue] = useState<[number, number]>([minCardsCount, maxCardsCount])
 
