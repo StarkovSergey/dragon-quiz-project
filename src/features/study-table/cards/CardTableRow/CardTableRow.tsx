@@ -2,7 +2,7 @@ import React from 'react'
 
 import DeleteIcon from '@mui/icons-material/Delete'
 import ModeEditIcon from '@mui/icons-material/ModeEdit'
-import { IconButton, TableCell, TableRow } from '@mui/material'
+import { IconButton, Rating, TableCell, TableRow } from '@mui/material'
 
 import { useAppDispatch } from '../../../../common/hooks/useAppDispatch'
 import { CardType } from '../cards-api'
@@ -38,7 +38,9 @@ export const CardTableRow = ({ packID, card, isMyPack }: PropsType) => {
       </TableCell>
       <TableCell>{card.answer}</TableCell>
       <TableCell align="right">{card.updated.slice(0, 10)}</TableCell>
-      <TableCell align="right">{card.grade}</TableCell>
+      <TableCell align="right">
+        <Rating name="read-only" value={card.grade} precision={0.5} readOnly />
+      </TableCell>
       {isMyPack && (
         <TableCell align="right">
           <IconButton onClick={updateCard}>
