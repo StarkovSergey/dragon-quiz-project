@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/dragon-quiz-project/static/css/main.586acb45.css",
-    "main.js": "/dragon-quiz-project/static/js/main.e2ae36a5.js",
+    "main.css": "/dragon-quiz-project/static/css/main.c99af3ef.css",
+    "main.js": "/dragon-quiz-project/static/js/main.89c27b88.js",
     "static/js/787.86a528bf.chunk.js": "/dragon-quiz-project/static/js/787.86a528bf.chunk.js",
     "static/media/dragon.png": "/dragon-quiz-project/static/media/dragon.4cf0316812177f7894cb.png",
     "static/media/logo--dark-theme.svg": "/dragon-quiz-project/static/media/logo--dark-theme.0cad27ebdf83415d4e3c38e2530c7540.svg",
     "static/media/mail.svg": "/dragon-quiz-project/static/media/mail.1fa902f2c80703b3e350e9f53d9373d9.svg",
     "static/media/eye.webp": "/dragon-quiz-project/static/media/eye.5d218e7e6f68a6eef3a2.webp",
-    "static/media/Delete.svg": "/dragon-quiz-project/static/media/Delete.b5aaa8a2dd55eb26b00e480a05fc7ec6.svg",
-    "static/media/Edit.svg": "/dragon-quiz-project/static/media/Edit.cb6991fe776f926f2e04531d4f278d10.svg",
-    "static/media/checked2.svg": "/dragon-quiz-project/static/media/checked2.ec916de93a7a9f7e6ac7.svg",
+    "static/media/Delete.svg": "/dragon-quiz-project/static/media/Delete.5074d598f7a8970a63dfa17b33aebe95.svg",
+    "static/media/Edit.svg": "/dragon-quiz-project/static/media/Edit.4c0f0f9d825a8fc9a3dfc815fa1cb8c1.svg",
+    "static/media/checked2.svg": "/dragon-quiz-project/static/media/checked2.b7184d2bb5ede1f01537.svg",
     "static/media/logo-mobile--dark-theme.svg": "/dragon-quiz-project/static/media/logo-mobile--dark-theme.a1a6ee084b9c94aa9eba911280e7e5b3.svg",
     "static/media/spaceship-fire.svg": "/dragon-quiz-project/static/media/spaceship-fire.735019bf79784b8049f5.svg",
     "index.html": "/dragon-quiz-project/index.html",
-    "static/media/magnifier.svg": "/dragon-quiz-project/static/media/magnifier.29a27f91b344785068f3.svg",
-    "static/media/teacher.svg": "/dragon-quiz-project/static/media/teacher.98ddc8f9376c79b05bb474310295b927.svg",
-    "static/media/star.svg": "/dragon-quiz-project/static/media/star.344f6a0b642662ddca28.svg",
-    "main.586acb45.css.map": "/dragon-quiz-project/static/css/main.586acb45.css.map",
-    "main.e2ae36a5.js.map": "/dragon-quiz-project/static/js/main.e2ae36a5.js.map",
+    "static/media/magnifier.svg": "/dragon-quiz-project/static/media/magnifier.cb1eaa478836e27a98d4.svg",
+    "static/media/teacher.svg": "/dragon-quiz-project/static/media/teacher.61316ef9f9bb14acdf57faf399645aeb.svg",
+    "static/media/star.svg": "/dragon-quiz-project/static/media/star.8ced2c99262f577fe9b8.svg",
+    "main.c99af3ef.css.map": "/dragon-quiz-project/static/css/main.c99af3ef.css.map",
+    "main.89c27b88.js.map": "/dragon-quiz-project/static/js/main.89c27b88.js.map",
     "787.86a528bf.chunk.js.map": "/dragon-quiz-project/static/js/787.86a528bf.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.586acb45.css",
-    "static/js/main.e2ae36a5.js"
+    "static/css/main.c99af3ef.css",
+    "static/js/main.89c27b88.js"
   ]
 }
