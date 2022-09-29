@@ -143,7 +143,12 @@ export const editPackTC =
     try {
       await packAPI.updatePack(id, newName)
 
-      dispatch(updatePack({ _id: id, name: newName }))
+      dispatch(
+        updatePack({
+          _id: id,
+          name: newName,
+        })
+      )
       dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e) {
       handleServerNetworkError(e, dispatch)
