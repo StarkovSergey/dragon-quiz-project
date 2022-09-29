@@ -4,7 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import ModeEditIcon from '@mui/icons-material/ModeEdit'
 import { IconButton, Rating, TableCell, TableRow } from '@mui/material'
 
-import { useAppDispatch } from '../../../../common/hooks/useAppDispatch'
+import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { CardType } from '../cards-api'
 import { deleteCardTC, updateCardTC } from '../cards-reducer'
 

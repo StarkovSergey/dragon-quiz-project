@@ -1,0 +1,51 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 10px 0;
+}
+
+.table {
+  min-width: 650px;
+}
+
+.table-header {
+  background-color: var(--color-brand-light);
+}
+
+.sorting-header-cell {
+  cursor: pointer;
+
+  width: 140px;
+
+  text-align: center;
+
+  transition: background-color 200ms;
+}
+
+.sorting-header-cell:hover {
+  background-color: var(--color-brand);
+}
+
+.sorting-cell {
+  width: 140px;
+
+  text-align: center;
+}
+
+.created-cell {
+  width: 220px;
+}
+
+.actions-cell {
+  width: 180px;
+}
+
+.cards-cell {
+  width: 100px;
+}
+
+.pagination {
+  padding: 20px 0;
+}

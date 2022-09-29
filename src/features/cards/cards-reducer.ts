@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { setAppStatus } from '../../../app/app-reducer'
-import { AppThunk } from '../../../app/store'
-import { handleServerNetworkError } from '../../../common/utils/handleNetworkError'
+import { setAppStatus } from '../../app/app-reducer'
+import { AppThunk } from '../../app/store'
+import { handleServerNetworkError } from '../../common/utils/handleNetworkError'
 import { SortType } from '../packs/packs-api'
 
 import { CardModelType, cardsAPI, CardType, UpdateCardModelType } from './cards-api'

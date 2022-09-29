@@ -6,8 +6,9 @@ import SchoolIcon from '@mui/icons-material/School'
 import { IconButton, TableBody, TableCell, TableRow } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
-import { useAppDispatch } from '../../../../../common/hooks/useAppDispatch'
-import { useAppSelector } from '../../../../../common/hooks/useAppSelector'
+import { useAppDispatch } from '../../../../common/hooks/useAppDispatch'
+import { useAppSelector } from '../../../../common/hooks/useAppSelector'
+import tableStyle from '../../../../styles/study-table.module.css'
 import { deletePackTC, editPackTC } from '../../packs-reducer'
 import style from '../../packs.module.css'
 
@@ -41,9 +42,14 @@ export const TableBodyComponent = () => {
             <TableCell onClick={getPackId} component="th" scope="row">
               {pack.name}
             </TableCell>
-            <TableCell align="right">{pack.cardsCount}</TableCell>
-            <TableCell align="right">{pack.updated.slice(0, 10)}</TableCell>
-            <TableCell align="right">{pack.user_name}</TableCell>
+
+            <TableCell align="center">{pack.cardsCount}</TableCell>
+            <TableCell align="center" className={tableStyle['sorting-cell']}>
+              {pack.updated.slice(0, 10)}
+            </TableCell>
+            <TableCell align="right" className={tableStyle['created-cell']}>
+              {pack.user_name}
+            </TableCell>
 
             <TableCell align="right">
               {userID === pack.user_id ? (

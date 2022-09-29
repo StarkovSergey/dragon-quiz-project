@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { setAppStatus } from '../../../app/app-reducer'
-import { AppThunk } from '../../../app/store'
-import { handleServerNetworkError } from '../../../common/utils/handleNetworkError'
+import { setAppStatus } from '../../app/app-reducer'
+import { AppThunk } from '../../app/store'
+import { handleServerNetworkError } from '../../common/utils/handleNetworkError'
 
 import { packAPI, PackDataType, SortType } from './packs-api'
 
@@ -46,10 +46,21 @@ export const slice = createSlice({
     setCardPacksTotalCount(state, action: PayloadAction<{ cardPacksTotalCount: number }>) {
       state.cardPacksTotalCount = action.payload.cardPacksTotalCount
     },
+    changeSortPack(state, action: PayloadAction<{ sort: SortType }>) {
+      state.sort = action.payload.sort
+    },
   },
 })
-export const { setPacks, setIsMyPacks, searchPacks, setCardsCount, updatePack, setCardPacksTotalCount, changePage } =
-  slice.actions
+export const {
+  setPacks,
+  setIsMyPacks,
+  searchPacks,
+  setCardsCount,
+  updatePack,
+  setCardPacksTotalCount,
+  changePage,
+  changeSortPack,
+} = slice.actions
 
 export const packsReducer = slice.reducer
 
@@ -168,5 +179,12 @@ export const changePageTC =
   (page: number): AppThunk =>
   async dispatch => {
     dispatch(changePage({ page }))
+    dispatch(setPacksTC())
+  }
+
+export const changeSortPackTC =
+  (sort: SortType): AppThunk =>
+  async dispatch => {
+    dispatch(changeSortPack({ sort }))
     dispatch(setPacksTC())
   }

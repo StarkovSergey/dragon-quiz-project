@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Paper, Table, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 
-import tableStyles from '../../study-table.module.css'
+import tableStyles from '../../../styles/study-table.module.css'
 import { PackPagination } from '../PackPagination/PackPagination'
 
 import { TableBodyComponent } from './TableBodyComponent/TableBodyComponent'

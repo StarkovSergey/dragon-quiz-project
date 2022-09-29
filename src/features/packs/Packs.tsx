@@ -2,9 +2,9 @@ import { useEffect } from 'react'
 
 import { Navigate } from 'react-router-dom'
 
-import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
-import { useAppSelector } from '../../../common/hooks/useAppSelector'
-import { Paths } from '../../../common/routes'
+import { useAppDispatch } from '../../common/hooks/useAppDispatch'
+import { useAppSelector } from '../../common/hooks/useAppSelector'
+import { Paths } from '../../common/routes'
 
 import { setPacksTC } from './packs-reducer'
 import { PackSettings } from './PackSettings/PackSettings'

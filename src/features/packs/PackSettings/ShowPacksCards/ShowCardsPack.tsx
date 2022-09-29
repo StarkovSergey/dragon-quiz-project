@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { Button } from '../../../../../common/components/Button/Button'
-import { useAppDispatch } from '../../../../../common/hooks/useAppDispatch'
+import { Button } from '../../../../common/components/Button/Button'
+import { useAppDispatch } from '../../../../common/hooks/useAppDispatch'
 import { setIsMyPacksTC } from '../../packs-reducer'
 import style from '../../packs.module.css'
 
