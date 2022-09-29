@@ -37,7 +37,7 @@ export const CardTableRow = ({ packID, card, isMyPack }: PropsType) => {
         {card.question}
       </TableCell>
       <TableCell>{card.answer}</TableCell>
-      <TableCell align="right">{card.updated}</TableCell>
+      <TableCell align="right">{card.updated.slice(0, 10)}</TableCell>
       <TableCell align="right">{card.grade}</TableCell>
       {isMyPack && (
         <TableCell align="right">

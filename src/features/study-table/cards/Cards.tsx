@@ -19,6 +19,7 @@ export const Cards = () => {
   const cards = useAppSelector(state => state.cards)
   const isMyPack = useAppSelector(state => state.cards.isMyPack)
   const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
+  const searchText = useAppSelector(state => state.cards.search)
 
   const { packID } = useParams()
   const pack = useAppSelector(state => state.packs.packs.find(pack => pack._id === packID))
@@ -38,6 +39,18 @@ export const Cards = () => {
     dispatch(searchCardsTC(packID!, text))
   }
 
+  let emptyText = ''
+
+  if (searchText !== '') {
+    emptyText = 'Nothing is found'
+  } else {
+    if (isMyPack) {
+      emptyText = 'This pack is empty. Click add new card to fill this pack'
+    } else {
+      emptyText = 'This pack is empty. Click back to Packs list'
+    }
+  }
+
   return (
     <div>
       <BackLink to="/" linkText="Back to Packs List" />
@@ -51,9 +64,9 @@ export const Cards = () => {
           <Button>Learn to pack</Button>
         )}
       </div>
+      {(searchText || cardsTotalCount !== 0) && <SearchBar search={searchCard} />}
       {cardsTotalCount !== 0 ? (
         <>
-          <SearchBar search={searchCard} />
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
               <TableHead
@@ -78,11 +91,7 @@ export const Cards = () => {
           </TableContainer>
         </>
       ) : (
-        <p className="text">
-          {isMyPack
-            ? 'This pack is empty. Click add new card to fill this pack'
-            : 'This pack is empty. Click back to Packs list'}
-        </p>
+        <p className="text">{emptyText}</p>
       )}
     </div>
   )
