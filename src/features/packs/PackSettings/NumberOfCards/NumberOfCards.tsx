@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { RangeSlider } from '../../../../common/components/RangeSlider/Slider'
 import { useAppDispatch } from '../../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../../common/hooks/useAppSelector'
 import { useDebounce } from '../../../../common/hooks/useDebounce'
 import { setPacksTC } from '../../packs-reducer'
-import style from '../../packs.module.css'
+
+import style from './../../packs.module.css'
 
 export const NumberOfCards = () => {
   const minCardsCount = useAppSelector(state => state.packs.min)
@@ -23,7 +24,14 @@ export const NumberOfCards = () => {
     setSecondValue(value[1])
   }
 
+  const firstRender = useRef(true)
+
   useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false
+
+      return
+    }
     dispatch(setPacksTC(debouncedMin, debouncedMax))
   }, [debouncedMin, debouncedMax])
 
