@@ -14,7 +14,7 @@ const initialState = {
   pageCount: 10,
   page: 1,
   min: 0,
-  max: 100,
+  max: 50,
 }
 
 export const slice = createSlice({
@@ -30,8 +30,10 @@ export const slice = createSlice({
     searchPacks(state, action: PayloadAction<{ search: string }>) {
       state.search = action.payload.search
     },
-    setValueSlider(state, action: PayloadAction<{ min: number; max: number }>) {
+    setMinCardsCount(state, action: PayloadAction<{ min: number }>) {
       state.min = action.payload.min
+    },
+    setMaxCardsCount(state, action: PayloadAction<{ max: number }>) {
       state.max = action.payload.max
     },
     addPack(state, action: PayloadAction<{ cardPacks: PackDataType }>) {
@@ -45,7 +47,8 @@ export const slice = createSlice({
   },
 })
 
-export const { setPacks, setIsMyPacks, searchPacks, setValueSlider, addPack, updatePack } = slice.actions
+export const { setPacks, setIsMyPacks, searchPacks, setMinCardsCount, setMaxCardsCount, addPack, updatePack } =
+  slice.actions
 
 export const packsReducer = slice.reducer
 
@@ -69,7 +72,8 @@ export const setPacksTC = (): AppThunk => async (dispatch, getState) => {
     })
 
     dispatch(setPacks(res.data))
-
+    dispatch(setMinCardsCount({ min: res.data.minCardsCount }))
+    dispatch(setMaxCardsCount({ max: res.data.maxCardsCount }))
     dispatch(setAppStatus({ status: 'succeeded' }))
   } catch (e) {
     handleServerNetworkError(e, dispatch)
