@@ -5,6 +5,7 @@ import { AppThunk } from '../../../app/store'
 import { handleServerNetworkError } from '../../../common/utils/handleNetworkError'
 
 import { packAPI, PackDataType, sortType } from './packs-api'
+export type StatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
 const initialState = {
   packs: [] as PackDataType[],
@@ -15,6 +16,7 @@ const initialState = {
   page: 1,
   min: 0,
   max: 100,
+  entity: 'idle' as StatusType,
 }
 
 export const slice = createSlice({
@@ -42,10 +44,13 @@ export const slice = createSlice({
 
       state.packs[index].name = action.payload.name
     },
+    entityStatus(state, action: PayloadAction<{ entity: StatusType }>) {
+      state.entity = action.payload.entity
+    },
   },
 })
 
-export const { setPacks, setIsMyPacks, searchPacks, setCardsCount, addPack, updatePack } = slice.actions
+export const { setPacks, setIsMyPacks, searchPacks, setCardsCount, addPack, updatePack, entityStatus } = slice.actions
 
 export const packsReducer = slice.reducer
 
@@ -125,11 +130,13 @@ export const deletePackTC =
   (_id: string): AppThunk =>
   async dispatch => {
     dispatch(setAppStatus({ status: 'loading' }))
+    dispatch(entityStatus({ entity: 'loading' }))
     try {
       await packAPI.deletePack(_id)
 
       dispatch(setPacksTC())
       dispatch(setAppStatus({ status: 'succeeded' }))
+      dispatch(entityStatus({ entity: 'succeeded' }))
     } catch (e) {
       handleServerNetworkError(e, dispatch)
     }

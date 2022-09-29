@@ -13,6 +13,8 @@ import { deletePackTC, editPackTC } from '../../packs-reducer'
 export const TableBodyComponent = () => {
   const packs = useAppSelector(state => state.packs.packs)
   const userID = useAppSelector(state => state.auth.profile?._id)
+  const entityStatus = useAppSelector(state => state.packs.entity)
+
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -43,18 +45,18 @@ export const TableBodyComponent = () => {
             <TableCell align="right">
               {userID === pack.user_id ? (
                 <div>
-                  <IconButton>
+                  <IconButton disabled={pack.cardsCount === 0}>
                     <SchoolIcon />
                   </IconButton>
                   <IconButton onClick={editPack}>
                     <ModeEditIcon />
                   </IconButton>
-                  <IconButton onClick={removePack}>
+                  <IconButton disabled={entityStatus === 'loading'} onClick={removePack}>
                     <DeleteIcon />
                   </IconButton>
                 </div>
               ) : (
-                <IconButton>
+                <IconButton disabled={pack.cardsCount === 0}>
                   <SchoolIcon />
                 </IconButton>
               )}
