@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { setAppStatus } from '../../../app/app-reducer'
 import { AppThunk } from '../../../app/store'
 import { handleServerNetworkError } from '../../../common/utils/handleNetworkError'
+import { SortType } from '../packs/packs-api'
 
 import { CardModelType, cardsAPI, CardType, UpdateCardModelType } from './cards-api'
 
@@ -13,7 +14,7 @@ const initialState = {
   search: '',
   min: 0,
   max: 5,
-  sortCards: '0created',
+  sortCards: '0updated' as SortType,
   page: 1,
   pageCount: 8,
   cardsTotalCount: 0,

@@ -26,7 +26,12 @@ export const packAPI = {
     return instance.delete(`/cards/pack?id=${id}`)
   },
   updatePack(id: string, title: string) {
-    return instance.put('/cards/pack', { cardsPack: { _id: id, name: title } })
+    return instance.put('/cards/pack', {
+      cardsPack: {
+        _id: id,
+        name: title,
+      },
+    })
   },
 }
 
@@ -61,7 +66,7 @@ export type ResponsePackType = {
 export type GetPackParamsType = {
   pageCount?: number
   page?: number
-  sort?: sortType
+  sort?: SortType
   search?: string
   min?: number
   max?: number
@@ -69,4 +74,4 @@ export type GetPackParamsType = {
   isMyPacks?: boolean
 }
 
-export type sortType = '0updated' | '1updated' | '0created' | '1created'
+export type SortType = '0updated' | '1updated' | '0created' | '1created'

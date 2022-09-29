@@ -4,12 +4,12 @@ import { setAppStatus } from '../../../app/app-reducer'
 import { AppThunk } from '../../../app/store'
 import { handleServerNetworkError } from '../../../common/utils/handleNetworkError'
 
-import { packAPI, PackDataType, sortType } from './packs-api'
+import { packAPI, PackDataType, SortType } from './packs-api'
 
 const initialState = {
   packs: [] as PackDataType[],
   isMyPacks: false,
-  sort: '0updated' as sortType,
+  sort: '0updated' as SortType,
   search: '',
   pageCount: 8,
   page: 1,
