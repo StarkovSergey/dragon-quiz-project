@@ -14,7 +14,7 @@ const initialState = {
   pageCount: 10,
   page: 1,
   min: 0,
-  max: 50,
+  max: 100,
 }
 
 export const slice = createSlice({
@@ -30,10 +30,8 @@ export const slice = createSlice({
     searchPacks(state, action: PayloadAction<{ search: string }>) {
       state.search = action.payload.search
     },
-    setMinCardsCount(state, action: PayloadAction<{ min: number }>) {
+    setCardsCount(state, action: PayloadAction<{ min: number; max: number }>) {
       state.min = action.payload.min
-    },
-    setMaxCardsCount(state, action: PayloadAction<{ max: number }>) {
       state.max = action.payload.max
     },
     addPack(state, action: PayloadAction<{ cardPacks: PackDataType }>) {
@@ -47,38 +45,41 @@ export const slice = createSlice({
   },
 })
 
-export const { setPacks, setIsMyPacks, searchPacks, setMinCardsCount, setMaxCardsCount, addPack, updatePack } =
-  slice.actions
+export const { setPacks, setIsMyPacks, searchPacks, setCardsCount, addPack, updatePack } = slice.actions
 
 export const packsReducer = slice.reducer
 
 // thunk
-export const setPacksTC = (): AppThunk => async (dispatch, getState) => {
-  dispatch(setAppStatus({ status: 'loading' }))
+export const setPacksTC =
+  (minValue?: number, maxValue?: number): AppThunk =>
+  async (dispatch, getState) => {
+    dispatch(setAppStatus({ status: 'loading' }))
 
-  const { pageCount, page, sort, search, isMyPacks, min, max } = getState().packs
-  const userID = getState().auth.profile?._id
+    const { pageCount, page, sort, search, isMyPacks, min, max } = getState().packs
+    const userID = getState().auth.profile?._id
 
-  try {
-    const res = await packAPI.getPack({
-      pageCount,
-      page,
-      sort,
-      search,
-      isMyPacks,
-      min,
-      max,
-      userID,
-    })
+    try {
+      const res = await packAPI.getPack({
+        pageCount,
+        page,
+        sort,
+        search,
+        isMyPacks,
+        min: minValue ? minValue : min,
+        max: maxValue ? maxValue : max,
+        userID,
+      })
 
-    dispatch(setPacks(res.data))
-    dispatch(setMinCardsCount({ min: res.data.minCardsCount }))
-    dispatch(setMaxCardsCount({ max: res.data.maxCardsCount }))
-    dispatch(setAppStatus({ status: 'succeeded' }))
-  } catch (e) {
-    handleServerNetworkError(e, dispatch)
+      dispatch(setCardsCount({ min: res.data.minCardsCount, max: res.data.maxCardsCount }))
+      console.log('reducer', res)
+      console.log('reducer', res.data.maxCardsCount)
+
+      dispatch(setPacks(res.data))
+      dispatch(setAppStatus({ status: 'succeeded' }))
+    } catch (e) {
+      handleServerNetworkError(e, dispatch)
+    }
   }
-}
 
 export const setIsMyPacksTC =
   (isMyPacks: boolean): AppThunk =>

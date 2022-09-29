@@ -3,32 +3,46 @@ import React, { useEffect, useState } from 'react'
 import { RangeSlider } from '../../../../../common/components/RangeSlider/Slider'
 import { useAppDispatch } from '../../../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../../../common/hooks/useAppSelector'
-import { setMaxCardsCount, setMinCardsCount } from '../../packs-reducer'
+import { useDebounce } from '../../../../../common/hooks/useDebounce'
+import { setPacksTC } from '../../packs-reducer'
 import style from '../../packs.module.css'
 
 export const NumberOfCards = () => {
   const minCardsCount = useAppSelector(state => state.packs.min)
   const maxCardsCount = useAppSelector(state => state.packs.max)
-  const [value, setValue] = useState<[number, number]>([minCardsCount, maxCardsCount])
+  const [defaultValue, setDefaultValue] = useState<[number, number]>([minCardsCount, maxCardsCount])
+  const [firstValue, setFirstValue] = useState(0)
+  const [secondValue, setSecondValue] = useState(50)
   const dispatch = useAppDispatch()
 
-  useEffect(() => {
-    setValue([minCardsCount, maxCardsCount])
-  }, [minCardsCount, maxCardsCount])
+  const debouncedMin = useDebounce(firstValue, 500)
+  const debouncedMax = useDebounce(secondValue, 500)
 
   const onChangeValueDoubleRange = (value: [number, number]) => {
-    setValue(value)
-    dispatch(setMinCardsCount({ min: value[0] }))
-    dispatch(setMaxCardsCount({ max: value[1] }))
+    setFirstValue(value[0])
+    setSecondValue(value[1])
   }
+
+  useEffect(() => {
+    dispatch(setPacksTC(debouncedMin, debouncedMax))
+  }, [debouncedMin, debouncedMax])
+
+  useEffect(() => {
+    setDefaultValue([minCardsCount, maxCardsCount])
+  }, [minCardsCount, maxCardsCount])
 
   return (
     <div className={style['slider-box']}>
       <p className={style.label}>Number of cards</p>
       <div className={style.slider}>
-        <span>{value[0]}</span>
-        <RangeSlider value={value} setValue={onChangeValueDoubleRange} />
-        <span>{value[1]}</span>
+        <span>{firstValue}</span>
+        <RangeSlider
+          defaultValue={defaultValue}
+          firstValue={firstValue}
+          secondValue={secondValue}
+          setValue={onChangeValueDoubleRange}
+        />
+        <span>{secondValue}</span>
       </div>
     </div>
   )
