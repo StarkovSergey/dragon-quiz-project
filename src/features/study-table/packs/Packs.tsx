@@ -18,6 +18,8 @@ export const Packs = () => {
   const max = useAppSelector(state => state.packs.max)
   const debounceMin = useDebounce<number>(min, 500)
   const debounceMax = useDebounce<number>(max, 500)
+  const searchText = useAppSelector(state => state.packs.search)
+  const packs = useAppSelector(state => state.packs.packs)
 
   useEffect(() => {
     dispatch(setPacksTC())
@@ -30,7 +32,7 @@ export const Packs = () => {
   return (
     <div>
       <PackSettings />
-      <PackTable />
+      {searchText !== '' && packs.length === 0 ? <p className="text">Nothing is found</p> : <PackTable />}
     </div>
   )
 }
