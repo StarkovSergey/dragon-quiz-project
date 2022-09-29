@@ -12,7 +12,7 @@ import { deletePackTC, editPackTC } from '../../packs-reducer'
 
 export const TableBodyComponent = () => {
   const packs = useAppSelector(state => state.packs.packs)
-  const isMyPack = useAppSelector(state => state.packs.isMyPacks)
+  const userID = useAppSelector(state => state.auth.profile?._id)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -41,7 +41,7 @@ export const TableBodyComponent = () => {
             <TableCell align="right">{pack.user_name}</TableCell>
 
             <TableCell align="right">
-              {isMyPack ? (
+              {userID === pack.user_id ? (
                 <div>
                   <IconButton>
                     <SchoolIcon />

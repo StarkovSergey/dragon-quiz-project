@@ -9,17 +9,12 @@ import style from '../../packs.module.css'
 export const NumberOfCards = () => {
   const minCardsCount = useAppSelector(state => state.packs.min)
   const maxCardsCount = useAppSelector(state => state.packs.max)
-
-  console.log(minCardsCount)
-  console.log(maxCardsCount)
+  const [value, setValue] = useState<[number, number]>([minCardsCount, maxCardsCount])
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     setValue([minCardsCount, maxCardsCount])
   }, [minCardsCount, maxCardsCount])
-
-  const [value, setValue] = useState<[number, number]>([minCardsCount, maxCardsCount])
-
-  const dispatch = useAppDispatch()
 
   const onChangeValueDoubleRange = (value: [number, number]) => {
     setValue(value)
