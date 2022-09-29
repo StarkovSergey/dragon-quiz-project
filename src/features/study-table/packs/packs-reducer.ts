@@ -48,16 +48,8 @@ export const slice = createSlice({
     },
   },
 })
-
-export const {
-  setPacks,
-  setIsMyPacks,
-  searchPacks,
-  updatePack,
-  changePage,
-  setCardPacksTotalCount,
-} = slice.actions
-export const { setPacks, setIsMyPacks, searchPacks, setCardsCount, addPack, updatePack } = slice.actions
+export const { setPacks, setIsMyPacks, searchPacks, setCardsCount, updatePack, setCardPacksTotalCount, changePage } =
+  slice.actions
 
 export const packsReducer = slice.reducer
 
@@ -82,9 +74,12 @@ export const setPacksTC =
         userID,
       })
 
-      dispatch(setCardsCount({ min: res.data.minCardsCount, max: res.data.maxCardsCount }))
-      console.log('reducer', res)
-      console.log('reducer', res.data.maxCardsCount)
+      dispatch(
+        setCardsCount({
+          min: res.data.minCardsCount,
+          max: res.data.maxCardsCount,
+        })
+      )
 
       dispatch(setPacks(res.data))
       dispatch(setCardPacksTotalCount({ cardPacksTotalCount: res.data.cardPacksTotalCount }))
@@ -119,7 +114,7 @@ export const searchPacksTC =
 export const addNewPackTC = (): AppThunk => async dispatch => {
   dispatch(setAppStatus({ status: 'loading' }))
   const newPack = {
-    name: '222',
+    name: 'dragon pack',
     deckCover: 'url or base64',
     private: false,
   }
@@ -167,4 +162,11 @@ export const editPackTC =
     } catch (e) {
       handleServerNetworkError(e, dispatch)
     }
+  }
+
+export const changePageTC =
+  (page: number): AppThunk =>
+  async dispatch => {
+    dispatch(changePage({ page }))
+    dispatch(setPacksTC())
   }

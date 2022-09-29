@@ -11,6 +11,7 @@ import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { setPacksTC } from '../packs/packs-reducer'
 import tableStyles from '../study-table.module.css'
 
+import { CardPagination } from './CardPagination/CardPagination'
 import { createCardTC, searchCardsTC, setCardsTC } from './cards-reducer'
 import style from './Cards.module.css'
 import { CardTableRow } from './CardTableRow/CardTableRow'
@@ -86,6 +87,7 @@ export const Cards = () => {
               </TableBody>
             </Table>
           </TableContainer>
+          <CardPagination packID={packID!} />
         </>
       ) : (
         <p className="text">{emptyText}</p>

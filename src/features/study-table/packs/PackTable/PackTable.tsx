@@ -1,12 +1,9 @@
 import React from 'react'
 
-import { Pagination, Paper, Table, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
+import { Paper, Table, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 
-import { useAppDispatch } from '../../../../common/hooks/useAppDispatch'
-import { useAppSelector } from '../../../../common/hooks/useAppSelector'
 import tableStyles from '../../study-table.module.css'
 import { PackPagination } from '../PackPagination/PackPagination'
-import { changePageTC } from '../packs-reducer'
 
 import { TableBodyComponent } from './TableBodyComponent/TableBodyComponent'
 

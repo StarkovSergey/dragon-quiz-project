@@ -15,7 +15,7 @@ const initialState = {
   max: 5,
   sortCards: '0created',
   page: 1,
-  pageCount: 10,
+  pageCount: 8,
   cardsTotalCount: 0,
 }
 
@@ -38,12 +38,15 @@ export const slice = createSlice({
     changeCardsTotalCount(state, action: PayloadAction<{ cardsTotalCount: number }>) {
       state.cardsTotalCount = action.payload.cardsTotalCount
     },
+    changeCardPage(state, action: PayloadAction<{ page: number }>) {
+      state.page = action.payload.page
+    },
   },
 })
 
 export const cardsReducer = slice.reducer
 
-export const { setCards, setPackID, setIsMyPack, searchCards, changeCardsTotalCount } = slice.actions
+export const { setCards, setPackID, setIsMyPack, searchCards, changeCardsTotalCount, changeCardPage } = slice.actions
 
 // thunks
 export const setCardsTC =
@@ -131,4 +134,11 @@ export const searchCardsTC =
     } catch (e) {
       handleServerNetworkError(e, dispatch)
     }
+  }
+
+export const changeCardPageTC =
+  (packID: string, page: number): AppThunk =>
+  async dispatch => {
+    dispatch(changeCardPage({ page }))
+    dispatch(setCardsTC(packID))
   }
