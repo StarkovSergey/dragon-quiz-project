@@ -1,14 +1,5 @@
-.packList{
+.settings {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-}
-
-.settings{
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 50px;
-}
-
-.sliderBlock{
-    display: flex;
 }

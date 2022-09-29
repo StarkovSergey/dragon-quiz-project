@@ -55,7 +55,7 @@ export const Cards = () => {
   return (
     <div>
       <BackLink to="/" linkText="Back to Packs List" />
-      <div className={style.header}>
+      <div className={tableStyles.header}>
         <h1 className={style.title}>{pack?.name}</h1>
         {isMyPack ? (
           <Button onClick={addNewCard} art>

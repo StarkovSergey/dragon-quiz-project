@@ -2,11 +2,13 @@ import React from 'react'
 
 import { Button } from '../../../../common/components/Button/Button'
 import { SearchBar } from '../../../../common/components/SearchBar/SearchBar'
-import { ShowCardsPack } from '../../../../common/components/ShowPacksCards/ShowCardsPack'
 import { useAppDispatch } from '../../../../common/hooks/useAppDispatch'
-import { NumberOfCards } from '../NumberOfCards/NumberOfCards'
+import tableStyles from '../../study-table.module.css'
 import { addNewPackTC, searchPacksTC } from '../packs-reducer'
-import style from '../packs.module.css'
+import styles from '../packs.module.css'
+
+import { NumberOfCards } from './NumberOfCards/NumberOfCards'
+import { ShowCardsPack } from './ShowPacksCards/ShowCardsPack'
 
 export const PackSettings = () => {
   const dispatch = useAppDispatch()
@@ -21,11 +23,13 @@ export const PackSettings = () => {
 
   return (
     <div>
-      <div className={style.packList}>
+      <div className={tableStyles.header}>
         <h2>Pack list</h2>
-        <Button onClick={addNewPack}>Add new pack</Button>
+        <Button onClick={addNewPack} art>
+          Add new pack
+        </Button>
       </div>
-      <div className={style.settings}>
+      <div className={styles.settings}>
         <SearchBar search={searchPack} />
         <ShowCardsPack />
         <NumberOfCards />

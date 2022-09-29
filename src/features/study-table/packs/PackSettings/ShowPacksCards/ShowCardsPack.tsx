@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { setIsMyPacksTC } from '../../../features/study-table/packs/packs-reducer'
-import { useAppDispatch } from '../../hooks/useAppDispatch'
-import { Button } from '../Button/Button'
+import { Button } from '../../../../../common/components/Button/Button'
+import { useAppDispatch } from '../../../../../common/hooks/useAppDispatch'
+import { setIsMyPacksTC } from '../../packs-reducer'
 
 export const ShowCardsPack = () => {
   const dispatch = useAppDispatch()
