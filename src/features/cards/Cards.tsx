@@ -12,7 +12,7 @@ import tableStyles from '../../styles/study-table.module.css'
 import { setPacksTC } from '../packs/packs-reducer'
 
 import { CardPagination } from './CardPagination/CardPagination'
-import { createCardTC, searchCardsTC, setCardsTC } from './cards-reducer'
+import { createCardTC, searchCardsTC, setCardsTC, setPackID } from './cards-reducer'
 import style from './Cards.module.css'
 import { CardTableHead } from './CardTableHead/CardTableHead'
 import { CardTableRow } from './CardTableRow/CardTableRow'
@@ -31,7 +31,8 @@ export const Cards = () => {
     if (!pack) {
       dispatch(setPacksTC())
     }
-    dispatch(setCardsTC(packID!))
+    if (packID) dispatch(setPackID({ packID }))
+    dispatch(setCardsTC())
   }, [])
 
   const addNewCard = () => {
@@ -39,7 +40,7 @@ export const Cards = () => {
   }
 
   const searchCard = (text: string) => {
-    dispatch(searchCardsTC(packID!, text))
+    dispatch(searchCardsTC(text))
   }
 
   let emptyText = ''

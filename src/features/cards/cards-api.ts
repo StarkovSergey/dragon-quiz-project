@@ -2,8 +2,6 @@ import { instance } from '../../common/instance/instance'
 
 export const cardsAPI = {
   getCards(cardsPackID: string, params: GetCardsParamsType) {
-    console.log(params)
-
     return instance.get<getCardsResponseType>(`cards/card`, {
       params: {
         cardsPack_id: cardsPackID,

@@ -22,7 +22,7 @@ export const CardTableHead = ({ packID }: PropsType) => {
   const tableSortCellName = getTableSortCellName(sorting)
 
   const sortTableCellHandler = (sorting: SortType) => {
-    dispatch(changeSortCardTC(packID, toggleSorting(sorting)))
+    dispatch(changeSortCardTC(toggleSorting(sorting)))
   }
 
   return (

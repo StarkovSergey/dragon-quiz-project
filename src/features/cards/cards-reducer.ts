@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { setAppStatus } from '../../app/app-reducer'
+import { RequestStatusType, setAppStatus } from '../../app/app-reducer'
 import { AppThunk } from '../../app/store'
 import { handleServerNetworkError } from '../../common/utils/handleNetworkError'
 import { SortType } from '../packs/packs-api'
@@ -8,7 +8,7 @@ import { SortType } from '../packs/packs-api'
 import { CardModelType, cardsAPI, CardType, UpdateCardModelType } from './cards-api'
 
 const initialState = {
-  cards: [] as CardType[],
+  cards: [] as CardDomainType[],
   packID: null as null | string,
   isMyPack: false,
   search: '',
@@ -25,7 +25,10 @@ export const slice = createSlice({
   initialState,
   reducers: {
     setCards(state, action: PayloadAction<{ cards: CardType[] }>) {
-      state.cards = action.payload.cards
+      state.cards = action.payload.cards.map(card => ({
+        ...card,
+        status: 'idle',
+      }))
     },
     setPackID(state, action: PayloadAction<{ packID: string }>) {
       state.packID = action.payload.packID
@@ -54,47 +57,45 @@ export const { setCards, setPackID, setIsMyPack, searchCards, changeCardsTotalCo
   slice.actions
 
 // thunks
-export const setCardsTC =
-  (packID: string): AppThunk =>
-  async (dispatch, getState) => {
-    dispatch(setAppStatus({ status: 'loading' }))
-    const { search, sortCards, max, min, page, pageCount } = getState().cards
+export const setCardsTC = (): AppThunk => async (dispatch, getState) => {
+  dispatch(setAppStatus({ status: 'loading' }))
+  const { search, sortCards, max, min, page, pageCount, packID } = getState().cards
 
-    try {
-      const res = await cardsAPI.getCards(packID!, {
-        search,
-        sortCards,
-        max,
-        min,
-        page,
-        pageCount,
-      })
-      const userID = getState().auth.profile?._id
+  try {
+    const res = await cardsAPI.getCards(packID!, {
+      search,
+      sortCards,
+      max,
+      min,
+      page,
+      pageCount,
+    })
+    const userID = getState().auth.profile?._id
 
-      const isMyPack = res.data.packUserId === userID
+    const isMyPack = res.data.packUserId === userID
 
-      dispatch(setCards({ cards: res.data.cards }))
-      dispatch(changeCardsTotalCount({ cardsTotalCount: res.data.cardsTotalCount }))
+    dispatch(setCards({ cards: res.data.cards }))
+    dispatch(changeCardsTotalCount({ cardsTotalCount: res.data.cardsTotalCount }))
 
-      if (packID) {
-        dispatch(setPackID({ packID }))
-      }
-      dispatch(setIsMyPack({ isMyPack }))
-
-      dispatch(setAppStatus({ status: 'succeeded' }))
-    } catch (e) {
-      handleServerNetworkError(e, dispatch)
+    if (packID) {
+      dispatch(setPackID({ packID }))
     }
+    dispatch(setIsMyPack({ isMyPack }))
+
+    dispatch(setAppStatus({ status: 'succeeded' }))
+  } catch (e) {
+    handleServerNetworkError(e, dispatch)
   }
+}
 
 export const updateCardTC =
-  (packID: string, cardModel: UpdateCardModelType): AppThunk =>
+  (cardModel: UpdateCardModelType): AppThunk =>
   async dispatch => {
     dispatch(setAppStatus({ status: 'loading' }))
     try {
       await cardsAPI.updateCard(cardModel)
 
-      dispatch(setCardsTC(packID))
+      dispatch(setCardsTC())
       dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e) {
       handleServerNetworkError(e, dispatch)
@@ -108,7 +109,7 @@ export const createCardTC =
     try {
       await cardsAPI.createCard(cardModel)
 
-      dispatch(setCardsTC(cardModel.cardsPack_id))
+      dispatch(setCardsTC())
       dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e) {
       handleServerNetworkError(e, dispatch)
@@ -116,14 +117,14 @@ export const createCardTC =
   }
 
 export const deleteCardTC =
-  (packID: string, cardID: string): AppThunk =>
+  (cardID: string): AppThunk =>
   async dispatch => {
     dispatch(setAppStatus({ status: 'loading' }))
 
     try {
       await cardsAPI.deleteCard(cardID)
 
-      dispatch(setCardsTC(packID))
+      dispatch(setCardsTC())
       dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e) {
       handleServerNetworkError(e, dispatch)
@@ -131,26 +132,30 @@ export const deleteCardTC =
   }
 
 export const searchCardsTC =
-  (packID: string, searchText: string): AppThunk =>
+  (searchText: string): AppThunk =>
   async dispatch => {
     try {
       dispatch(searchCards({ search: searchText }))
-      dispatch(setCardsTC(packID))
+      dispatch(setCardsTC())
     } catch (e) {
       handleServerNetworkError(e, dispatch)
     }
   }
 
 export const changeCardPageTC =
-  (packID: string, page: number): AppThunk =>
+  (page: number): AppThunk =>
   async dispatch => {
     dispatch(changeCardPage({ page }))
-    dispatch(setCardsTC(packID))
+    dispatch(setCardsTC())
   }
 
 export const changeSortCardTC =
-  (packID: string, sort: SortType): AppThunk =>
+  (sort: SortType): AppThunk =>
   async dispatch => {
     dispatch(changeSortCards({ sort }))
-    dispatch(setCardsTC(packID))
+    dispatch(setCardsTC())
   }
+
+export type CardDomainType = CardType & {
+  status: RequestStatusType
+}

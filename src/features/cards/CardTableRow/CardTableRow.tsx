@@ -14,16 +14,16 @@ type PropsType = {
   isMyPack: boolean
 }
 
-export const CardTableRow = ({ packID, card, isMyPack }: PropsType) => {
+export const CardTableRow = ({ card, isMyPack }: PropsType) => {
   const dispatch = useAppDispatch()
 
   const deleteCard = () => {
-    dispatch(deleteCardTC(packID, card._id))
+    dispatch(deleteCardTC(card._id))
   }
 
   const updateCard = () => {
     dispatch(
-      updateCardTC(packID, {
+      updateCardTC({
         _id: card._id,
         answer: `updated answer`,
         question: `updated question`,

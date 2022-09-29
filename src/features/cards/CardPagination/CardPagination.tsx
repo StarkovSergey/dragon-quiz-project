@@ -20,7 +20,7 @@ export const CardPagination = ({ packID }: PropsType) => {
   const paginationPageCount = Math.ceil(cardsTotalCount / cardsPerPage)
 
   const paginationChangeHandler = (event: React.ChangeEvent<unknown>, value: number) => {
-    dispatch(changeCardPageTC(packID, value))
+    dispatch(changeCardPageTC(value))
   }
 
   return (
