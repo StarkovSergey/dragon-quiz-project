@@ -3,6 +3,7 @@ import React from 'react'
 import DeleteIcon from '@mui/icons-material/Delete'
 import ModeEditIcon from '@mui/icons-material/ModeEdit'
 import SchoolIcon from '@mui/icons-material/School'
+import WhatshotIcon from '@mui/icons-material/Whatshot'
 import { IconButton, TableBody, TableCell, TableRow } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
@@ -61,7 +62,7 @@ export const TableBodyComponent = () => {
                     <ModeEditIcon />
                   </IconButton>
                   <IconButton onClick={removePack}>
-                    <DeleteIcon />
+                    <WhatshotIcon color="primary" />
                   </IconButton>
                 </div>
               ) : (

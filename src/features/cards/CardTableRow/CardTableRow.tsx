@@ -1,7 +1,7 @@
 import React from 'react'
 
-import DeleteIcon from '@mui/icons-material/Delete'
 import ModeEditIcon from '@mui/icons-material/ModeEdit'
+import WhatshotIcon from '@mui/icons-material/Whatshot'
 import { IconButton, Rating, TableCell, TableRow } from '@mui/material'
 
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
@@ -47,7 +47,7 @@ export const CardTableRow = ({ packID, card, isMyPack }: PropsType) => {
             <ModeEditIcon />
           </IconButton>
           <IconButton onClick={deleteCard}>
-            <DeleteIcon />
+            <WhatshotIcon color="primary" />
           </IconButton>
         </TableCell>
       )}

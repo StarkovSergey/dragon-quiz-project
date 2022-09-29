@@ -24,8 +24,6 @@ export const RangeSlider = ({ setValue, firstValue, secondValue, defaultValue }:
     }
   }
 
-  console.log(defaultValue, 'default')
-
   return (
     <Box sx={{ width: 300 }}>
       <Slider
