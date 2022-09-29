@@ -30,6 +30,19 @@ export const slice = createSlice({
         status: 'idle',
       }))
     },
+    changeCardStatus(state, action: PayloadAction<{ cardID: string; status: RequestStatusType }>) {
+      return {
+        ...state,
+        cards: state.cards.map(card =>
+          card._id === action.payload.cardID
+            ? {
+                ...card,
+                status: action.payload.status,
+              }
+            : card
+        ),
+      }
+    },
     setPackID(state, action: PayloadAction<{ packID: string }>) {
       state.packID = action.payload.packID
     },
@@ -53,8 +66,16 @@ export const slice = createSlice({
 
 export const cardsReducer = slice.reducer
 
-export const { setCards, setPackID, setIsMyPack, searchCards, changeCardsTotalCount, changeCardPage, changeSortCards } =
-  slice.actions
+export const {
+  setCards,
+  setPackID,
+  setIsMyPack,
+  searchCards,
+  changeCardsTotalCount,
+  changeCardPage,
+  changeSortCards,
+  changeCardStatus,
+} = slice.actions
 
 // thunks
 export const setCardsTC = (): AppThunk => async (dispatch, getState) => {
@@ -92,10 +113,22 @@ export const updateCardTC =
   (cardModel: UpdateCardModelType): AppThunk =>
   async dispatch => {
     dispatch(setAppStatus({ status: 'loading' }))
+    dispatch(
+      changeCardStatus({
+        cardID: cardModel._id,
+        status: 'loading',
+      })
+    )
     try {
       await cardsAPI.updateCard(cardModel)
 
-      dispatch(setCardsTC())
+      await dispatch(setCardsTC())
+      dispatch(
+        changeCardStatus({
+          cardID: cardModel._id,
+          status: 'succeeded',
+        })
+      )
       dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e) {
       handleServerNetworkError(e, dispatch)
@@ -121,14 +154,34 @@ export const deleteCardTC =
   async dispatch => {
     dispatch(setAppStatus({ status: 'loading' }))
 
+    dispatch(
+      changeCardStatus({
+        cardID,
+        status: 'loading',
+      })
+    )
+
     try {
       await cardsAPI.deleteCard(cardID)
 
-      dispatch(setCardsTC())
       dispatch(setAppStatus({ status: 'succeeded' }))
+      await dispatch(setCardsTC())
+      dispatch(
+        changeCardStatus({
+          cardID,
+          status: 'succeeded',
+        })
+      )
     } catch (e) {
       handleServerNetworkError(e, dispatch)
     }
+  }
+
+export const changeCardPageTC =
+  (page: number): AppThunk =>
+  async dispatch => {
+    dispatch(changeCardPage({ page }))
+    dispatch(setCardsTC())
   }
 
 export const searchCardsTC =
@@ -140,13 +193,6 @@ export const searchCardsTC =
     } catch (e) {
       handleServerNetworkError(e, dispatch)
     }
-  }
-
-export const changeCardPageTC =
-  (page: number): AppThunk =>
-  async dispatch => {
-    dispatch(changeCardPage({ page }))
-    dispatch(setCardsTC())
   }
 
 export const changeSortCardTC =

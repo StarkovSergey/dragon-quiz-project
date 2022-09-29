@@ -5,12 +5,11 @@ import WhatshotIcon from '@mui/icons-material/Whatshot'
 import { IconButton, Rating, TableCell, TableRow } from '@mui/material'
 
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
-import { CardType } from '../cards-api'
-import { deleteCardTC, updateCardTC } from '../cards-reducer'
+import { CardDomainType, deleteCardTC, updateCardTC } from '../cards-reducer'
 
 type PropsType = {
   packID: string
-  card: CardType
+  card: CardDomainType
   isMyPack: boolean
 }
 
@@ -43,11 +42,11 @@ export const CardTableRow = ({ card, isMyPack }: PropsType) => {
       </TableCell>
       {isMyPack && (
         <TableCell align="center">
-          <IconButton onClick={updateCard}>
+          <IconButton onClick={updateCard} disabled={card.status === 'loading'}>
             <ModeEditIcon />
           </IconButton>
-          <IconButton onClick={deleteCard}>
-            <WhatshotIcon color="primary" />
+          <IconButton onClick={deleteCard} disabled={card.status === 'loading'}>
+            <WhatshotIcon color={card.status === 'loading' ? 'inherit' : 'primary'} />
           </IconButton>
         </TableCell>
       )}
