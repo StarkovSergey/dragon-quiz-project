@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '../../../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../../../common/hooks/useAppSelector'
 import { deletePackTC, editPackTC } from '../../packs-reducer'
+import style from '../../packs.module.css'
 
 export const TableBodyComponent = () => {
   const packs = useAppSelector(state => state.packs.packs)
@@ -32,7 +33,11 @@ export const TableBodyComponent = () => {
         }
 
         return (
-          <TableRow key={pack._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+          <TableRow
+            key={pack._id}
+            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            className={style['table-row']}
+          >
             <TableCell onClick={getPackId} component="th" scope="row">
               {pack.name}
             </TableCell>

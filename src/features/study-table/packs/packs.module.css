@@ -49,3 +49,13 @@
 .filter-button:focus {
   opacity: 0.7;
 }
+
+.table-row {
+  cursor: pointer;
+
+  transition: background-color 200ms;
+}
+
+.table-row:hover {
+  background-color: var(--color-gray-light);
+}
