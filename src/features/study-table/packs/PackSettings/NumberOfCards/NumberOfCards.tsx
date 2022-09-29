@@ -23,12 +23,12 @@ export const NumberOfCards = () => {
   }
 
   return (
-    <div>
-      <h4>Number of cards</h4>
-      <div className={style.sliderBlock}>
-        {value[0]}
+    <div className={style['slider-box']}>
+      <p className={style.label}>Number of cards</p>
+      <div className={style.slider}>
+        <span>{value[0]}</span>
         <RangeSlider value={value} setValue={onChangeValueDoubleRange} />
-        {value[1]}
+        <span>{value[1]}</span>
       </div>
     </div>
   )

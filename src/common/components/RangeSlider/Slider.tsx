@@ -24,7 +24,7 @@ export const RangeSlider = ({ setValue, value }: SuperDoubleRangePropsType) => {
 
   return (
     <Box sx={{ width: 300 }}>
-      <Slider onChange={handleChange1} value={value} valueLabelDisplay="auto" />
+      <Slider onChange={handleChange1} value={value} valueLabelDisplay="off" color="primary" />
     </Box>
   )
 }

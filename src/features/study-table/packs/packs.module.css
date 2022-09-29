@@ -1,5 +1,51 @@
 .settings {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: grid;
+  grid-template-columns: 4fr max-content 360px max-content;
+  gap: 25px;
+  align-items: end;
+
+  margin-bottom: 25px;
+}
+
+.search {
+  align-self: end;
+}
+
+.slider-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.slider {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.label {
+  margin: 0;
+  margin-bottom: 5px;
+
+  font-size: var(--basic-fz);
+}
+
+.filter-button {
+  cursor: pointer;
+
+  /*align-self: center;*/
+
+  width: 40px;
+  height: 40px;
+
+  background-image: url("../../../assets/icons/filter-icon.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  transition: opacity 300ms;
+}
+
+.filter-button:hover,
+.filter-button:focus {
+  opacity: 0.7;
 }

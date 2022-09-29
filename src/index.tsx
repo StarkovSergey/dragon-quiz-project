@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { ThemeProvider } from '@mui/material'
 import ReactDOM from 'react-dom/client'
 import './styles/variables.css'
 import './styles/global.css'
@@ -9,6 +10,7 @@ import { HashRouter } from 'react-router-dom'
 
 import { App } from './app/App'
 import { store } from './app/store'
+import { theme } from './common/theme'
 import reportWebVitals from './reportWebVitals'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
@@ -16,7 +18,9 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <Provider store={store}>
     <HashRouter>
-      <App />
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
     </HashRouter>
   </Provider>
 )

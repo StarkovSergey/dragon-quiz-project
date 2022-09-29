@@ -65,7 +65,7 @@ export const Cards = () => {
           <Button>Learn to pack</Button>
         )}
       </div>
-      {(searchText || cardsTotalCount !== 0) && <SearchBar search={searchCard} />}
+      {(searchText || cardsTotalCount !== 0) && <SearchBar search={searchCard} className={style.search} />}
       {cardsTotalCount !== 0 ? (
         <>
           <TableContainer component={Paper}>

@@ -5,7 +5,7 @@ import { SearchBar } from '../../../../common/components/SearchBar/SearchBar'
 import { useAppDispatch } from '../../../../common/hooks/useAppDispatch'
 import tableStyles from '../../study-table.module.css'
 import { addNewPackTC, searchPacksTC } from '../packs-reducer'
-import styles from '../packs.module.css'
+import style from '../packs.module.css'
 
 import { NumberOfCards } from './NumberOfCards/NumberOfCards'
 import { ShowCardsPack } from './ShowPacksCards/ShowCardsPack'
@@ -29,11 +29,11 @@ export const PackSettings = () => {
           Add new pack
         </Button>
       </div>
-      <div className={styles.settings}>
-        <SearchBar search={searchPack} />
+      <div className={style.settings}>
+        <SearchBar search={searchPack} className={style.search} />
         <ShowCardsPack />
         <NumberOfCards />
-        <Button>Filter</Button>
+        <button className={style['filter-button']}></button>
       </div>
     </div>
   )

@@ -1,14 +1,14 @@
 import React, { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react'
 
-import cardsStyle from '../../../features/study-table/cards/Cards.module.css'
 import { useDebounce } from '../../hooks/useDebounce'
 import { SearchInput } from '../SearchInput/SearchInput'
 
 type PropsType = {
   search: (text: string) => void
+  className?: string
 }
 
-export const SearchBar = ({ search }: PropsType) => {
+export const SearchBar = ({ search, className, ...restProps }: PropsType) => {
   const [searchText, setSearchText] = useState('')
   const debouncedText = useDebounce<string>(searchText, 500)
 
@@ -34,7 +34,7 @@ export const SearchBar = ({ search }: PropsType) => {
   }
 
   return (
-    <div className={cardsStyle.search}>
+    <div className={className}>
       <SearchInput value={searchText} onChange={inputChangeHandler} onKeyDown={inputKeyDownHandler} />
     </div>
   )

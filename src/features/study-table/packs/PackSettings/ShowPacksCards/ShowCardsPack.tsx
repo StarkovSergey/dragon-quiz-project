@@ -3,6 +3,7 @@ import React from 'react'
 import { Button } from '../../../../../common/components/Button/Button'
 import { useAppDispatch } from '../../../../../common/hooks/useAppDispatch'
 import { setIsMyPacksTC } from '../../packs-reducer'
+import style from '../../packs.module.css'
 
 export const ShowCardsPack = () => {
   const dispatch = useAppDispatch()
@@ -16,7 +17,6 @@ export const ShowCardsPack = () => {
 
   return (
     <div>
-      <h4>Show packs cards</h4>
       <Button onClick={showMyPacks}>My</Button>
       <Button onClick={showAllPacks}>All</Button>
     </div>
