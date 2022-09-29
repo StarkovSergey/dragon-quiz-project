@@ -18,6 +18,7 @@ export const Cards = () => {
   const dispatch = useAppDispatch()
   const cards = useAppSelector(state => state.cards)
   const isMyPack = useAppSelector(state => state.cards.isMyPack)
+  const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
 
   const { packID } = useParams()
   const pack = useAppSelector(state => state.packs.packs.find(pack => pack._id === packID))
@@ -50,7 +51,7 @@ export const Cards = () => {
           <Button>Learn to pack</Button>
         )}
       </div>
-      {pack?.cardsCount !== 0 ? (
+      {cardsTotalCount !== 0 ? (
         <>
           <SearchBar search={searchCard} />
           <TableContainer component={Paper}>

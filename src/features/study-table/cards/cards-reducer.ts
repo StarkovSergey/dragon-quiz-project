@@ -16,6 +16,7 @@ const initialState = {
   sortCards: '0created',
   page: 1,
   pageCount: 10,
+  cardsTotalCount: 0,
 }
 
 export const slice = createSlice({
@@ -34,14 +35,15 @@ export const slice = createSlice({
     searchCards(state, action: PayloadAction<{ search: string }>) {
       state.search = action.payload.search
     },
-    createCard(state, action) {},
-    deleteCard(state, action) {},
+    changeCardsTotalCount(state, action: PayloadAction<{ cardsTotalCount: number }>) {
+      state.cardsTotalCount = action.payload.cardsTotalCount
+    },
   },
 })
 
 export const cardsReducer = slice.reducer
 
-export const { setCards, setPackID, setIsMyPack, createCard, deleteCard, searchCards } = slice.actions
+export const { setCards, setPackID, setIsMyPack, searchCards, changeCardsTotalCount } = slice.actions
 
 // thunks
 export const setCardsTC =
@@ -64,6 +66,7 @@ export const setCardsTC =
       const isMyPack = res.data.packUserId === userID
 
       dispatch(setCards({ cards: res.data.cards }))
+      dispatch(changeCardsTotalCount({ cardsTotalCount: res.data.cardsTotalCount }))
 
       if (packID) {
         dispatch(setPackID({ packID }))
