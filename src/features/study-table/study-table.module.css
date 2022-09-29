@@ -13,3 +13,7 @@
 .table-header {
   background-color: var(--color-brand-light);
 }
+
+.pagination {
+  padding: 20px 0;
+}

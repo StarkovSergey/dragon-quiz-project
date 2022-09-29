@@ -11,10 +11,11 @@ const initialState = {
   isMyPacks: false,
   sort: '0updated' as sortType,
   search: '',
-  pageCount: 10,
+  pageCount: 8,
   page: 1,
   min: 0,
   max: 100,
+  cardPacksTotalCount: 0,
 }
 
 export const slice = createSlice({
@@ -34,17 +35,28 @@ export const slice = createSlice({
       state.min = action.payload.min
       state.max = action.payload.max
     },
-    addPack(state, action: PayloadAction<{ cardPacks: PackDataType }>) {
-      state.packs.push({ ...action.payload.cardPacks })
-    },
     updatePack(state, action: PayloadAction<{ _id: string; name: string }>) {
       const index = state.packs.findIndex(pack => pack._id === action.payload._id)
 
       state.packs[index].name = action.payload.name
     },
+    changePage(state, action: PayloadAction<{ page: number }>) {
+      state.page = action.payload.page
+    },
+    setCardPacksTotalCount(state, action: PayloadAction<{ cardPacksTotalCount: number }>) {
+      state.cardPacksTotalCount = action.payload.cardPacksTotalCount
+    },
   },
 })
 
+export const {
+  setPacks,
+  setIsMyPacks,
+  searchPacks,
+  updatePack,
+  changePage,
+  setCardPacksTotalCount,
+} = slice.actions
 export const { setPacks, setIsMyPacks, searchPacks, setCardsCount, addPack, updatePack } = slice.actions
 
 export const packsReducer = slice.reducer
@@ -75,6 +87,7 @@ export const setPacksTC =
       console.log('reducer', res.data.maxCardsCount)
 
       dispatch(setPacks(res.data))
+      dispatch(setCardPacksTotalCount({ cardPacksTotalCount: res.data.cardPacksTotalCount }))
       dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e) {
       handleServerNetworkError(e, dispatch)
