@@ -14,6 +14,7 @@ import { setPacksTC } from '../packs/packs-reducer'
 import { CardPagination } from './CardPagination/CardPagination'
 import { createCardTC, searchCardsTC, setCardsTC } from './cards-reducer'
 import style from './Cards.module.css'
+import { CardTableHead } from './CardTableHead/CardTableHead'
 import { CardTableRow } from './CardTableRow/CardTableRow'
 
 export const Cards = () => {
@@ -27,10 +28,10 @@ export const Cards = () => {
   const pack = useAppSelector(state => state.packs.packs.find(pack => pack._id === packID))
 
   useEffect(() => {
-    dispatch(setCardsTC(packID!))
     if (!pack) {
       dispatch(setPacksTC())
     }
+    dispatch(setCardsTC(packID!))
   }, [])
 
   const addNewCard = () => {
@@ -71,15 +72,7 @@ export const Cards = () => {
         <>
           <TableContainer component={Paper}>
             <Table className={tableStyles['table']} aria-label="customized table">
-              <TableHead className={tableStyles['table-header']}>
-                <TableRow>
-                  <TableCell>Question</TableCell>
-                  <TableCell>Answer</TableCell>
-                  <TableCell align="right">Last Updated</TableCell>
-                  <TableCell align="right">Grade</TableCell>
-                  <TableCell align="right"></TableCell>
-                </TableRow>
-              </TableHead>
+              <CardTableHead packID={packID!} />
               <TableBody>
                 {cards.cards.map(card => {
                   return <CardTableRow key={card._id} packID={packID!} card={card} isMyPack={isMyPack} />

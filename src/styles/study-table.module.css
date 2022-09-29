@@ -46,6 +46,10 @@
   width: 100px;
 }
 
+.grade-cell {
+  width: 160px;
+}
+
 .pagination {
   padding: 20px 0;
 }

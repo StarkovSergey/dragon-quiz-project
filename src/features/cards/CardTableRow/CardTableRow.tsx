@@ -37,12 +37,12 @@ export const CardTableRow = ({ packID, card, isMyPack }: PropsType) => {
         {card.question}
       </TableCell>
       <TableCell>{card.answer}</TableCell>
-      <TableCell align="right">{card.updated.slice(0, 10)}</TableCell>
-      <TableCell align="right">
+      <TableCell align="center">{card.updated.slice(0, 10)}</TableCell>
+      <TableCell align="center">
         <Rating name="read-only" value={card.grade} precision={0.5} readOnly />
       </TableCell>
       {isMyPack && (
-        <TableCell align="right">
+        <TableCell align="center">
           <IconButton onClick={updateCard}>
             <ModeEditIcon />
           </IconButton>

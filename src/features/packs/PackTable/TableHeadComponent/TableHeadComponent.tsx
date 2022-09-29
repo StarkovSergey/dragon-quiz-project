@@ -4,6 +4,8 @@ import { TableCell, TableHead, TableRow } from '@mui/material'
 
 import { useAppDispatch } from '../../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../../common/hooks/useAppSelector'
+import { getTableSortCellName } from '../../../../common/utils/getTableSortCellName'
+import { toggleSorting } from '../../../../common/utils/toggleSorting'
 import tableStyles from '../../../../styles/study-table.module.css'
 import { SortType } from '../../packs-api'
 import { changeSortPackTC } from '../../packs-reducer'
@@ -12,40 +14,10 @@ export const TableHeadComponent = () => {
   const dispatch = useAppDispatch()
   const sorting = useAppSelector(state => state.packs.sort)
 
-  let tableCellSortName = ''
+  let tableCellSortName = getTableSortCellName(sorting)
 
-  switch (sorting) {
-    case '0created':
-      tableCellSortName = 'Last Created ⬇'
-      break
-    case '1created':
-      tableCellSortName = 'Last Created ⬆'
-      break
-    case '0updated':
-      tableCellSortName = 'Last Updated ⬇'
-      break
-    case '1updated':
-      tableCellSortName = 'Last Updated ⬆'
-  }
-
-  const toggleSorting = (sorting: SortType) => {
-    let newSortValue: SortType
-
-    switch (sorting) {
-      case '0created':
-        newSortValue = '1created'
-        break
-      case '1created':
-        newSortValue = '0created'
-        break
-      case '0updated':
-        newSortValue = '1updated'
-        break
-      case '1updated':
-        newSortValue = '0updated'
-    }
-
-    dispatch(changeSortPackTC(newSortValue))
+  const sortTableCellHandler = (sorting: SortType) => {
+    dispatch(changeSortPackTC(toggleSorting(sorting)))
   }
 
   return (
@@ -55,7 +27,11 @@ export const TableHeadComponent = () => {
         <TableCell align="center" className={tableStyles['cards-cell']}>
           Cards
         </TableCell>
-        <TableCell align="center" onClick={() => toggleSorting(sorting)} className={tableStyles['sorting-header-cell']}>
+        <TableCell
+          align="center"
+          onClick={() => sortTableCellHandler(sorting)}
+          className={tableStyles['sorting-header-cell']}
+        >
           {tableCellSortName}
         </TableCell>
         <TableCell align="right" className={tableStyles['created-cell']}>

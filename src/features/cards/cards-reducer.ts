@@ -42,12 +42,16 @@ export const slice = createSlice({
     changeCardPage(state, action: PayloadAction<{ page: number }>) {
       state.page = action.payload.page
     },
+    changeSortCards(state, action: PayloadAction<{ sort: SortType }>) {
+      state.sortCards = action.payload.sort
+    },
   },
 })
 
 export const cardsReducer = slice.reducer
 
-export const { setCards, setPackID, setIsMyPack, searchCards, changeCardsTotalCount, changeCardPage } = slice.actions
+export const { setCards, setPackID, setIsMyPack, searchCards, changeCardsTotalCount, changeCardPage, changeSortCards } =
+  slice.actions
 
 // thunks
 export const setCardsTC =
@@ -141,5 +145,12 @@ export const changeCardPageTC =
   (packID: string, page: number): AppThunk =>
   async dispatch => {
     dispatch(changeCardPage({ page }))
+    dispatch(setCardsTC(packID))
+  }
+
+export const changeSortCardTC =
+  (packID: string, sort: SortType): AppThunk =>
+  async dispatch => {
+    dispatch(changeSortCards({ sort }))
     dispatch(setCardsTC(packID))
   }
