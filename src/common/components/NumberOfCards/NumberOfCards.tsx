@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { setValueSlider } from '../../../features/study-table/packs/packs-reducer'
 import style from '../../../features/study-table/packs/packs.module.css'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
+import { useAppSelector } from '../../hooks/useAppSelector'
 import { RangeSlider } from '../Slider/Slider'
 
 export const NumberOfCards = () => {
@@ -11,7 +12,12 @@ export const NumberOfCards = () => {
 
   const onChangeValueDoubleRange = (value: [number, number]) => {
     setValue(value)
-    dispatch(setValueSlider({ min: value[0], max: value[1] }))
+    dispatch(
+      setValueSlider({
+        min: value[0],
+        max: value[1],
+      })
+    )
   }
 
   return (

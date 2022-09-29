@@ -9,6 +9,7 @@ import { SearchBar } from '../../../common/components/SearchBar/SearchBar'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { setPacksTC } from '../packs/packs-reducer'
+import tableStyles from '../study-table.module.css'
 
 import { createCardTC, searchCardsTC, setCardsTC } from './cards-reducer'
 import style from './Cards.module.css'
@@ -68,12 +69,8 @@ export const Cards = () => {
       {cardsTotalCount !== 0 ? (
         <>
           <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 700 }} aria-label="customized table">
-              <TableHead
-                sx={{
-                  backgroundColor: '#f2a278',
-                }}
-              >
+            <Table className={tableStyles['table']} aria-label="customized table">
+              <TableHead className={tableStyles['table-header']}>
                 <TableRow>
                   <TableCell>Question</TableCell>
                   <TableCell>Answer</TableCell>

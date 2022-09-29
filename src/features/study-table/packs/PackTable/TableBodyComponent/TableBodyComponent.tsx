@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { TableBody, TableCell, TableRow } from '@mui/material'
+import DeleteIcon from '@mui/icons-material/Delete'
+import ModeEditIcon from '@mui/icons-material/ModeEdit'
+import SchoolIcon from '@mui/icons-material/School'
+import { IconButton, TableBody, TableCell, TableRow } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
-import deleteSvg from '../../../../../assets/icons/Delete.svg'
-import editSvg from '../../../../../assets/icons/Edit.svg'
-import teacherSvg from '../../../../../assets/icons/teacher.svg'
 import { useAppDispatch } from '../../../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../../../common/hooks/useAppSelector'
 import { deletePackTC, editPackTC } from '../../packs-reducer'
@@ -43,12 +43,20 @@ export const TableBodyComponent = () => {
             <TableCell align="right">
               {isMyPack ? (
                 <div>
-                  <img src={teacherSvg} alt="teacher" style={{ cursor: 'pointer' }} />
-                  <img src={editSvg} alt="edit" onClick={editPack} style={{ cursor: 'pointer' }} />
-                  <img src={deleteSvg} alt="delete" onClick={removePack} style={{ cursor: 'pointer' }} />
+                  <IconButton>
+                    <SchoolIcon />
+                  </IconButton>
+                  <IconButton onClick={editPack}>
+                    <ModeEditIcon />
+                  </IconButton>
+                  <IconButton onClick={removePack}>
+                    <DeleteIcon />
+                  </IconButton>
                 </div>
               ) : (
-                <img src={teacherSvg} alt="teacher" />
+                <IconButton>
+                  <SchoolIcon />
+                </IconButton>
               )}
             </TableCell>
           </TableRow>
