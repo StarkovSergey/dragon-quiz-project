@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { Paper, Table, TableBody, TableContainer } from '@mui/material'
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import { useParams } from 'react-router-dom'
 
 import { BackLink } from '../../common/components/BackLink/BackLink'
@@ -55,8 +55,6 @@ export const Cards = () => {
     }
   }
 
-  const possibleLearnButton = cards.cards.length ? <Button>Learn to pack</Button> : ''
-
   return (
     <div>
       <BackLink to="/" linkText="Back to Packs List" />
@@ -67,7 +65,7 @@ export const Cards = () => {
             Add new card
           </Button>
         ) : (
-          possibleLearnButton
+          <Button>Learn to pack</Button>
         )}
       </div>
       {(searchText || cardsTotalCount !== 0) && <SearchBar search={searchCard} className={style.search} />}

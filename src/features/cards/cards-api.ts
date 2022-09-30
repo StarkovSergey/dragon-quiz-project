@@ -1,4 +1,4 @@
-import { instance } from '../../common/api-instancies/instance'
+import { instance } from '../../common/instance/instance'
 
 export const cardsAPI = {
   getCards(cardsPackID: string, params: GetCardsParamsType) {

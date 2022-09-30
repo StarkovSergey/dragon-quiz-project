@@ -1,9 +1,10 @@
 import { useEffect } from 'react'
 
-import { useSearchParams } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
 import { useAppDispatch } from '../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../common/hooks/useAppSelector'
+import { Paths } from '../../common/routes'
 
 import { setPacksTC } from './packs-reducer'
 import { PackSettings } from './PackSettings/PackSettings'
@@ -14,17 +15,14 @@ export const Packs = () => {
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
   const searchText = useAppSelector(state => state.packs.search)
   const packs = useAppSelector(state => state.packs.packs)
-  const isMyPack = useAppSelector(state => state.packs.isMyPacks)
-
-  const [searchParams, setSearchParams] = useSearchParams()
 
   useEffect(() => {
-    setSearchParams({ my: isMyPack ? '1' : '0' })
-  }, [isMyPack])
-
-  useEffect(() => {
-    dispatch(setPacksTC({ isMyPack: searchParams.get('my') === '1' }))
+    dispatch(setPacksTC())
   }, [])
+
+  if (!isLoggedIn) {
+    return <Navigate to={Paths.SingIn} />
+  }
 
   return (
     <div>

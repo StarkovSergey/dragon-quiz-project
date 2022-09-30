@@ -6,6 +6,5 @@ export enum Paths {
   CheckEmail = '/check-email',
   Profile = '/profile',
   Cards = '/cards/:packID',
-  Packs = '/',
   Page404 = '/404',
 }
