@@ -28,7 +28,7 @@ export const PackSettings = () => {
 
   const resetFilterHandler = () => {
     dispatch(setCardsRange({ min: minCardsCount, max: maxCardsCount }))
-    dispatch(resetFilters({ min: minCardsCount, max: maxCardsCount, search: '' }))
+    dispatch(resetFilters())
     dispatch(setPacksTC())
   }
 
