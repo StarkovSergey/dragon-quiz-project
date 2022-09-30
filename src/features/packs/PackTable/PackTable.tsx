@@ -11,7 +11,6 @@ import { TableHeadComponent } from './TableHeadComponent/TableHeadComponent'
 
 export const PackTable = () => {
   const packs = useAppSelector(state => state.packs.packs)
-  const userID = useAppSelector(state => state.auth.profile?._id)
 
   return (
     <div>

@@ -75,6 +75,12 @@ export const slice = createSlice({
     changeAddingNewPackStatus(state, action: PayloadAction<{ status: RequestStatusType }>) {
       state.addingNewPackStatus = action.payload.status
     },
+    resetFilters(state) {
+      state.search = ''
+      state.isMyPacks = false
+      state.min = state.minCardsCount
+      state.max = state.maxCardsCount
+    },
   },
 })
 
@@ -89,6 +95,7 @@ export const {
   setMinMaxCardsCount,
   changePackStatus,
   changeAddingNewPackStatus,
+  resetFilters,
 } = slice.actions
 
 export const packsReducer = slice.reducer
@@ -249,6 +256,11 @@ export const setCardsRangeTC =
     dispatch(setCardsRange(range))
     dispatch(setPacksTC())
   }
+
+export const ResetFiltersTC = (): AppThunk => async dispatch => {
+  dispatch(resetFilters())
+  dispatch(setPacksTC())
+}
 
 export type PackDomainType = PackType & {
   status: RequestStatusType

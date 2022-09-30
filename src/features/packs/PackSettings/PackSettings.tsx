@@ -5,7 +5,7 @@ import { SearchBar } from '../../../common/components/SearchBar/SearchBar'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import tableStyles from '../../../styles/study-table.module.css'
-import { addNewPackTC, searchPacksTC } from '../packs-reducer'
+import { addNewPackTC, ResetFiltersTC, searchPacksTC } from '../packs-reducer'
 import style from '../packs.module.css'
 
 import { NumberOfCards } from './NumberOfCards/NumberOfCards'
@@ -14,6 +14,7 @@ import { ShowCardsPack } from './ShowPacksCards/ShowCardsPack'
 export const PackSettings = () => {
   const dispatch = useAppDispatch()
   const status = useAppSelector(state => state.packs.addingNewPackStatus)
+  const searchText = useAppSelector(state => state.packs.search)
 
   const searchPack = (text: string) => {
     dispatch(searchPacksTC(text))
@@ -21,6 +22,10 @@ export const PackSettings = () => {
 
   const addNewPack = () => {
     dispatch(addNewPackTC())
+  }
+
+  const resetFilters = () => {
+    dispatch(ResetFiltersTC())
   }
 
   return (
@@ -32,10 +37,10 @@ export const PackSettings = () => {
         </Button>
       </div>
       <div className={style.settings}>
-        <SearchBar search={searchPack} className={style.search} />
+        <SearchBar search={searchPack} className={style.search} searchText={searchText} />
         <ShowCardsPack />
         <NumberOfCards />
-        <button className={style['filter-button']}></button>
+        <button onClick={resetFilters} className={style['filter-button']}></button>
       </div>
     </div>
   )

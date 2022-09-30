@@ -6,14 +6,19 @@ import { SearchInput } from '../SearchInput/SearchInput'
 type PropsType = {
   search: (text: string) => void
   className?: string
+  searchText?: string
 }
 
-export const SearchBar = ({ search, className, ...restProps }: PropsType) => {
-  const [searchText, setSearchText] = useState('')
-  const debouncedText = useDebounce<string>(searchText, 500)
+export const SearchBar = ({ search, className, searchText = '', ...restProps }: PropsType) => {
+  const [text, setText] = useState(searchText)
+  const debouncedText = useDebounce<string>(text, 500)
+
+  useEffect(() => {
+    setText(searchText)
+  }, [searchText])
 
   const inputChangeHandler = (evt: ChangeEvent<HTMLInputElement>) => {
-    setSearchText(evt.currentTarget.value)
+    setText(evt.currentTarget.value)
   }
 
   const firstRender = useRef(true)
@@ -29,13 +34,13 @@ export const SearchBar = ({ search, className, ...restProps }: PropsType) => {
 
   const inputKeyDownHandler = (evt: KeyboardEvent<HTMLInputElement>) => {
     if (evt.key === 'Escape') {
-      setSearchText('')
+      setText('')
     }
   }
 
   return (
     <div className={className}>
-      <SearchInput value={searchText} onChange={inputChangeHandler} onKeyDown={inputKeyDownHandler} />
+      <SearchInput value={text} onChange={inputChangeHandler} onKeyDown={inputKeyDownHandler} />
     </div>
   )
 }
