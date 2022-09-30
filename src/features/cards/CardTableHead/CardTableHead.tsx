@@ -40,7 +40,11 @@ export const CardTableHead = ({ packID }: PropsType) => {
         <TableCell align="center" className={tableStyles['grade-cell']}>
           Grade
         </TableCell>
-        {isMyPack && <TableCell align="center">Actions</TableCell>}
+        {isMyPack && (
+          <TableCell align="right" className={tableStyles['actions-cell']}>
+            Actions
+          </TableCell>
+        )}
       </TableRow>
     </TableHead>
   )

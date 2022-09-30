@@ -5,6 +5,7 @@ import WhatshotIcon from '@mui/icons-material/Whatshot'
 import { IconButton, Rating, TableCell, TableRow } from '@mui/material'
 
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
+import tableStyles from '../../../styles/study-table.module.css'
 import { CardDomainType, deleteCardTC, updateCardTC } from '../cards-reducer'
 
 type PropsType = {
@@ -37,11 +38,11 @@ export const CardTableRow = ({ card, isMyPack }: PropsType) => {
       </TableCell>
       <TableCell>{card.answer}</TableCell>
       <TableCell align="center">{card.updated.slice(0, 10)}</TableCell>
-      <TableCell align="center">
+      <TableCell align="center" className={tableStyles['grade-cell']}>
         <Rating name="read-only" value={card.grade} precision={0.5} readOnly />
       </TableCell>
       {isMyPack && (
-        <TableCell align="center">
+        <TableCell align="right" className={tableStyles['actions-cell']}>
           <IconButton onClick={updateCard} disabled={card.status === 'loading'}>
             <ModeEditIcon />
           </IconButton>
