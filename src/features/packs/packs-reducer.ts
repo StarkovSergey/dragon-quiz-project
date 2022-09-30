@@ -72,6 +72,9 @@ export const slice = createSlice({
         ),
       }
     },
+    changeAddingNewPackStatus(state, action: PayloadAction<{ status: RequestStatusType }>) {
+      state.addingNewPackStatus = action.payload.status
+    },
   },
 })
 
@@ -80,49 +83,55 @@ export const {
   setIsMyPacks,
   searchPacks,
   setCardsRange,
-  updatePack,
   setCardPacksTotalCount,
   changePage,
   changeSortPack,
   setMinMaxCardsCount,
   changePackStatus,
+  changeAddingNewPackStatus,
 } = slice.actions
 
 export const packsReducer = slice.reducer
 
 // thunk
-export const setPacksTC = (): AppThunk => async (dispatch, getState) => {
-  dispatch(setAppStatus({ status: 'loading' }))
+export const setPacksTC =
+  (params?: { isMyPack?: boolean }): AppThunk =>
+  async (dispatch, getState) => {
+    dispatch(setAppStatus({ status: 'loading' }))
 
-  const { pageCount, page, sort, search, isMyPacks, min, max } = getState().packs
-  const userID = getState().auth.profile?._id
+    const { pageCount, page, sort, search, isMyPacks, min, max } = getState().packs
+    const userID = getState().auth.profile?._id
 
-  try {
-    const res = await packAPI.getPack({
-      pageCount,
-      page,
-      sort,
-      search,
-      isMyPacks,
-      min,
-      max,
-      userID,
-    })
-
-    dispatch(
-      setMinMaxCardsCount({
-        min: res.data.minCardsCount,
-        max: res.data.maxCardsCount,
+    try {
+      const res = await packAPI.getPack({
+        pageCount,
+        page,
+        sort,
+        search,
+        isMyPacks,
+        min,
+        max,
+        userID,
       })
-    )
 
-    dispatch(setPacks(res.data))
-    dispatch(setCardPacksTotalCount({ cardPacksTotalCount: res.data.cardPacksTotalCount }))
-    dispatch(setAppStatus({ status: 'succeeded' }))
-  } catch (e) {
-    handleServerNetworkError(e, dispatch)
+      dispatch(
+        setMinMaxCardsCount({
+          min: res.data.minCardsCount,
+          max: res.data.maxCardsCount,
+        })
+      )
+
+      if (params?.isMyPack) {
+        dispatch(setIsMyPacks({ isMyPacks: params.isMyPack }))
+      }
+
+      dispatch(setPacks(res.data))
+      dispatch(setCardPacksTotalCount({ cardPacksTotalCount: res.data.cardPacksTotalCount }))
+      dispatch(setAppStatus({ status: 'succeeded' }))
+    } catch (e) {
+      handleServerNetworkError(e, dispatch)
+    }
   }
-}
 
 export const setIsMyPacksTC =
   (isMyPacks: boolean): AppThunk =>
@@ -148,6 +157,7 @@ export const searchPacksTC =
 
 export const addNewPackTC = (): AppThunk => async dispatch => {
   dispatch(setAppStatus({ status: 'loading' }))
+  dispatch(changeAddingNewPackStatus({ status: 'loading' }))
   const newPack = {
     name: 'dragon pack',
     deckCover: 'url or base64',
@@ -159,8 +169,10 @@ export const addNewPackTC = (): AppThunk => async dispatch => {
 
     await dispatch(setPacksTC())
     dispatch(setAppStatus({ status: 'succeeded' }))
+    dispatch(changeAddingNewPackStatus({ status: 'succeeded' }))
   } catch (e) {
     handleServerNetworkError(e, dispatch)
+    dispatch(changeAddingNewPackStatus({ status: 'failed' }))
   }
 }
 
