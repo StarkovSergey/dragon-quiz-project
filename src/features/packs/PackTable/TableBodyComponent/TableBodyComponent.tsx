@@ -27,11 +27,13 @@ export const TableBodyComponent = () => {
           navigate(`/cards/${pack._id}`)
         }
 
-        const removePack = () => {
+        const removePack = (event: React.MouseEvent<HTMLElement>) => {
+          event.stopPropagation()
           dispatch(deletePackTC(pack._id))
         }
 
-        const editPack = () => {
+        const editPack = (event: React.MouseEvent<HTMLElement>) => {
+          event.stopPropagation()
           dispatch(editPackTC(pack._id))
         }
 
@@ -40,8 +42,9 @@ export const TableBodyComponent = () => {
             key={pack._id}
             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             className={style['table-row']}
+            onClick={getPackId}
           >
-            <TableCell onClick={getPackId} component="th" scope="row">
+            <TableCell component="th" scope="row">
               {pack.name}
             </TableCell>
 
