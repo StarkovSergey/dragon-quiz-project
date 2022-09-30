@@ -55,6 +55,8 @@ export const Cards = () => {
     }
   }
 
+  const possibleLearnButton = cards.cards.length ? <Button>Learn to pack</Button> : ''
+
   return (
     <div>
       <BackLink to="/" linkText="Back to Packs List" />
@@ -65,7 +67,7 @@ export const Cards = () => {
             Add new card
           </Button>
         ) : (
-          <Button>Learn to pack</Button>
+          possibleLearnButton
         )}
       </div>
       {(searchText || cardsTotalCount !== 0) && <SearchBar search={searchCard} className={style.search} />}
