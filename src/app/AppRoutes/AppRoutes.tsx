@@ -16,7 +16,7 @@ import { Profile } from '../../features/profile/Profile'
 export const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<Packs />} />
+      <Route path={Paths.Packs} element={<Packs />} />
       <Route path={Paths.SingIn} element={<SignIn />} />
       <Route path={Paths.SignUp} element={<SignUp />} />
       <Route path={Paths.ForgotPassword} element={<ForgotPassword />} />
