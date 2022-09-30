@@ -1,14 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { setAppStatus } from '../../app/app-reducer'
+import { RequestStatusType, setAppStatus } from '../../app/app-reducer'
 import { AppThunk } from '../../app/store'
 import { handleServerNetworkError } from '../../common/utils/handleNetworkError'
 
-export type StatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
-import { packAPI, PackDataType, SortType } from './packs-api'
+import { packAPI, PackType, SortType } from './packs-api'
 
 const initialState = {
-  packs: [] as PackDataType[],
+  packs: [] as PackDomainType[],
   isMyPacks: false,
   sort: '0updated' as SortType,
   search: '',
@@ -18,17 +17,19 @@ const initialState = {
   max: 99,
   minCardsCount: 0,
   maxCardsCount: 99,
-  entity: 'idle' as StatusType,
   cardPacksTotalCount: 0,
-  addingNewPackStatus: 'idle' as StatusType,
+  addingNewPackStatus: 'idle' as RequestStatusType,
 }
 
 export const slice = createSlice({
   name: 'packs',
   initialState,
   reducers: {
-    setPacks(state, action: PayloadAction<{ cardPacks: PackDataType[] }>) {
-      state.packs = action.payload.cardPacks.map(pack => ({ ...pack }))
+    setPacks(state, action: PayloadAction<{ cardPacks: PackType[] }>) {
+      state.packs = action.payload.cardPacks.map(pack => ({
+        ...pack,
+        status: 'idle',
+      }))
     },
     setIsMyPacks(state, action: PayloadAction<{ isMyPacks: boolean }>) {
       state.isMyPacks = action.payload.isMyPacks
@@ -40,9 +41,6 @@ export const slice = createSlice({
       const index = state.packs.findIndex(pack => pack._id === action.payload._id)
 
       state.packs[index].name = action.payload.name
-    },
-    entityStatus(state, action: PayloadAction<{ entity: StatusType }>) {
-      state.entity = action.payload.entity
     },
     changePage(state, action: PayloadAction<{ page: number }>) {
       state.page = action.payload.page
@@ -61,8 +59,18 @@ export const slice = createSlice({
       state.minCardsCount = action.payload.min
       state.maxCardsCount = action.payload.max
     },
-    changeAddingNewPackStatus(state, action: PayloadAction<{ status: StatusType }>) {
-      state.addingNewPackStatus = action.payload.status
+    changePackStatus(state, action: PayloadAction<{ packID: string; status: RequestStatusType }>) {
+      return {
+        ...state,
+        packs: state.packs.map(pack =>
+          pack._id === action.payload.packID
+            ? {
+                ...pack,
+                status: action.payload.status,
+              }
+            : pack
+        ),
+      }
     },
   },
 })
@@ -77,8 +85,7 @@ export const {
   changePage,
   changeSortPack,
   setMinMaxCardsCount,
-  entityStatus,
-  changeAddingNewPackStatus,
+  changePackStatus,
 } = slice.actions
 
 export const packsReducer = slice.reducer
@@ -143,7 +150,6 @@ export const searchPacksTC =
 
 export const addNewPackTC = (): AppThunk => async dispatch => {
   dispatch(setAppStatus({ status: 'loading' }))
-  dispatch(changeAddingNewPackStatus({ status: 'loading' }))
   const newPack = {
     name: 'dragon pack',
     deckCover: 'url or base64',
@@ -155,47 +161,61 @@ export const addNewPackTC = (): AppThunk => async dispatch => {
 
     await dispatch(setPacksTC())
     dispatch(setAppStatus({ status: 'succeeded' }))
-    dispatch(changeAddingNewPackStatus({ status: 'succeeded' }))
   } catch (e) {
     handleServerNetworkError(e, dispatch)
-    dispatch(changeAddingNewPackStatus({ status: 'failed' }))
   }
 }
 
 export const deletePackTC =
-  (_id: string): AppThunk =>
+  (packID: string): AppThunk =>
   async dispatch => {
     dispatch(setAppStatus({ status: 'loading' }))
-    dispatch(entityStatus({ entity: 'loading' }))
+    dispatch(
+      changePackStatus({
+        packID,
+        status: 'loading',
+      })
+    )
     try {
-      await packAPI.deletePack(_id)
+      await packAPI.deletePack(packID)
 
-      dispatch(setPacksTC())
-      dispatch(setAppStatus({ status: 'succeeded' }))
-      dispatch(entityStatus({ entity: 'succeeded' }))
+      await dispatch(setPacksTC())
+      dispatch(
+        changePackStatus({
+          packID,
+          status: 'succeeded',
+        })
+      )
     } catch (e) {
-      handleServerNetworkError(e, dispatch)
+      handleServerNetworkError(e, dispatch, { packID })
     }
   }
 
 export const editPackTC =
-  (id: string): AppThunk =>
+  (packID: string): AppThunk =>
   async dispatch => {
     dispatch(setAppStatus({ status: 'loading' }))
+    dispatch(
+      changePackStatus({
+        packID,
+        status: 'loading',
+      })
+    )
     const newName = 'new name'
 
     try {
-      await packAPI.updatePack(id, newName)
+      await packAPI.updatePack(packID, newName)
 
+      await dispatch(setPacksTC())
       dispatch(
-        updatePack({
-          _id: id,
-          name: newName,
+        changePackStatus({
+          packID,
+          status: 'succeeded',
         })
       )
       dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e) {
-      handleServerNetworkError(e, dispatch)
+      handleServerNetworkError(e, dispatch, { packID })
     }
   }
 
@@ -219,3 +239,7 @@ export const setCardsRangeTC =
     dispatch(setCardsRange(range))
     dispatch(setPacksTC())
   }
+
+export type PackDomainType = PackType & {
+  status: RequestStatusType
+}

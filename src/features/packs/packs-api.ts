@@ -42,7 +42,7 @@ type newPackType = {
   private: boolean
 }
 
-export type PackDataType = {
+export type PackType = {
   _id: string
   user_id: string
   name: string
@@ -53,7 +53,7 @@ export type PackDataType = {
 }
 
 export type ResponsePackType = {
-  cardPacks: PackDataType[]
+  cardPacks: PackType[]
   cardPacksTotalCount: number
   maxCardsCount: number
   minCardsCount: number
