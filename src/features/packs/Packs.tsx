@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { Navigate } from 'react-router-dom'
+import { Navigate, useSearchParams } from 'react-router-dom'
 
 import { useAppDispatch } from '../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../common/hooks/useAppSelector'
@@ -15,9 +15,16 @@ export const Packs = () => {
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
   const searchText = useAppSelector(state => state.packs.search)
   const packs = useAppSelector(state => state.packs.packs)
+  const isMyPack = useAppSelector(state => state.packs.isMyPacks)
+
+  const [searchParams, setSearchParams] = useSearchParams()
 
   useEffect(() => {
-    dispatch(setPacksTC())
+    setSearchParams({ my: isMyPack ? '1' : '0' })
+  }, [isMyPack])
+
+  useEffect(() => {
+    dispatch(setPacksTC({ isMyPack: searchParams.get('my') === '1' }))
   }, [])
 
   if (!isLoggedIn) {
