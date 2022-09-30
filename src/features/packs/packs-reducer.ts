@@ -72,6 +72,11 @@ export const slice = createSlice({
         ),
       }
     },
+    resetFilters(state, action: PayloadAction<{ min: number; max: number; search: string }>) {
+      state.minCardsCount = action.payload.min
+      state.maxCardsCount = action.payload.max
+      state.search = action.payload.search
+    },
   },
 })
 
@@ -86,6 +91,7 @@ export const {
   changeSortPack,
   setMinMaxCardsCount,
   changePackStatus,
+  resetFilters,
 } = slice.actions
 
 export const packsReducer = slice.reducer

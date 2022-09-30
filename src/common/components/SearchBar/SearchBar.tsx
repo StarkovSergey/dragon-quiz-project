@@ -6,12 +6,12 @@ import { SearchInput } from '../SearchInput/SearchInput'
 type PropsType = {
   search: (text: string) => void
   className?: string
+  searchText?: string
 }
 
-export const SearchBar = ({ search, className, ...restProps }: PropsType) => {
-  const [searchText, setSearchText] = useState('')
-  const debouncedText = useDebounce<string>(searchText, 500)
-
+export const SearchBar = ({ search, className, searchText, ...restProps }: PropsType) => {
+  const [text, setSearchText] = useState(searchText)
+  const debouncedText = useDebounce<string | undefined>(text, 500)
   const inputChangeHandler = (evt: ChangeEvent<HTMLInputElement>) => {
     setSearchText(evt.currentTarget.value)
   }
@@ -24,7 +24,7 @@ export const SearchBar = ({ search, className, ...restProps }: PropsType) => {
 
       return
     }
-    search(debouncedText)
+    search(debouncedText!)
   }, [debouncedText])
 
   const inputKeyDownHandler = (evt: KeyboardEvent<HTMLInputElement>) => {

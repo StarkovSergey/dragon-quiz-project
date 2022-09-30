@@ -28,6 +28,10 @@ export const NumberOfCards = () => {
     )
   }, [minCardsCount, maxCardsCount])
 
+  useEffect(() => {
+    setValue([min, max])
+  }, [min, max])
+
   const sliderChangeHandler = (event: React.SyntheticEvent | Event, value: number | number[]) => {
     setValue(value)
   }
