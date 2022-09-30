@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { instance } from '../../common/instance/instance'
+import { instance } from '../../common/api-instances/instance'
 
 import { LoginFormDataType } from './sign-in/SignIn'
 

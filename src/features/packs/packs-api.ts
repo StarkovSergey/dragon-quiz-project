@@ -1,4 +1,4 @@
-import { instance } from '../../common/instance/instance'
+import { instance } from '../../common/api-instances/instance'
 
 export const packAPI = {
   getPack({ isMyPacks, page, pageCount, userID, max, min, sort, search }: GetPackParamsType) {

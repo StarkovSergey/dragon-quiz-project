@@ -27,10 +27,6 @@ export const Packs = () => {
     dispatch(setPacksTC({ isMyPack: searchParams.get('my') === '1' }))
   }, [])
 
-  if (!isLoggedIn) {
-    return <Navigate to={Paths.SingIn} />
-  }
-
   return (
     <div>
       <PackSettings />

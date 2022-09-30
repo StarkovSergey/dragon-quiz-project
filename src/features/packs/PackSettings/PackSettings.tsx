@@ -46,7 +46,6 @@ export const PackSettings = () => {
         <IconButton className={style['filter-button']} onClick={resetFilters} size={'large'}>
           <WhatshotIcon color={'primary'} />
         </IconButton>
-        {/*<button onClick={resetFilters} className={style['filter-button']}></button>*/}
       </div>
     </div>
   )
