@@ -43,7 +43,10 @@ export const PackSettings = () => {
         <SearchBar search={searchPack} className={style.search} searchText={searchText} />
         <ShowCardsPack />
         <NumberOfCards />
-        <button className={style['filter-button']} onClick={resetFilters}></button>
+        <IconButton className={style['filter-button']} onClick={resetFilters} size={'large'}>
+          <WhatshotIcon color={'primary'} />
+        </IconButton>
+        {/*<button onClick={resetFilters} className={style['filter-button']}></button>*/}
       </div>
     </div>
   )
