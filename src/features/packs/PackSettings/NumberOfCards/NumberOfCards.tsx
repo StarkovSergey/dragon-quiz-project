@@ -16,7 +16,11 @@ export const NumberOfCards = () => {
   const min = useAppSelector(state => state.packs.min)
   const max = useAppSelector(state => state.packs.max)
 
-  const [value, setValue] = useState<number | number[]>([minCardsCount, maxCardsCount])
+  const [value, setValue] = useState<number | number[]>([min, max])
+
+  useEffect(() => {
+    setValue([min, max])
+  }, [min, max])
 
   useEffect(() => {
     setValue([minCardsCount, maxCardsCount])
