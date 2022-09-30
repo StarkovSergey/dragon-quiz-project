@@ -33,6 +33,11 @@
   transition: all 200ms ease;
 }
 
+.button:disabled {
+  top: -6px;
+  left: 6px;
+}
+
 .button:active {
   top: -6px;
   left: 6px;

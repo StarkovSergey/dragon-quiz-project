@@ -20,6 +20,7 @@ const initialState = {
   maxCardsCount: 99,
   entity: 'idle' as StatusType,
   cardPacksTotalCount: 0,
+  addingNewPackStatus: 'idle' as StatusType,
 }
 
 export const slice = createSlice({
@@ -60,6 +61,9 @@ export const slice = createSlice({
       state.minCardsCount = action.payload.min
       state.maxCardsCount = action.payload.max
     },
+    changeAddingNewPackStatus(state, action: PayloadAction<{ status: StatusType }>) {
+      state.addingNewPackStatus = action.payload.status
+    },
   },
 })
 
@@ -74,6 +78,7 @@ export const {
   changeSortPack,
   setMinMaxCardsCount,
   entityStatus,
+  changeAddingNewPackStatus,
 } = slice.actions
 
 export const packsReducer = slice.reducer
@@ -138,6 +143,7 @@ export const searchPacksTC =
 
 export const addNewPackTC = (): AppThunk => async dispatch => {
   dispatch(setAppStatus({ status: 'loading' }))
+  dispatch(changeAddingNewPackStatus({ status: 'loading' }))
   const newPack = {
     name: 'dragon pack',
     deckCover: 'url or base64',
@@ -147,10 +153,12 @@ export const addNewPackTC = (): AppThunk => async dispatch => {
   try {
     await packAPI.addNewPack(newPack)
 
-    dispatch(setPacksTC())
+    await dispatch(setPacksTC())
     dispatch(setAppStatus({ status: 'succeeded' }))
+    dispatch(changeAddingNewPackStatus({ status: 'succeeded' }))
   } catch (e) {
     handleServerNetworkError(e, dispatch)
+    dispatch(changeAddingNewPackStatus({ status: 'failed' }))
   }
 }
 

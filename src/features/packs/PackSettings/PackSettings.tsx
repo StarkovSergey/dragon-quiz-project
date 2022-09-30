@@ -3,6 +3,7 @@ import React from 'react'
 import { Button } from '../../../common/components/Button/Button'
 import { SearchBar } from '../../../common/components/SearchBar/SearchBar'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
+import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import tableStyles from '../../../styles/study-table.module.css'
 import { addNewPackTC, searchPacksTC } from '../packs-reducer'
 import style from '../packs.module.css'
@@ -12,6 +13,7 @@ import { ShowCardsPack } from './ShowPacksCards/ShowCardsPack'
 
 export const PackSettings = () => {
   const dispatch = useAppDispatch()
+  const status = useAppSelector(state => state.packs.addingNewPackStatus)
 
   const searchPack = (text: string) => {
     dispatch(searchPacksTC(text))
@@ -25,7 +27,7 @@ export const PackSettings = () => {
     <div>
       <div className={tableStyles.header}>
         <h2>Pack list</h2>
-        <Button onClick={addNewPack} art>
+        <Button onClick={addNewPack} art disabled={status === 'loading'}>
           Add new pack
         </Button>
       </div>
