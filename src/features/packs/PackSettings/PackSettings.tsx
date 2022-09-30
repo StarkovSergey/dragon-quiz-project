@@ -1,5 +1,8 @@
 import React from 'react'
 
+import WhatshotIcon from '@mui/icons-material/Whatshot'
+import { IconButton } from '@mui/material'
+
 import { Button } from '../../../common/components/Button/Button'
 import { SearchBar } from '../../../common/components/SearchBar/SearchBar'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
@@ -40,7 +43,10 @@ export const PackSettings = () => {
         <SearchBar search={searchPack} className={style.search} searchText={searchText} />
         <ShowCardsPack />
         <NumberOfCards />
-        <button onClick={resetFilters} className={style['filter-button']}></button>
+        <IconButton className={style['filter-button']} onClick={resetFilters} size={'large'}>
+          <WhatshotIcon color={'primary'} />
+        </IconButton>
+        {/*<button onClick={resetFilters} className={style['filter-button']}></button>*/}
       </div>
     </div>
   )
