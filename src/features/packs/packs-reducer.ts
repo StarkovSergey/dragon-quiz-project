@@ -15,7 +15,9 @@ const initialState = {
   pageCount: 8,
   page: 1,
   min: 0,
-  max: 100,
+  max: 99,
+  minCardsCount: 0,
+  maxCardsCount: 99,
   entity: 'idle' as StatusType,
   cardPacksTotalCount: 0,
 }
@@ -32,10 +34,6 @@ export const slice = createSlice({
     },
     searchPacks(state, action: PayloadAction<{ search: string }>) {
       state.search = action.payload.search
-    },
-    setCardsCount(state, action: PayloadAction<{ min: number; max: number }>) {
-      state.min = action.payload.min
-      state.max = action.payload.max
     },
     updatePack(state, action: PayloadAction<{ _id: string; name: string }>) {
       const index = state.packs.findIndex(pack => pack._id === action.payload._id)
@@ -54,6 +52,14 @@ export const slice = createSlice({
     changeSortPack(state, action: PayloadAction<{ sort: SortType }>) {
       state.sort = action.payload.sort
     },
+    setCardsRange(state, action: PayloadAction<{ min: number; max: number }>) {
+      state.min = action.payload.min
+      state.max = action.payload.max
+    },
+    setMinMaxCardsCount(state, action: PayloadAction<{ min: number; max: number }>) {
+      state.minCardsCount = action.payload.min
+      state.maxCardsCount = action.payload.max
+    },
   },
 })
 
@@ -61,11 +67,12 @@ export const {
   setPacks,
   setIsMyPacks,
   searchPacks,
-  setCardsCount,
+  setCardsRange,
   updatePack,
   setCardPacksTotalCount,
   changePage,
   changeSortPack,
+  setMinMaxCardsCount,
   entityStatus,
 } = slice.actions
 
@@ -93,7 +100,7 @@ export const setPacksTC =
       })
 
       dispatch(
-        setCardsCount({
+        setMinMaxCardsCount({
           min: res.data.minCardsCount,
           max: res.data.maxCardsCount,
         })
@@ -195,5 +202,12 @@ export const changeSortPackTC =
   (sort: SortType): AppThunk =>
   async dispatch => {
     dispatch(changeSortPack({ sort }))
+    dispatch(setPacksTC())
+  }
+
+export const setCardsRangeTC =
+  (range: { min: number; max: number }): AppThunk =>
+  async dispatch => {
+    dispatch(setCardsRange(range))
     dispatch(setPacksTC())
   }

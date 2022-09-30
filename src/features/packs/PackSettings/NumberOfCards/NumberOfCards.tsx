@@ -1,56 +1,67 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { RangeSlider } from '../../../../common/components/RangeSlider/Slider'
+import { Box, Slider } from '@mui/material'
+
 import { useAppDispatch } from '../../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../../common/hooks/useAppSelector'
-import { useDebounce } from '../../../../common/hooks/useDebounce'
-import { setPacksTC } from '../../packs-reducer'
+import { setCardsRange, setCardsRangeTC } from '../../packs-reducer'
 
 import style from './../../packs.module.css'
 
 export const NumberOfCards = () => {
-  const minCardsCount = useAppSelector(state => state.packs.min)
-  const maxCardsCount = useAppSelector(state => state.packs.max)
-  const [defaultValue, setDefaultValue] = useState<[number, number]>([minCardsCount, maxCardsCount])
-  const [firstValue, setFirstValue] = useState(0)
-  const [secondValue, setSecondValue] = useState(50)
   const dispatch = useAppDispatch()
+  const minCardsCount = useAppSelector(state => state.packs.minCardsCount)
+  const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
 
-  const debouncedMin = useDebounce(firstValue, 500)
-  const debouncedMax = useDebounce(secondValue, 500)
+  const min = useAppSelector(state => state.packs.min)
+  const max = useAppSelector(state => state.packs.max)
 
-  const onChangeValueDoubleRange = (value: [number, number]) => {
-    setFirstValue(value[0])
-    setSecondValue(value[1])
+  const [value, setValue] = useState<number | number[]>([minCardsCount, maxCardsCount])
+
+  useEffect(() => {
+    setValue([minCardsCount, maxCardsCount])
+    dispatch(
+      setCardsRange({
+        min: minCardsCount,
+        max: maxCardsCount,
+      })
+    )
+  }, [minCardsCount, maxCardsCount])
+
+  const sliderChangeHandler = (event: React.SyntheticEvent | Event, value: number | number[]) => {
+    setValue(value)
   }
 
-  const firstRender = useRef(true)
-
-  useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false
-
+  const onChangeCommitted = (event: React.SyntheticEvent | Event, value: number | number[]) => {
+    if (!Array.isArray(value)) {
       return
     }
-    dispatch(setPacksTC(debouncedMin, debouncedMax))
-  }, [debouncedMin, debouncedMax])
 
-  useEffect(() => {
-    setDefaultValue([minCardsCount, maxCardsCount])
-  }, [minCardsCount, maxCardsCount])
+    dispatch(
+      setCardsRangeTC({
+        min: value[0],
+        max: value[1],
+      })
+    )
+  }
 
   return (
     <div className={style['slider-box']}>
       <p className={style.label}>Number of cards</p>
       <div className={style.slider}>
-        <span>{firstValue}</span>
-        <RangeSlider
-          defaultValue={defaultValue}
-          firstValue={firstValue}
-          secondValue={secondValue}
-          setValue={onChangeValueDoubleRange}
-        />
-        <span>{secondValue}</span>
+        <span>{min}</span>
+        <Box sx={{ width: 300 }}>
+          <Slider
+            min={minCardsCount}
+            max={maxCardsCount}
+            onChange={sliderChangeHandler}
+            onChangeCommitted={onChangeCommitted}
+            value={value}
+            valueLabelDisplay="off"
+            color="primary"
+          />
+        </Box>
+        <span>{max}</span>
       </div>
     </div>
   )
