@@ -113,12 +113,12 @@ export const setPacksTC =
       const res = await packAPI.getPack({
         pageCount,
         page,
-        sort,
-        search,
+        sortPacks: sort,
+        packName: search,
         isMyPacks,
         min,
         max,
-        userID,
+        user_id: isMyPacks ? userID : null,
       })
 
       dispatch(

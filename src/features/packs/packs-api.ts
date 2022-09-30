@@ -1,23 +1,8 @@
 import { instance } from '../../common/api-instances/instance'
 
 export const packAPI = {
-  getPack({ isMyPacks, page, pageCount, userID, max, min, sort, search }: GetPackParamsType) {
-    const params: any = {
-      packName: search,
-      min,
-      max,
-      sortPacks: sort,
-      page,
-      pageCount,
-    }
-
-    if (isMyPacks) {
-      params.user_id = userID
-    }
-
-    return instance.get<ResponsePackType>('/cards/pack', {
-      params,
-    })
+  getPack(params: GetPackParamsType) {
+    return instance.get<ResponsePackType>('/cards/pack', { params })
   },
   addNewPack(cardsPack: newPackType) {
     return instance.post('/cards/pack', { cardsPack })
@@ -66,11 +51,11 @@ export type ResponsePackType = {
 export type GetPackParamsType = {
   pageCount?: number
   page?: number
-  sort?: SortType
-  search?: string
+  sortPacks?: SortType
+  packName?: string
   min?: number
   max?: number
-  userID?: string
+  user_id?: string | null
   isMyPacks?: boolean
 }
 
