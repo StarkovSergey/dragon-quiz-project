@@ -6,18 +6,12 @@ import { useAppDispatch } from '../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../common/hooks/useAppSelector'
 import { logoutTC, updateProfileTC } from '../auth/auth-reducer'
 import authStyle from '../auth/auth.module.css'
-import { SignIn } from '../auth/sign-in/SignIn'
 
 import style from './Profile.module.css'
 
 export const Profile = () => {
-  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
   const profile = useAppSelector(state => state.auth.profile)
   const dispatch = useAppDispatch()
-
-  if (!isLoggedIn) {
-    return <SignIn />
-  }
 
   const changeName = (name: string) => {
     dispatch(updateProfileTC({ name }))
