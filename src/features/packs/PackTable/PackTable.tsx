@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
+import { Paper, Table, TableBody, TableContainer } from '@mui/material'
 
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import tableStyles from '../../../styles/study-table.module.css'

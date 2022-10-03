@@ -10,6 +10,7 @@ type PropsType = DefaultInputPropsType & {
   onEnter?: () => void
   error?: string | boolean
   search?: boolean
+  className?: string
 }
 
 export const InputText: React.FC<PropsType> = ({
@@ -20,6 +21,7 @@ export const InputText: React.FC<PropsType> = ({
   onEnter,
   error,
   search,
+  className,
   ...restProps
 }) => {
   // const [showError, setShowError] = useState<boolean>(!!error)
@@ -42,7 +44,7 @@ export const InputText: React.FC<PropsType> = ({
   }
 
   return (
-    <div className={`${style.box} ${search ? style.search : ''}`}>
+    <div className={`${style.box} ${search ? style.search : ''} ${className ? className : ''}`}>
       <label className={style.label}>{label}</label>
       <input
         type={'text'}

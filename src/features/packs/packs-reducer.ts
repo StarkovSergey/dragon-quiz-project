@@ -164,26 +164,28 @@ export const searchPacksTC =
     }
   }
 
-export const addNewPackTC = (): AppThunk => async dispatch => {
-  dispatch(setAppStatus({ status: 'loading' }))
-  dispatch(changeAddingNewPackStatus({ status: 'loading' }))
-  const newPack = {
-    name: 'dragon pack',
-    deckCover: 'url or base64',
-    private: false,
-  }
+export const addNewPackTC =
+  (name: string): AppThunk =>
+  async dispatch => {
+    dispatch(setAppStatus({ status: 'loading' }))
+    dispatch(changeAddingNewPackStatus({ status: 'loading' }))
+    const newPack = {
+      name,
+      deckCover: 'url or base64',
+      private: false,
+    }
 
-  try {
-    await packAPI.addNewPack(newPack)
+    try {
+      await packAPI.addNewPack(newPack)
 
-    await dispatch(setPacksTC())
-    dispatch(setAppStatus({ status: 'succeeded' }))
-    dispatch(changeAddingNewPackStatus({ status: 'succeeded' }))
-  } catch (e) {
-    handleServerNetworkError(e, dispatch)
-    dispatch(changeAddingNewPackStatus({ status: 'failed' }))
+      await dispatch(setPacksTC())
+      dispatch(setAppStatus({ status: 'succeeded' }))
+      dispatch(changeAddingNewPackStatus({ status: 'succeeded' }))
+    } catch (e) {
+      handleServerNetworkError(e, dispatch)
+      dispatch(changeAddingNewPackStatus({ status: 'failed' }))
+    }
   }
-}
 
 export const deletePackTC =
   (packID: string): AppThunk =>
@@ -211,7 +213,7 @@ export const deletePackTC =
   }
 
 export const editPackTC =
-  (packID: string): AppThunk =>
+  (packID: string, newTitle: string): AppThunk =>
   async dispatch => {
     dispatch(setAppStatus({ status: 'loading' }))
     dispatch(
@@ -220,10 +222,9 @@ export const editPackTC =
         status: 'loading',
       })
     )
-    const newName = 'new name'
 
     try {
-      await packAPI.updatePack(packID, newName)
+      await packAPI.updatePack(packID, newTitle)
 
       await dispatch(setPacksTC())
       dispatch(
