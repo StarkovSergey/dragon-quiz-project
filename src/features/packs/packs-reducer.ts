@@ -33,6 +33,7 @@ export const slice = createSlice({
     },
     setIsMyPacks(state, action: PayloadAction<{ isMyPacks: boolean }>) {
       state.isMyPacks = action.payload.isMyPacks
+      state.page = 1
     },
     searchPacks(state, action: PayloadAction<{ search: string }>) {
       state.search = action.payload.search
@@ -80,6 +81,7 @@ export const slice = createSlice({
       state.isMyPacks = false
       state.min = state.minCardsCount
       state.max = state.maxCardsCount
+      state.page = 1
     },
   },
 })
