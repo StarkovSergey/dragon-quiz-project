@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Paper, Table, TableBody, TableContainer } from '@mui/material'
 import { useParams } from 'react-router-dom'
@@ -11,6 +11,7 @@ import { useAppSelector } from '../../common/hooks/useAppSelector'
 import tableStyles from '../../styles/study-table.module.css'
 import { setPacksTC } from '../packs/packs-reducer'
 
+import { CardModal } from './CardModal/CardModal'
 import { CardPagination } from './CardPagination/CardPagination'
 import { createCardTC, searchCardsTC, setCardsTC, setPackID } from './cards-reducer'
 import style from './Cards.module.css'
@@ -23,9 +24,12 @@ export const Cards = () => {
   const isMyPack = useAppSelector(state => state.cards.isMyPack)
   const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
   const searchText = useAppSelector(state => state.cards.search)
+  const appStatus = useAppSelector(state => state.app.status)
 
   const { packID } = useParams()
   const pack = useAppSelector(state => state.packs.packs.find(pack => pack._id === packID))
+
+  const [openModal, setOpenModal] = useState(false)
 
   useEffect(() => {
     if (!pack) {
@@ -35,8 +39,18 @@ export const Cards = () => {
     dispatch(setCardsTC())
   }, [])
 
-  const addNewCard = () => {
-    dispatch(createCardTC({ cardsPack_id: packID! }))
+  const addNewCardButtonHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    setOpenModal(true)
+  }
+
+  const saveCard = (question: string, answer: string) => {
+    dispatch(
+      createCardTC({
+        cardsPack_id: packID!,
+        answer,
+        question,
+      })
+    )
   }
 
   const searchCard = (text: string) => {
@@ -63,7 +77,7 @@ export const Cards = () => {
       <div className={tableStyles.header}>
         <h1 className={style.title}>{pack?.name}</h1>
         {isMyPack ? (
-          <Button onClick={addNewCard} art>
+          <Button onClick={addNewCardButtonHandler} art disabled={appStatus === 'loading'}>
             Add new card
           </Button>
         ) : (
@@ -88,6 +102,7 @@ export const Cards = () => {
       ) : (
         <p className="text">{emptyText}</p>
       )}
+      <CardModal title="Add new card" open={openModal} toggleOpenMode={setOpenModal} saveCard={saveCard} />
     </div>
   )
 }

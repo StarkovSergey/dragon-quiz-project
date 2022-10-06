@@ -11,7 +11,7 @@ type PropsType = DefaultInputPropsType
 export const SearchInput = (props: PropsType) => {
   return (
     <div className={style.box}>
-      <InputText search label="Search" {...props} placeholder="Provide your text" />
+      <InputText search label="Search" placeholder="Provide your text" />
     </div>
   )
 }

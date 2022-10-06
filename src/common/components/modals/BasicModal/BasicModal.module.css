@@ -18,3 +18,20 @@
 
   font-size: var(--title-fz);
 }
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+}
+
+.header h2 {
+  margin-bottom: 0;
+}
+
+.close-button svg {
+  width: 30px;
+  height: 30px;
+}

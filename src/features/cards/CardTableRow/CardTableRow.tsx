@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import ModeEditIcon from '@mui/icons-material/ModeEdit'
 import WhatshotIcon from '@mui/icons-material/Whatshot'
 import { IconButton, Rating, TableCell, TableRow } from '@mui/material'
 
+import { DeleteModal } from '../../../common/components/modals/DeleteModal/DeleteModal'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import tableStyles from '../../../styles/study-table.module.css'
+import { CardModal } from '../CardModal/CardModal'
 import { CardDomainType, deleteCardTC, updateCardTC } from '../cards-reducer'
 
 type PropsType = {
@@ -16,17 +18,25 @@ type PropsType = {
 
 export const CardTableRow = ({ card, isMyPack }: PropsType) => {
   const dispatch = useAppDispatch()
+  const [openDeleteModal, setOpenDeleteModal] = useState(false)
+  const [openEditModal, setOpenEditModal] = useState(false)
 
+  const deleteCardButtonHandler = () => {
+    setOpenDeleteModal(true)
+  }
   const deleteCard = () => {
     dispatch(deleteCardTC(card._id))
   }
+  const updateCardButtonHandler = () => {
+    setOpenEditModal(true)
+  }
 
-  const updateCard = () => {
+  const updateCard = (question: string, answer: string) => {
     dispatch(
       updateCardTC({
         _id: card._id,
-        answer: `updated answer`,
-        question: `updated question`,
+        answer,
+        question,
       })
     )
   }
@@ -43,12 +53,29 @@ export const CardTableRow = ({ card, isMyPack }: PropsType) => {
       </TableCell>
       {isMyPack && (
         <TableCell align="right" className={tableStyles['actions-cell']}>
-          <IconButton onClick={updateCard} disabled={card.status === 'loading'}>
+          <IconButton onClick={updateCardButtonHandler} disabled={card.status === 'loading'}>
             <ModeEditIcon />
           </IconButton>
-          <IconButton onClick={deleteCard} disabled={card.status === 'loading'}>
+          <IconButton onClick={deleteCardButtonHandler} disabled={card.status === 'loading'}>
             <WhatshotIcon color={card.status === 'loading' ? 'inherit' : 'primary'} />
           </IconButton>
+
+          <DeleteModal
+            title="Delete Card"
+            message={`Do you really want to remove ${card.answer}?`}
+            open={openDeleteModal}
+            toggleOpenMode={setOpenDeleteModal}
+            deleteItem={deleteCard}
+          />
+          <CardModal
+            title="Edit card"
+            open={openEditModal}
+            toggleOpenMode={setOpenEditModal}
+            saveCard={updateCard}
+            answerText={card.answer}
+            questionText={card.question}
+            isEdit={true}
+          />
         </TableCell>
       )}
     </TableRow>

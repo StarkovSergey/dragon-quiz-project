@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
 
+import CloseIcon from '@mui/icons-material/Close'
+import { IconButton } from '@mui/material'
 import Modal from '@mui/material/Modal'
 
 import style from './BasicModal.module.css'
@@ -35,7 +37,12 @@ export const BasicModal: React.FC<PropsType> = ({ children, title, toggleOpenMod
         aria-describedby="modal-modal-description"
       >
         <div className={style.container}>
-          <h2 className={style.title}>{title}</h2>
+          <div className={style.header}>
+            <h2 className={style.title}>{title}</h2>
+            <IconButton onClick={handleClose} className={style['close-button']}>
+              <CloseIcon color="primary" />
+            </IconButton>
+          </div>
           {children}
         </div>
       </Modal>
