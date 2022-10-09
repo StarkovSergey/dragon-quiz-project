@@ -1,4 +1,4 @@
-import { appReducer, AppStateType, setAppError, setAppStatus, setInitialized } from './app-reducer'
+import { appReducer, AppStateType, initializedAppTC, setAppError, setAppStatus } from './app-reducer'
 
 let startState: AppStateType
 
@@ -25,7 +25,8 @@ test('app status should be changed', () => {
 })
 
 test('app isInitialized property should be changed', () => {
-  const endState = appReducer(startState, setInitialized({ isInitialized: true }))
+  let variable: void
+  const endState = appReducer(startState, initializedAppTC.fulfilled(variable, ''))
 
   expect(endState.isInitialized).toBe(true)
 })

@@ -1,13 +1,13 @@
 import axios, { AxiosError } from 'axios'
+import { Dispatch } from 'redux'
 
 import { setAppError, setAppStatus } from '../../app/app-reducer'
-import { AppDispatch } from '../../app/store'
 import { changeCardStatus } from '../../features/cards/cards-reducer'
 import { changePackStatus } from '../../features/packs/packs-reducer'
 
 export const handleServerNetworkError = (
   e: unknown,
-  dispatch: AppDispatch,
+  dispatch: Dispatch,
   params?: { cardID?: string; packID?: string }
 ) => {
   const err = e as Error | AxiosError
