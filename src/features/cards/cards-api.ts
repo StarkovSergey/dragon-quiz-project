@@ -25,6 +25,9 @@ export const cardsAPI = {
   updateCard(card: UpdateCardModelType) {
     return instance.put(`cards/card`, { card })
   },
+  getGrade(grade: number, card_id: string) {
+    return instance.put('/cards/grade', { grade, card_id })
+  },
 }
 
 // types
@@ -51,7 +54,7 @@ export type CardModelType = {
   answerVideo?: string
 }
 
-type getCardsResponseType = {
+export type getCardsResponseType = {
   cards: CardType[]
   cardsTotalCount: number
   maxGrade: number
@@ -80,4 +83,9 @@ export type GetCardsParamsType = {
   sortCards?: string
   page?: number
   pageCount?: number
+}
+
+export type RequestGradeType = {
+  grade: number
+  card_id: string
 }

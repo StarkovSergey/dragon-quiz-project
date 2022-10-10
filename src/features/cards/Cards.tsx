@@ -24,6 +24,7 @@ export const Cards = () => {
   const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
   const searchText = useAppSelector(state => state.cards.search)
 
+  console.log(cards.cards)
   const { packID } = useParams()
   const pack = useAppSelector(state => state.packs.packs.find(pack => pack._id === packID))
 

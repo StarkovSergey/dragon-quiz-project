@@ -11,6 +11,7 @@ import { NewPassword } from '../../features/auth/new-password/NewPassword'
 import { SignIn } from '../../features/auth/sign-in/SignIn'
 import { SignUp } from '../../features/auth/sign-up/SignUp'
 import { Cards } from '../../features/cards/Cards'
+import { Learn } from '../../features/Learn/Learn'
 import { Packs } from '../../features/packs/Packs'
 import { Profile } from '../../features/profile/Profile'
 
@@ -31,6 +32,7 @@ export const AppRoutes = () => {
         <Route path={Paths.CheckEmail} element={<CheckEmail />} />
         <Route path={Paths.Profile} element={<Profile />} />
         <Route path={Paths.Cards} element={<Cards />} />
+        <Route path={Paths.Learn} element={<Learn />} />
       </Route>
       <Route path={Paths.SingIn} element={<SignIn />} />
       <Route path="*" element={<Navigate to="404" />} />
