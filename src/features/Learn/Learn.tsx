@@ -61,11 +61,11 @@ export const Learn = () => {
               <h4 className={style.text}>Answer: {card.answer}</h4>
               <h5 className={style.text}>Rate yourself:</h5>
               <GradeList setGrade={setGrade} nextQuestionHandler={nextQuestionHandler} />
+              <div className={style.button}>
+                <Button onClick={nextQuestionHandler}>Next</Button>
+              </div>
             </div>
           )}
-        </div>
-        <div className={style.button}>
-          <Button onClick={nextQuestionHandler}>Next</Button>
         </div>
       </div>
     </div>
