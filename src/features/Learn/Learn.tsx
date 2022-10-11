@@ -22,6 +22,7 @@ export const Learn = () => {
   const [card, setCard] = useState<CardType | null>(null)
   const [grade, setGrade] = useState(1)
 
+  console.log(grade)
   const collapsedHandler = () => {
     setCollapsedAnswer(!collapsedAnswer)
   }
@@ -36,11 +37,10 @@ export const Learn = () => {
   }, [])
 
   if (card === null || card === undefined) {
-    return <div>крутилка</div>
+    return <div></div>
   }
 
   const nextQuestionHandler = () => {
-    dispatch(setCardsTC())
     setCard(getCard(cards))
     dispatch(setGradeTC(grade, card._id))
   }
