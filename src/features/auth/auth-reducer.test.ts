@@ -1,5 +1,5 @@
-import { ProfileType } from './auth-api'
-import { authSlice, AuthReducerStateType, logoutTC, updateProfile, loginTC } from './auth-slice'
+import { ProfileType, UpdateProfileModelType } from './auth-api'
+import { AuthReducerStateType, authSlice, loginTC, logoutTC, updateProfileTC } from './auth-slice'
 
 let startState: AuthReducerStateType
 const mockProfile: ProfileType = {
@@ -67,7 +67,11 @@ test('profile should be updated', () => {
     avatar: 'updated avatar url',
   }
 
-  const endState = authSlice(startState, updateProfile({ profile: newProfile }))
+  const updateModel: UpdateProfileModelType = {
+    name: 'updated name',
+  }
+
+  const endState = authSlice(startState, updateProfileTC.fulfilled({ profile: newProfile }, 'requestId', updateModel))
 
   expect(endState.profile?.name).toBe(newProfile.name)
   expect(endState.profile?.avatar).toBe(newProfile.avatar)

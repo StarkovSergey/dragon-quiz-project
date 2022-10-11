@@ -1,7 +1,6 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 import { setAppStatus } from '../../app/app-slice'
-import { AppThunk } from '../../app/store'
 import { handleServerNetworkError } from '../../common/utils/handleNetworkError'
 
 import { authAPI, ProfileType, signUpType, UpdateProfileModelType } from './auth-api'
@@ -36,20 +35,72 @@ export const loginTC = createAsyncThunk(
   }
 )
 
-export const updateProfileTC =
-  (model: UpdateProfileModelType): AppThunk =>
-  async dispatch => {
+export const forgotPasswordTC = createAsyncThunk(
+  'auth/forgotPassword',
+  async (param: { email: string; navigate: () => void }, { dispatch, rejectWithValue }) => {
+    dispatch(setAppStatus({ status: 'loading' }))
+
+    try {
+      await authAPI.forgotPassword(param.email)
+      param.navigate()
+      dispatch(setAppStatus({ status: 'succeeded' }))
+    } catch (e) {
+      handleServerNetworkError(e, dispatch)
+      rejectWithValue(null)
+    }
+  }
+)
+
+export const updateProfileTC = createAsyncThunk(
+  'auth/updateProfile',
+  async (model: UpdateProfileModelType, { dispatch, rejectWithValue }) => {
     dispatch(setAppStatus({ status: 'loading' }))
 
     try {
       const response = await authAPI.updateProfile(model)
 
-      dispatch(updateProfile({ profile: response.data.updatedUser }))
+      dispatch(setAppStatus({ status: 'succeeded' }))
+
+      return { profile: response.data.updatedUser }
+    } catch (e) {
+      handleServerNetworkError(e, dispatch)
+      rejectWithValue(null)
+    }
+  }
+)
+
+export const setNewPasswordTC = createAsyncThunk(
+  'auth/setNewPassword',
+  async (param: { password: string; token: string; navigateInSuccess: () => void }, { dispatch, rejectWithValue }) => {
+    dispatch(setAppStatus({ status: 'loading' }))
+
+    try {
+      await authAPI.setNewPassword(param.password, param.token)
+      param.navigateInSuccess()
       dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e) {
       handleServerNetworkError(e, dispatch)
+      rejectWithValue(null)
     }
   }
+)
+
+export const setRegisteredInTC = createAsyncThunk(
+  'auth/setRegisteredInTC',
+  async (param: { data: signUpType; navigate: () => void }, { dispatch, rejectWithValue }) => {
+    dispatch(setAppStatus({ status: 'loading' }))
+
+    try {
+      await authAPI.signUp(param.data)
+
+      param.navigate()
+      dispatch(setAppStatus({ status: 'succeeded' }))
+    } catch (e) {
+      handleServerNetworkError(e, dispatch)
+      rejectWithValue(null)
+    }
+  }
+)
 
 // initial state
 const initialState = {
@@ -61,11 +112,7 @@ const initialState = {
 export const slice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {
-    updateProfile(state, action: PayloadAction<{ profile: ProfileType }>) {
-      state.profile = action.payload.profile
-    },
-  },
+  reducers: {},
   extraReducers: builder => {
     builder.addCase(logoutTC.fulfilled, state => {
       state.isLoggedIn = false
@@ -75,55 +122,13 @@ export const slice = createSlice({
       state.profile = action.payload!.profile
       state.isLoggedIn = true
     })
+    builder.addCase(updateProfileTC.fulfilled, (state, action) => {
+      state.profile = action.payload!.profile
+    })
   },
 })
 
-export const { updateProfile } = slice.actions
 export const authSlice = slice.reducer
-
-// thunks
-export const forgotPasswordTC =
-  (email: string, navigate: () => void): AppThunk =>
-  async dispatch => {
-    dispatch(setAppStatus({ status: 'loading' }))
-
-    try {
-      await authAPI.forgotPassword(email)
-      navigate()
-      dispatch(setAppStatus({ status: 'succeeded' }))
-    } catch (e) {
-      handleServerNetworkError(e, dispatch)
-    }
-  }
-
-export const setNewPasswordTC =
-  (password: string, token: string, navigateInSuccess: () => void): AppThunk =>
-  async dispatch => {
-    dispatch(setAppStatus({ status: 'loading' }))
-
-    try {
-      await authAPI.setNewPassword(password, token)
-      navigateInSuccess()
-      dispatch(setAppStatus({ status: 'succeeded' }))
-    } catch (e) {
-      handleServerNetworkError(e, dispatch)
-    }
-  }
-
-export const setRegisteredInTC =
-  (data: signUpType, navigate: () => void): AppThunk =>
-  async dispatch => {
-    dispatch(setAppStatus({ status: 'loading' }))
-
-    try {
-      const res = await authAPI.signUp(data)
-
-      navigate()
-      dispatch(setAppStatus({ status: 'succeeded' }))
-    } catch (e) {
-      handleServerNetworkError(e, dispatch)
-    }
-  }
 
 // types
 export type AuthReducerStateType = typeof initialState

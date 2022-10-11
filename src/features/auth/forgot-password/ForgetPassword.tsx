@@ -16,7 +16,12 @@ export const ForgotPassword = () => {
   const navigate = useNavigate()
 
   const sendInctruction = () => {
-    dispatch(forgotPasswordTC(email, navigateInSuccess))
+    dispatch(
+      forgotPasswordTC({
+        email,
+        navigate: navigateInSuccess,
+      })
+    )
   }
 
   const inputEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {

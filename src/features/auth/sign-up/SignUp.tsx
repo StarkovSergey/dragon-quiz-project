@@ -33,7 +33,12 @@ export const SignUp = () => {
     },
     validate: values => validateSignUp(values),
     onSubmit: values => {
-      dispatch(setRegisteredInTC(values, navigateInSuccess))
+      dispatch(
+        setRegisteredInTC({
+          data: values,
+          navigate: navigateInSuccess,
+        })
+      )
     },
   })
 

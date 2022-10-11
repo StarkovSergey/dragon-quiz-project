@@ -21,7 +21,14 @@ export const NewPassword = () => {
   const { token } = useParams()
 
   const createNewPassword = () => {
-    if (token) dispatch(setNewPasswordTC(password, token, navigateInSuccess))
+    if (token)
+      dispatch(
+        setNewPasswordTC({
+          password,
+          token,
+          navigateInSuccess,
+        })
+      )
   }
 
   const inputPasswordHandler = (e: ChangeEvent<HTMLInputElement>) => {
