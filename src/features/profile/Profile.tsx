@@ -4,7 +4,7 @@ import { Button } from '../../common/components/Button/Button'
 import { EditableSpan } from '../../common/components/EditableSpan/EditableSpan'
 import { useAppDispatch } from '../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../common/hooks/useAppSelector'
-import { logoutTC, updateProfileTC } from '../auth/auth-reducer'
+import { logoutTC, updateProfileTC } from '../auth/auth-slice'
 import authStyle from '../auth/auth.module.css'
 
 import style from './Profile.module.css'

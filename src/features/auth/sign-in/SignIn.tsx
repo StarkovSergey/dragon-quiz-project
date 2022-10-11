@@ -11,7 +11,7 @@ import { Checkbox } from '../../../common/components/Checkbox/Checkbox'
 import { InputText } from '../../../common/components/InputText/InputText'
 import { showPassword } from '../../../common/components/СustomShowPassword/showPassword'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
-import { loginTC } from '../auth-reducer'
+import { loginTC } from '../auth-slice'
 import authStyle from '../auth.module.css'
 
 import style from './SignIn.module.css'

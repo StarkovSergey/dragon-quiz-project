@@ -3,13 +3,19 @@ import axios from 'axios'
 
 import { handleServerNetworkError } from '../common/utils/handleNetworkError'
 import { authAPI } from '../features/auth/auth-api'
-import { login } from '../features/auth/auth-reducer'
+import { loginTC } from '../features/auth/auth-slice'
 
 export const initializedAppTC = createAsyncThunk('app/initializedApp', async (_, { dispatch }) => {
   try {
     const res = await authAPI.me()
 
-    dispatch(login({ profile: res.data }))
+    dispatch(
+      loginTC.fulfilled({ profile: res.data }, '', {
+        email: res.data.email,
+        rememberMe: res.data.rememberMe,
+        password: res.data.profile,
+      })
+    )
   } catch (error) {
     if (axios.isAxiosError(error)) {
       handleServerNetworkError(error, dispatch)
@@ -40,7 +46,7 @@ const slice = createSlice({
 })
 
 export const { setAppError, setAppStatus } = slice.actions
-export const appReducer = slice.reducer
+export const appSlice = slice.reducer
 
 // types
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'

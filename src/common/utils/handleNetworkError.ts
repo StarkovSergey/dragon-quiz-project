@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios'
 import { Dispatch } from 'redux'
 
-import { setAppError, setAppStatus } from '../../app/app-reducer'
+import { setAppError, setAppStatus } from '../../app/app-slice'
 import { changeCardStatus } from '../../features/cards/cards-reducer'
 import { changePackStatus } from '../../features/packs/packs-reducer'
 

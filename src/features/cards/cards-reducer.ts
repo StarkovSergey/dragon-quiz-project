@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { RequestStatusType, setAppStatus } from '../../app/app-reducer'
+import { RequestStatusType, setAppStatus } from '../../app/app-slice'
 import { AppThunk } from '../../app/store'
 import { handleServerNetworkError } from '../../common/utils/handleNetworkError'
 import { SortType } from '../packs/packs-api'

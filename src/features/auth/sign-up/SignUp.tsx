@@ -9,7 +9,7 @@ import { InputText } from '../../../common/components/InputText/InputText'
 import { showPassword } from '../../../common/components/СustomShowPassword/showPassword'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { Paths } from '../../../common/routes'
-import { setRegisteredInTC } from '../auth-reducer'
+import { setRegisteredInTC } from '../auth-slice'
 import authStyle from '../auth.module.css'
 
 import { validateSignUp } from './validateSignUp'

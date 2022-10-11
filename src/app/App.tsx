@@ -7,7 +7,7 @@ import { ErrorSnackbar } from '../common/components/ErrorSnackbar/ErrorSnackbar'
 import { useAppDispatch } from '../common/hooks/useAppDispatch'
 import { useAppSelector } from '../common/hooks/useAppSelector'
 
-import { initializedAppTC } from './app-reducer'
+import { initializedAppTC } from './app-slice'
 import { AppRoutes } from './AppRoutes/AppRoutes'
 import { Header } from './Header/Header'
 

@@ -9,7 +9,7 @@ export const authAPI = {
     return instance.post(`auth/me`, {})
   },
   login(loginData: LoginFormDataType) {
-    return instance.post(`auth/login`, loginData)
+    return instance.post<ProfileType>(`auth/login`, loginData)
   },
   logout() {
     return instance.delete<{ info: string }>(`auth/me`)

@@ -26,14 +26,14 @@ export const AppRoutes = () => {
     <Routes>
       <Route element={<PrivateRoutes />}>
         <Route path={Paths.Packs} element={<Packs />} />
-        <Route path={Paths.SignUp} element={<SignUp />} />
-        <Route path={Paths.ForgotPassword} element={<ForgotPassword />} />
         <Route path={Paths.SetNewPassword} element={<NewPassword />} />
-        <Route path={Paths.CheckEmail} element={<CheckEmail />} />
         <Route path={Paths.Profile} element={<Profile />} />
         <Route path={Paths.Cards} element={<Cards />} />
         <Route path={Paths.Learn} element={<Learn />} />
       </Route>
+      <Route path={Paths.SignUp} element={<SignUp />} />
+      <Route path={Paths.ForgotPassword} element={<ForgotPassword />} />
+      <Route path={Paths.CheckEmail} element={<CheckEmail />} />
       <Route path={Paths.SingIn} element={<SignIn />} />
       <Route path="*" element={<Navigate to="404" />} />
       <Route path={Paths.Page404} element={<Page404 />} />
