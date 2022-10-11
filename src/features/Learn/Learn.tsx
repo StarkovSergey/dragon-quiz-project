@@ -18,12 +18,10 @@ export const Learn = () => {
   const cards = useAppSelector(state => state.cards.cards)
   const pack = useAppSelector(state => state.packs.packs.find(pack => pack._id === packID))
   const dispatch = useAppDispatch()
-
   const [collapsedAnswer, setCollapsedAnswer] = useState(false)
   const [card, setCard] = useState<CardType | null>(null)
-  const [grade, setGrade] = useState(1)
+  const [grade, setGrade] = useState(0)
 
-  console.log(grade)
   const collapsedHandler = () => {
     setCollapsedAnswer(!collapsedAnswer)
   }
@@ -44,6 +42,7 @@ export const Learn = () => {
   const nextQuestionHandler = () => {
     setCard(getCard(cards))
     dispatch(setGradeTC(grade, card._id))
+    setGrade(0)
   }
 
   return (
@@ -61,9 +60,11 @@ export const Learn = () => {
           <div>
             {collapsedAnswer && (
               <div>
-                <h4 className={style.text}>Answer: {card.answer}</h4>
-                <h5 className={style.text}>Rate yourself:</h5>
-                <GradeList setGrade={setGrade} nextQuestionHandler={nextQuestionHandler} />
+                <div className={style.text}>
+                  <h4>Answer: {card.answer}</h4>
+                  <h5>Rate yourself:</h5>
+                  <GradeList grade={grade} setGrade={setGrade} />
+                </div>
                 <div className={style.button}>
                   <Button onClick={nextQuestionHandler}>Next</Button>
                 </div>

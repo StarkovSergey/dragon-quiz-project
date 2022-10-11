@@ -1,14 +1,11 @@
-import React from 'react'
-
-import { Checkbox } from '../../../common/components/Checkbox/Checkbox'
-import style from '../learn.module.css'
+import React, { ChangeEvent } from 'react'
 
 type GradeListType = {
+  grade: number
   setGrade: (value: number) => void
-  nextQuestionHandler: () => void
 }
 
-export const GradeList = ({ setGrade }: GradeListType) => {
+export const GradeList = ({ grade, setGrade }: GradeListType) => {
   const grades = [
     { grade: 1, text: 'Did not know' },
     { grade: 2, text: 'Forgot' },
@@ -17,21 +14,20 @@ export const GradeList = ({ setGrade }: GradeListType) => {
     { grade: 5, text: 'Knew the answer' },
   ]
 
+  const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
+    setGrade(+e.currentTarget.value)
+  }
+
   return (
     <div>
-      <div className={`${style.grade} ${style.text}`}>
-        {grades.map(el => {
-          const gradeSetChanged = () => {
-            setGrade(el.grade)
-          }
-
-          return (
-            <div key={el.grade}>
-              <Checkbox onChange={gradeSetChanged} /> <span>{el.text}</span>
-            </div>
-          )
-        })}
-      </div>
+      {grades.map((el, i) => {
+        return (
+          <div key={i}>
+            <input type={'radio'} value={el.grade} onChange={onChangeCallback} checked={el.grade === grade} />
+            {el.text}
+          </div>
+        )
+      })}
     </div>
   )
 }
