@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { Paper, Table, TableBody, TableContainer } from '@mui/material'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { BackLink } from '../../common/components/BackLink/BackLink'
 import { Button } from '../../common/components/Button/Button'
@@ -25,8 +25,8 @@ export const Cards = () => {
   const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
   const searchText = useAppSelector(state => state.cards.search)
   const appStatus = useAppSelector(state => state.app.status)
+  const navigate = useNavigate()
 
-  console.log(cards.cards)
   const { packID } = useParams()
   const pack = useAppSelector(state => state.packs.packs.find(pack => pack._id === packID))
 
@@ -58,6 +58,12 @@ export const Cards = () => {
     dispatch(searchCardsTC(text))
   }
 
+  const onClickNavigateHandler = () => {
+    if (pack !== undefined) {
+      navigate(`/learn/${pack._id}`)
+    }
+  }
+
   let emptyText = ''
 
   if (searchText !== '') {
@@ -70,7 +76,7 @@ export const Cards = () => {
     }
   }
 
-  const possibleLearnButton = cards.cards.length ? <Button>Learn to pack</Button> : ''
+  const possibleLearnButton = cards.cards.length ? <Button onClick={onClickNavigateHandler}>Learn to pack</Button> : ''
 
   return (
     <div>

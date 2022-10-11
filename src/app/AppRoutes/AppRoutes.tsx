@@ -11,7 +11,7 @@ import { NewPassword } from '../../features/auth/new-password/NewPassword'
 import { SignIn } from '../../features/auth/sign-in/SignIn'
 import { SignUp } from '../../features/auth/sign-up/SignUp'
 import { Cards } from '../../features/cards/Cards'
-import { Learn } from '../../features/learn/Learn'
+import { Learn } from '../../features/Learn/Learn'
 import { Packs } from '../../features/packs/Packs'
 import { Profile } from '../../features/profile/Profile'
 

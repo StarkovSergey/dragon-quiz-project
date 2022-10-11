@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { useParams } from 'react-router-dom'
 
+import { BackLink } from '../../common/components/BackLink/BackLink'
 import { Button } from '../../common/components/Button/Button'
 import { useAppDispatch } from '../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../common/hooks/useAppSelector'
@@ -46,26 +47,29 @@ export const Learn = () => {
   }
 
   return (
-    <div className={style.learnBlock}>
-      <div className={style.learnContainer}>
-        <h2 className={style.packText}> {pack?.name}</h2>
-        <div>
-          <h4 className={style.text}> Question: {card.question}</h4>
-          <div className={style.button}>
-            <Button onClick={collapsedHandler}>Show Answer</Button>
-          </div>
-        </div>
-        <div>
-          {collapsedAnswer && (
-            <div>
-              <h4 className={style.text}>Answer: {card.answer}</h4>
-              <h5 className={style.text}>Rate yourself:</h5>
-              <GradeList setGrade={setGrade} nextQuestionHandler={nextQuestionHandler} />
-              <div className={style.button}>
-                <Button onClick={nextQuestionHandler}>Next</Button>
-              </div>
+    <div>
+      <BackLink to="/" linkText="Back to Packs List" />
+      <div className={style.learnBlock}>
+        <div className={style.learnContainer}>
+          <h2 className={style.packText}> {pack?.name}</h2>
+          <div>
+            <h4 className={style.text}> Question: {card.question}</h4>
+            <div className={style.button}>
+              <Button onClick={collapsedHandler}>Show Answer</Button>
             </div>
-          )}
+          </div>
+          <div>
+            {collapsedAnswer && (
+              <div>
+                <h4 className={style.text}>Answer: {card.answer}</h4>
+                <h5 className={style.text}>Rate yourself:</h5>
+                <GradeList setGrade={setGrade} nextQuestionHandler={nextQuestionHandler} />
+                <div className={style.button}>
+                  <Button onClick={nextQuestionHandler}>Next</Button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
