@@ -8,4 +8,5 @@ export enum Paths {
   Cards = '/cards/:packID',
   Packs = '/',
   Page404 = '/404',
+  Learn = '/learn/:packID',
 }

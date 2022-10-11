@@ -49,6 +49,10 @@ export const PackTableRow = ({ pack }: PropsType) => {
     dispatch(editPackTC(pack._id, newTitle))
   }
 
+  const onClickNavigateHandler = () => {
+    navigate(`/learn/${pack._id}`)
+  }
+
   const deleteModalTitle = `Do you really want to remove ${pack.name}?
   All cards will be deleted.`
 
@@ -58,9 +62,8 @@ export const PackTableRow = ({ pack }: PropsType) => {
         key={pack._id}
         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
         className={style['table-row']}
-        onClick={getPackId}
       >
-        <TableCell component="th" scope="row">
+        <TableCell onClick={getPackId} component="th" scope="row">
           {pack.name}
         </TableCell>
 
@@ -75,7 +78,10 @@ export const PackTableRow = ({ pack }: PropsType) => {
         <TableCell align="right">
           {userID === pack.user_id ? (
             <div>
-              <IconButton disabled={pack.cardsCount === 0 || pack.status === 'loading'}>
+              <IconButton
+                onClick={onClickNavigateHandler}
+                disabled={pack.cardsCount === 0 || pack.status === 'loading'}
+              >
                 <SchoolIcon />
               </IconButton>
               <IconButton onClick={editButtonClickHandler} disabled={pack.status === 'loading'}>
@@ -86,7 +92,7 @@ export const PackTableRow = ({ pack }: PropsType) => {
               </IconButton>
             </div>
           ) : (
-            <IconButton disabled={pack.cardsCount === 0}>
+            <IconButton onClick={onClickNavigateHandler} disabled={pack.cardsCount === 0}>
               <SchoolIcon />
             </IconButton>
           )}

@@ -202,6 +202,17 @@ export const changeSortCardTC =
     dispatch(setCardsTC())
   }
 
+export const setGradeTC =
+  (grade: number, card_id: string): AppThunk =>
+  async dispatch => {
+    try {
+      await cardsAPI.getGrade(grade, card_id)
+      dispatch(setCardsTC())
+    } catch (e) {
+      handleServerNetworkError(e, dispatch)
+    }
+  }
+
 export type CardDomainType = CardType & {
   status: RequestStatusType
 }
