@@ -1,6 +1,7 @@
 .css-ofhrbq-MuiButtonBase-root-MuiPaginationItem-root,
 .css-1v2lvtn-MuiPaginationItem-root,
 .css-16y9h98,
-.css-4mc9dp {
+.css-4mc9dp,
+.MuiPaginationItem-text {
   color: var(--color-white) !important;
 }
