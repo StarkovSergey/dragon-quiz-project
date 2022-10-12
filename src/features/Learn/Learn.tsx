@@ -52,7 +52,11 @@ export const Learn = () => {
         <div className={style.learnContainer}>
           <h2 className={style.packText}> {pack?.name}</h2>
           <div>
-            <h4 className={style.text}> Question: {card.question}</h4>
+            {card.type === 'card' ? (
+              <p className={style.text}> Question: {card.question}</p>
+            ) : (
+              <img src={card.questionImg} />
+            )}
             <div className={style.button}>
               <Button onClick={collapsedHandler}>Show Answer</Button>
             </div>
