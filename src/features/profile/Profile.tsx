@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react'
+import React, { ChangeEvent } from 'react'
 
 import { setAppError } from '../../app/app-slice'
 import dragonImg from '../../assets/images/dragon.png'
@@ -48,7 +48,8 @@ export const Profile = () => {
         <div className={style['profile-data']}>
           <label className={style.photo}>
             <img src={avatar || dragonImg} alt="user photo" onError={errorHandler} />
-            <input onChange={uploadHandler} className={style['photo-input']} type="file" />
+            <span>Choose image</span>
+            <input onChange={uploadHandler} className={style['photo-input']} type="file" accept=".png, .jpg, .jpeg" />
           </label>
           <EditableSpan text={profile?.name || 'anonymous'} changeText={changeName} />
         </div>

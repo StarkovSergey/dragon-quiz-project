@@ -37,3 +37,29 @@
 
   margin-bottom: 10px;
 }
+
+.photo span {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: block;
+
+  width: fit-content;
+  padding: 10px;
+
+  font-size: 12px;
+  color: var(--color-white);
+
+  opacity: 0;
+  background-color: var(--color-gray-a50);
+  border-radius: 10px;
+
+  transition: 300ms;
+}
+
+.photo:hover span {
+  opacity: 1;
+}
+
