@@ -8,7 +8,8 @@ import { EditableSpan } from '../../common/components/EditableSpan/EditableSpan'
 import { useAppDispatch } from '../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../common/hooks/useAppSelector'
 import { uploadFileHandler } from '../../common/utils/uploadFileHandler'
-import { logoutTC, updateProfileTC } from '../auth/auth-slice'
+import { logout } from '../auth'
+import { updateProfile } from '../auth/auth-slice'
 import authStyle from '../auth/auth.module.css'
 
 import style from './Profile.module.css'
@@ -19,18 +20,18 @@ export const Profile = () => {
   const avatar = useAppSelector(state => state.auth.profile?.avatar)
 
   const changeName = (name: string) => {
-    dispatch(updateProfileTC({ name }))
+    dispatch(updateProfile({ name }))
   }
 
-  const logout = () => {
-    dispatch(logoutTC())
+  const logoutClickHandler = () => {
+    dispatch(logout())
   }
 
   const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
     uploadFileHandler(
       e,
       (file64: string) => {
-        dispatch(updateProfileTC({ avatar: file64 }))
+        dispatch(updateProfile({ avatar: file64 }))
       },
       dispatch
     )
@@ -53,7 +54,7 @@ export const Profile = () => {
           </label>
           <EditableSpan text={profile?.name || 'anonymous'} changeText={changeName} />
         </div>
-        <Button onClick={logout}>Log out</Button>
+        <Button onClick={logoutClickHandler}>Log out</Button>
       </div>
     </div>
   )

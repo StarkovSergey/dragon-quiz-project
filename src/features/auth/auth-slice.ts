@@ -7,7 +7,7 @@ import { authAPI, ProfileType, signUpType, UpdateProfileModelType } from './auth
 import { LoginFormDataType } from './sign-in/SignIn'
 
 // thunks
-export const logoutTC = createAsyncThunk('auth/logout', async (_, { dispatch }) => {
+export const logout = createAsyncThunk('auth/logout', async (_, { dispatch }) => {
   dispatch(setAppStatus({ status: 'loading' }))
 
   try {
@@ -18,7 +18,7 @@ export const logoutTC = createAsyncThunk('auth/logout', async (_, { dispatch }) 
   }
 })
 
-export const loginTC = createAsyncThunk(
+export const login = createAsyncThunk(
   'auth/login',
   async (loginFormData: LoginFormDataType, { dispatch, rejectWithValue }) => {
     dispatch(setAppStatus({ status: 'loading' }))
@@ -35,7 +35,7 @@ export const loginTC = createAsyncThunk(
   }
 )
 
-export const forgotPasswordTC = createAsyncThunk(
+export const forgotPassword = createAsyncThunk(
   'auth/forgotPassword',
   async (param: { email: string; navigate: () => void }, { dispatch, rejectWithValue }) => {
     dispatch(setAppStatus({ status: 'loading' }))
@@ -51,7 +51,7 @@ export const forgotPasswordTC = createAsyncThunk(
   }
 )
 
-export const updateProfileTC = createAsyncThunk(
+export const updateProfile = createAsyncThunk(
   'auth/updateProfile',
   async (model: UpdateProfileModelType, { dispatch, rejectWithValue }) => {
     dispatch(setAppStatus({ status: 'loading' }))
@@ -69,7 +69,7 @@ export const updateProfileTC = createAsyncThunk(
   }
 )
 
-export const setNewPasswordTC = createAsyncThunk(
+export const setNewPassword = createAsyncThunk(
   'auth/setNewPassword',
   async (param: { password: string; token: string; navigateInSuccess: () => void }, { dispatch, rejectWithValue }) => {
     dispatch(setAppStatus({ status: 'loading' }))
@@ -85,7 +85,7 @@ export const setNewPasswordTC = createAsyncThunk(
   }
 )
 
-export const setRegisteredInTC = createAsyncThunk(
+export const setRegisteredIn = createAsyncThunk(
   'auth/setRegisteredInTC',
   async (param: { data: signUpType; navigate: () => void }, { dispatch, rejectWithValue }) => {
     dispatch(setAppStatus({ status: 'loading' }))
@@ -114,21 +114,19 @@ export const slice = createSlice({
   initialState,
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(logoutTC.fulfilled, state => {
+    builder.addCase(logout.fulfilled, state => {
       state.isLoggedIn = false
       state.profile = null
     })
-    builder.addCase(loginTC.fulfilled, (state, action) => {
+    builder.addCase(login.fulfilled, (state, action) => {
       state.profile = action.payload!.profile
       state.isLoggedIn = true
     })
-    builder.addCase(updateProfileTC.fulfilled, (state, action) => {
+    builder.addCase(updateProfile.fulfilled, (state, action) => {
       state.profile = action.payload!.profile
     })
   },
 })
-
-export const authSlice = slice.reducer
 
 // types
 export type AuthReducerStateType = typeof initialState

@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { AnyAction, combineReducers } from 'redux'
 import thunkMiddleware, { ThunkAction, ThunkDispatch } from 'redux-thunk'
 
-import { authSlice } from '../features/auth/auth-slice'
+import { authReducer } from '../features/auth'
 import { cardsSlice } from '../features/cards/cards-slice'
 import { packsReducer } from '../features/packs/packs-reducer'
 
@@ -10,7 +10,7 @@ import { appSlice } from './app-slice'
 
 const rootReducer = combineReducers({
   app: appSlice,
-  auth: authSlice,
+  auth: authReducer,
   packs: packsReducer,
   cards: cardsSlice,
 })

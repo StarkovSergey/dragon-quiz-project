@@ -6,7 +6,7 @@ import { Button } from '../../../common/components/Button/Button'
 import { InputText } from '../../../common/components/InputText/InputText'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { Paths } from '../../../common/routes'
-import { forgotPasswordTC } from '../auth-slice'
+import { forgotPassword } from '../auth-slice'
 import authStyle from '../auth.module.css'
 import style from '../sign-in/SignIn.module.css'
 
@@ -17,7 +17,7 @@ export const ForgotPassword = () => {
 
   const sendInctruction = () => {
     dispatch(
-      forgotPasswordTC({
+      forgotPassword({
         email,
         navigate: navigateInSuccess,
       })

@@ -3,14 +3,14 @@ import axios from 'axios'
 
 import { handleServerNetworkError } from '../common/utils/handleNetworkError'
 import { authAPI } from '../features/auth/auth-api'
-import { loginTC } from '../features/auth/auth-slice'
+import { login } from '../features/auth/auth-slice'
 
 export const initializedAppTC = createAsyncThunk('app/initializedApp', async (_, { dispatch }) => {
   try {
     const res = await authAPI.me()
 
     dispatch(
-      loginTC.fulfilled({ profile: res.data }, '', {
+      login.fulfilled({ profile: res.data }, '', {
         email: res.data.email,
         rememberMe: res.data.rememberMe,
         password: res.data.profile,

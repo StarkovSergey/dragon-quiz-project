@@ -8,7 +8,7 @@ import { InputText } from '../../../common/components/InputText/InputText'
 import { showPassword } from '../../../common/components/СustomShowPassword/showPassword'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { Paths } from '../../../common/routes'
-import { setNewPasswordTC } from '../auth-slice'
+import { setNewPassword } from '../auth-slice'
 import authStyle from '../auth.module.css'
 import style from '../sign-in/SignIn.module.css'
 
@@ -23,7 +23,7 @@ export const NewPassword = () => {
   const createNewPassword = () => {
     if (token)
       dispatch(
-        setNewPasswordTC({
+        setNewPassword({
           password,
           token,
           navigateInSuccess,

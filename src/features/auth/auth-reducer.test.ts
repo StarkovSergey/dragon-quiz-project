@@ -1,5 +1,7 @@
 import { ProfileType, UpdateProfileModelType } from './auth-api'
-import { AuthReducerStateType, authSlice, loginTC, logoutTC, updateProfileTC } from './auth-slice'
+import { AuthReducerStateType, login, logout, updateProfile } from './auth-slice'
+
+import { authReducer } from './index'
 
 let startState: AuthReducerStateType
 const mockProfile: ProfileType = {
@@ -25,9 +27,9 @@ beforeEach(() => {
   }
 })
 test('isLogged property should be changed and profile should be added', () => {
-  const endState = authSlice(
+  const endState = authReducer(
     startState,
-    loginTC.fulfilled({ profile: mockProfile }, 'requestId', {
+    login.fulfilled({ profile: mockProfile }, 'requestId', {
       email: '',
       rememberMe: true,
       password: '',
@@ -43,7 +45,7 @@ test('logout should work correctly', () => {
   startState.profile = mockProfile
 
   let testParam: void // just for test
-  const endState = authSlice(startState, logoutTC.fulfilled(testParam, '', testParam))
+  const endState = authReducer(startState, logout.fulfilled(testParam, '', testParam))
 
   expect(endState.isLoggedIn).toBe(false)
   expect(endState.profile).toBe(null)
@@ -71,7 +73,7 @@ test('profile should be updated', () => {
     name: 'updated name',
   }
 
-  const endState = authSlice(startState, updateProfileTC.fulfilled({ profile: newProfile }, 'requestId', updateModel))
+  const endState = authReducer(startState, updateProfile.fulfilled({ profile: newProfile }, 'requestId', updateModel))
 
   expect(endState.profile?.name).toBe(newProfile.name)
   expect(endState.profile?.avatar).toBe(newProfile.avatar)

@@ -11,14 +11,16 @@ import { Checkbox } from '../../../common/components/Checkbox/Checkbox'
 import { InputText } from '../../../common/components/InputText/InputText'
 import { showPassword } from '../../../common/components/СustomShowPassword/showPassword'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
-import { loginTC } from '../auth-slice'
+import { useAppSelector } from '../../../common/hooks/useAppSelector'
+import { login } from '../auth-slice'
 import authStyle from '../auth.module.css'
+import { selectIsLoggedIn } from '../selectors'
 
 import style from './SignIn.module.css'
 
 export const SignIn = () => {
   const { show, setShowPassword } = showPassword()
-  const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+  const isLoggedIn = useAppSelector(selectIsLoggedIn)
   const dispatch = useAppDispatch()
   const formik = useFormik({
     initialValues: {
@@ -43,7 +45,7 @@ export const SignIn = () => {
       return errors
     },
     onSubmit: values => {
-      dispatch(loginTC(values))
+      dispatch(login(values))
     },
   })
 
