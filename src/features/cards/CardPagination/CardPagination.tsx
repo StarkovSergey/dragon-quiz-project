@@ -5,7 +5,7 @@ import { Pagination } from '@mui/material'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import tableStyle from '../../../styles/study-table.module.css'
-import { changeCardPageTC } from '../cards-reducer'
+import { changeCardPageTC } from '../cards-slice'
 
 type PropsType = {
   packID: string

@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios'
 import { Dispatch } from 'redux'
 
 import { setAppError, setAppStatus } from '../../app/app-slice'
-import { changeCardStatus } from '../../features/cards/cards-reducer'
+import { changeCardStatus } from '../../features/cards/cards-slice'
 import { changePackStatus } from '../../features/packs/packs-reducer'
 
 export const handleServerNetworkError = (

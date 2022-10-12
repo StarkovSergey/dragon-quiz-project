@@ -13,7 +13,7 @@ import { setPacksTC } from '../packs/packs-reducer'
 
 import { CardModal } from './CardModal/CardModal'
 import { CardPagination } from './CardPagination/CardPagination'
-import { createCardTC, searchCardsTC, setCardsTC, setPackID } from './cards-reducer'
+import { createCardTC, searchCardsTC, setCardsTC, setPackID } from './cards-slice'
 import style from './Cards.module.css'
 import { CardTableHead } from './CardTableHead/CardTableHead'
 import { CardTableRow } from './CardTableRow/CardTableRow'

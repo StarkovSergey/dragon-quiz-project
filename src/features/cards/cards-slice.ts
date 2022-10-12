@@ -64,7 +64,7 @@ export const slice = createSlice({
   },
 })
 
-export const cardsReducer = slice.reducer
+export const cardsSlice = slice.reducer
 
 export const {
   setCards,

@@ -8,7 +8,7 @@ import { DeleteModal } from '../../../common/components/modals/DeleteModal/Delet
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import tableStyles from '../../../styles/study-table.module.css'
 import { CardModal } from '../CardModal/CardModal'
-import { CardDomainType, deleteCardTC, updateCardTC } from '../cards-reducer'
+import { CardDomainType, deleteCardTC, updateCardTC } from '../cards-slice'
 
 type PropsType = {
   packID: string

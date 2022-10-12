@@ -8,7 +8,7 @@ import { getTableSortCellName } from '../../../common/utils/getTableSortCellName
 import { toggleSorting } from '../../../common/utils/toggleSorting'
 import tableStyles from '../../../styles/study-table.module.css'
 import { SortType } from '../../packs/packs-api'
-import { changeSortCardTC } from '../cards-reducer'
+import { changeSortCardTC } from '../cards-slice'
 
 type PropsType = {
   packID: string

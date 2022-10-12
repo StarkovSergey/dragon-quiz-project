@@ -8,7 +8,7 @@ import { useAppDispatch } from '../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../common/hooks/useAppSelector'
 import { getCard } from '../../common/utils/getCard'
 import { CardType } from '../cards/cards-api'
-import { setCardsTC, setGradeTC, setPackID } from '../cards/cards-reducer'
+import { setCardsTC, setGradeTC, setPackID } from '../cards/cards-slice'
 
 import { GradeList } from './GradeList/GradeList'
 import style from './learn.module.css'

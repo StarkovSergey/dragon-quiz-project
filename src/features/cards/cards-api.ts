@@ -26,7 +26,10 @@ export const cardsAPI = {
     return instance.put(`cards/card`, { card })
   },
   getGrade(grade: number, card_id: string) {
-    return instance.put('/cards/grade', { grade, card_id })
+    return instance.put('/cards/grade', {
+      grade,
+      card_id,
+    })
   },
 }
 
@@ -40,7 +43,10 @@ export type UpdateCardModelType = {
   questionImg?: string
   questionVideo?: string
   answerVideo?: string
+  type?: CardTypeType
 }
+
+export type CardTypeType = 'card' | 'image'
 
 export type CardModelType = {
   cardsPack_id: string
