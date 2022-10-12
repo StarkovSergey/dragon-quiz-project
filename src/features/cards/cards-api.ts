@@ -43,10 +43,10 @@ export type UpdateCardModelType = {
   questionImg?: string
   questionVideo?: string
   answerVideo?: string
-  type?: CardTypeType
+  type?: QuestionType
 }
 
-export type CardTypeType = 'card' | 'image'
+export type QuestionType = 'card' | 'image'
 
 export type CardModelType = {
   cardsPack_id: string
@@ -58,6 +58,7 @@ export type CardModelType = {
   questionImg?: string
   questionVideo?: string
   answerVideo?: string
+  type?: QuestionType
 }
 
 export type getCardsResponseType = {
@@ -80,6 +81,8 @@ export type CardType = {
   created: string
   updated: string
   _id: string
+  questionImg: string
+  type?: QuestionType
 }
 
 export type GetCardsParamsType = {

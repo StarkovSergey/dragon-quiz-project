@@ -44,12 +44,14 @@ export const Cards = () => {
     setOpenModal(true)
   }
 
-  const saveCard = (question: string, answer: string) => {
+  const saveCard = (param: { answer: string; question?: string; questionImg?: string }) => {
     dispatch(
       createCardTC({
         cardsPack_id: packID!,
-        answer,
-        question,
+        answer: param.answer,
+        question: param.question,
+        questionImg: param.questionImg,
+        type: param.questionImg ? 'image' : 'card',
       })
     )
   }

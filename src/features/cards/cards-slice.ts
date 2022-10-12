@@ -5,7 +5,7 @@ import { AppThunk } from '../../app/store'
 import { handleServerNetworkError } from '../../common/utils/handleNetworkError'
 import { SortType } from '../packs/packs-api'
 
-import { CardModelType, cardsAPI, CardType, UpdateCardModelType } from './cards-api'
+import { CardModelType, cardsAPI, CardType, QuestionType, UpdateCardModelType } from './cards-api'
 
 const initialState = {
   cards: [] as CardDomainType[],
@@ -28,6 +28,7 @@ export const slice = createSlice({
       state.cards = action.payload.cards.map(card => ({
         ...card,
         status: 'idle',
+        type: card.type ? card.type : 'card',
       }))
     },
     changeCardStatus(state, action: PayloadAction<{ cardID: string; status: RequestStatusType }>) {
@@ -140,7 +141,7 @@ export const createCardTC =
   async dispatch => {
     dispatch(setAppStatus({ status: 'loading' }))
     try {
-      await cardsAPI.createCard(cardModel)
+      const result = await cardsAPI.createCard(cardModel)
 
       dispatch(setCardsTC())
       dispatch(setAppStatus({ status: 'succeeded' }))
@@ -215,4 +216,5 @@ export const setGradeTC =
 
 export type CardDomainType = CardType & {
   status: RequestStatusType
+  type: QuestionType
 }

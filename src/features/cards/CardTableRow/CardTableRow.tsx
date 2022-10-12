@@ -31,12 +31,14 @@ export const CardTableRow = ({ card, isMyPack }: PropsType) => {
     setOpenEditModal(true)
   }
 
-  const updateCard = (question: string, answer: string) => {
+  const updateCard = (param: { answer: string; question?: string; questionImg?: string }) => {
     dispatch(
       updateCardTC({
         _id: card._id,
-        answer,
-        question,
+        answer: param.answer,
+        question: param.question,
+        questionImg: param.questionImg,
+        type: param.questionImg ? 'image' : 'card',
       })
     )
   }
@@ -44,7 +46,13 @@ export const CardTableRow = ({ card, isMyPack }: PropsType) => {
   return (
     <TableRow>
       <TableCell component="th" scope="row">
-        {card.question}
+        {card.type === 'card' ? (
+          card.answer
+        ) : (
+          <div className={tableStyles['table-image']}>
+            <img src={card.questionImg} />
+          </div>
+        )}
       </TableCell>
       <TableCell>{card.answer}</TableCell>
       <TableCell align="center">{card.updated.slice(0, 10)}</TableCell>
@@ -74,7 +82,9 @@ export const CardTableRow = ({ card, isMyPack }: PropsType) => {
             saveCard={updateCard}
             answerText={card.answer}
             questionText={card.question}
+            questionType={card.type}
             isEdit={true}
+            questionImg={card.questionImg}
           />
         </TableCell>
       )}
