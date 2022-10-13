@@ -11,6 +11,7 @@ import { SaveNameModal } from '../../../../common/components/modals/SaveNameModa
 import { useAppDispatch } from '../../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../../common/hooks/useAppSelector'
 import tableStyle from '../../../../styles/study-table.module.css'
+import tableStyles from '../../../../styles/study-table.module.css'
 import { deletePackTC, editPackTC, PackDomainType } from '../../packs-reducer'
 import style from '../../packs.module.css'
 
@@ -50,8 +51,14 @@ export const PackTableRow = ({ pack }: PropsType) => {
     dispatch(deletePackTC(pack._id))
   }
 
-  const editPack = (newTitle: string) => {
-    dispatch(editPackTC(pack._id, newTitle))
+  const editPack = (param: { name: string; imagePack: string }) => {
+    dispatch(
+      editPackTC({
+        _id: pack._id,
+        name: param.name,
+        deckCover: param.imagePack,
+      })
+    )
   }
 
   const deleteModalTitle = `Do you really want to remove ${pack.name}?
@@ -66,6 +73,9 @@ export const PackTableRow = ({ pack }: PropsType) => {
         onClick={getPackId}
       >
         <TableCell onClick={getPackId} component="th" scope="row">
+          <div className={tableStyles['table-image']}>
+            <img src={pack.deckCover} alt="img" />
+          </div>
           {pack.name}
         </TableCell>
 

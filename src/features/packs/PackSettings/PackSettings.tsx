@@ -25,8 +25,13 @@ export const PackSettings = () => {
     dispatch(searchPacksTC(text))
   }
 
-  const addNewPack = (packName: string) => {
-    dispatch(addNewPackTC(packName))
+  const addNewPack = (param: { name: string; imagePack: string }) => {
+    dispatch(
+      addNewPackTC({
+        name: param.name,
+        deckCover: param.imagePack,
+      })
+    )
   }
 
   const resetFilters = () => {

@@ -1,6 +1,9 @@
 import React, { ChangeEvent, KeyboardEvent, useState } from 'react'
 
+import { useAppDispatch } from '../../../hooks/useAppDispatch'
+import { uploadFileHandler } from '../../../utils/uploadFileHandler'
 import { Button } from '../../Button/Button'
+import { ImageUploader } from '../../ImageUploader/ImageUploader'
 import { InputText } from '../../InputText/InputText'
 import { BasicModal } from '../BasicModal/BasicModal'
 
@@ -10,7 +13,7 @@ type PropsType = {
   title: string
   open: boolean
   toggleOpenMode: (value: boolean) => void
-  saveName: (text: string) => void
+  saveName: (param: { name: string; imagePack: string }) => void
   isAddNewItem?: boolean
   itemTitle?: string
 }
@@ -23,8 +26,10 @@ export const SaveNameModal: React.FC<PropsType> = ({
   itemTitle = '',
   isAddNewItem = false,
 }) => {
-  const [text, setText] = useState(itemTitle)
+  const [name, setText] = useState(itemTitle)
+  const [imagePack, setImagePack] = useState<any>()
 
+  const dispatch = useAppDispatch()
   const inputChangeHandler = (evt: ChangeEvent<HTMLInputElement>) => {
     setText(evt.currentTarget.value)
   }
@@ -36,8 +41,10 @@ export const SaveNameModal: React.FC<PropsType> = ({
   }
 
   const saveButtonHandler = () => {
-    saveName(text)
-    if (isAddNewItem) setText('')
+    saveName({ name, imagePack })
+    if (isAddNewItem) {
+      setText('')
+    }
     toggleOpenMode(false)
   }
 
@@ -46,10 +53,21 @@ export const SaveNameModal: React.FC<PropsType> = ({
     setText(itemTitle)
   }
 
+  const addImagePackTitle = (e: ChangeEvent<HTMLInputElement>) => {
+    uploadFileHandler(
+      e,
+      (file64: string) => {
+        setImagePack(file64)
+      },
+      dispatch
+    )
+  }
+
   return (
     <BasicModal title={title} open={open} toggleOpenMode={toggleOpenMode} onCloseModal={onCloseModal}>
+      <ImageUploader callback={addImagePackTitle} image={imagePack} />
       <InputText
-        value={text}
+        value={name}
         onChange={inputChangeHandler}
         onKeyDown={inputKeyDownHandler}
         label="Name pack"

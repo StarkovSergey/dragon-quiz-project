@@ -4,27 +4,28 @@ export const packAPI = {
   getPack(params: GetPackParamsType) {
     return instance.get<ResponsePackType>('/cards/pack', { params })
   },
-  addNewPack(cardsPack: newPackType) {
+  addNewPack(cardsPack: NewPackType) {
     return instance.post('/cards/pack', { cardsPack })
   },
   deletePack(id: string) {
     return instance.delete(`/cards/pack?id=${id}`)
   },
-  updatePack(id: string, title: string) {
-    return instance.put('/cards/pack', {
-      cardsPack: {
-        _id: id,
-        name: title,
-      },
-    })
+  updatePack(cardsPack: EditPackType) {
+    return instance.put('/cards/pack', { cardsPack })
   },
 }
 
 // types
+export type EditPackType = {
+  _id: string
+  name?: string
+  deckCover?: string
+}
 
-type newPackType = {
+export type NewPackType = {
   name: string
-  private: boolean
+  deckCover?: string
+  private?: boolean
 }
 
 export type PackType = {
@@ -35,6 +36,7 @@ export type PackType = {
   created: string
   updated: string
   user_name: string
+  deckCover?: string
 }
 
 export type ResponsePackType = {

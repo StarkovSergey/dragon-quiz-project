@@ -4,7 +4,7 @@ import { RequestStatusType, setAppStatus } from '../../app/app-slice'
 import { AppThunk } from '../../app/store'
 import { handleServerNetworkError } from '../../common/utils/handleNetworkError'
 
-import { packAPI, PackType, SortType } from './packs-api'
+import { EditPackType, NewPackType, packAPI, PackType, SortType } from './packs-api'
 
 const initialState = {
   packs: [] as PackDomainType[],
@@ -38,11 +38,21 @@ export const slice = createSlice({
     searchPacks(state, action: PayloadAction<{ search: string }>) {
       state.search = action.payload.search
     },
-    updatePack(state, action: PayloadAction<{ _id: string; name: string }>) {
-      const index = state.packs.findIndex(pack => pack._id === action.payload._id)
-
-      state.packs[index].name = action.payload.name
-    },
+    // updatePack(
+    //   state,
+    //   action: PayloadAction<{
+    //     param: {
+    //       _id: string
+    //       name: string
+    //     }
+    //   }>
+    // ) {
+    //   console.log(action.payload.param._id)
+    //   console.log(action.payload.param.name)
+    //   const index = state.packs.findIndex(pack => pack._id === action.payload.param._id)
+    //
+    //   state.packs[index].name = action.payload.param.name
+    // },
     changePage(state, action: PayloadAction<{ page: number }>) {
       state.page = action.payload.page
     },
@@ -165,18 +175,12 @@ export const searchPacksTC =
   }
 
 export const addNewPackTC =
-  (name: string): AppThunk =>
+  (packModel: NewPackType): AppThunk =>
   async dispatch => {
     dispatch(setAppStatus({ status: 'loading' }))
     dispatch(changeAddingNewPackStatus({ status: 'loading' }))
-    const newPack = {
-      name,
-      deckCover: 'url or base64',
-      private: false,
-    }
-
     try {
-      await packAPI.addNewPack(newPack)
+      await packAPI.addNewPack(packModel)
 
       await dispatch(setPacksTC())
       dispatch(setAppStatus({ status: 'succeeded' }))
@@ -213,29 +217,29 @@ export const deletePackTC =
   }
 
 export const editPackTC =
-  (packID: string, newTitle: string): AppThunk =>
+  (packModel: EditPackType): AppThunk =>
   async dispatch => {
     dispatch(setAppStatus({ status: 'loading' }))
     dispatch(
       changePackStatus({
-        packID,
+        packID: packModel._id,
         status: 'loading',
       })
     )
 
     try {
-      await packAPI.updatePack(packID, newTitle)
+      await packAPI.updatePack(packModel)
 
       await dispatch(setPacksTC())
       dispatch(
         changePackStatus({
-          packID,
+          packID: packModel._id,
           status: 'succeeded',
         })
       )
       dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e) {
-      handleServerNetworkError(e, dispatch, { packID })
+      handleServerNetworkError(e, dispatch)
     }
   }
 
