@@ -57,6 +57,7 @@ export const Cards = () => {
   }
 
   const searchCard = (text: string) => {
+    console.log('searchCard')
     dispatch(searchCardsTC(text))
   }
 
@@ -98,7 +99,7 @@ export const Cards = () => {
         <>
           <TableContainer component={Paper}>
             <Table className={tableStyles['table']} aria-label="customized table">
-              <CardTableHead packID={packID!} />
+              <CardTableHead />
               <TableBody>
                 {cards.cards.map(card => {
                   return <CardTableRow key={card._id} packID={packID!} card={card} isMyPack={isMyPack} />
@@ -106,7 +107,7 @@ export const Cards = () => {
               </TableBody>
             </Table>
           </TableContainer>
-          <CardPagination packID={packID!} />
+          <CardPagination />
         </>
       ) : (
         <p className="text">{emptyText}</p>

@@ -9,15 +9,12 @@ import { toggleSorting } from '../../../common/utils/toggleSorting'
 import tableStyles from '../../../styles/study-table.module.css'
 import { SortType } from '../../packs/packs-api'
 import { changeSortCardTC } from '../cards-slice'
+import { selectIsMyPack, selectSortingCards } from '../selectors'
 
-type PropsType = {
-  packID: string
-}
-
-export const CardTableHead = ({ packID }: PropsType) => {
+export const CardTableHead = () => {
   const dispatch = useAppDispatch()
-  const isMyPack = useAppSelector(state => state.cards.isMyPack)
-  const sorting = useAppSelector(state => state.cards.sortCards)
+  const isMyPack = useAppSelector(selectIsMyPack)
+  const sorting = useAppSelector(selectSortingCards)
 
   const tableSortCellName = getTableSortCellName(sorting)
 

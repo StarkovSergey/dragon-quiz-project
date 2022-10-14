@@ -3,7 +3,7 @@ import { AnyAction, combineReducers } from 'redux'
 import thunkMiddleware, { ThunkAction, ThunkDispatch } from 'redux-thunk'
 
 import { authReducer } from '../features/auth'
-import { cardsSlice } from '../features/cards/cards-slice'
+import { cardsSlice } from '../features/cards'
 import { packsReducer } from '../features/packs/packs-reducer'
 
 import { appSlice } from './app-slice'

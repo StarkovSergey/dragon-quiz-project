@@ -7,11 +7,7 @@ import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import tableStyle from '../../../styles/study-table.module.css'
 import { changeCardPageTC } from '../cards-slice'
 
-type PropsType = {
-  packID: string
-}
-
-export const CardPagination = ({ packID }: PropsType) => {
+export const CardPagination = () => {
   const page = useAppSelector(state => state.cards.page)
   const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
   const dispatch = useAppDispatch()

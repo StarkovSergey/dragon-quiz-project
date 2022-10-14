@@ -1,6 +1,11 @@
-import { slice, login, logout, forgotPassword, updateProfile, setNewPassword, setRegisteredIn } from './auth-slice'
-import * as authSelectors from './selectors'
+import { slice } from './auth-slice'
 
-const authReducer = slice.reducer
+export * from './selectors'
+export * from './auth-slice'
+export * from './check-email/CheckEmail'
+export * from './forgot-password/ForgetPassword'
+export * from './new-password/NewPassword'
+export * from './sign-in/SignIn'
+export * from './sign-up/SignUp'
 
-export { authSelectors, authReducer, login, logout, forgotPassword, updateProfile, setNewPassword, setRegisteredIn }
+export const authReducer = slice.reducer

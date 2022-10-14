@@ -47,7 +47,7 @@ export const CardTableRow = ({ card, isMyPack }: PropsType) => {
     <TableRow>
       <TableCell component="th" scope="row">
         {card.type === 'card' ? (
-          card.answer
+          card.question
         ) : (
           <div className={tableStyles['table-image']}>
             <img src={card.questionImg} />

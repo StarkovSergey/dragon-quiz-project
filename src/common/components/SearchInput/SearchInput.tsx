@@ -8,10 +8,10 @@ type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElem
 
 type PropsType = DefaultInputPropsType
 
-export const SearchInput = (props: PropsType) => {
+export const SearchInput = (props: any) => {
   return (
     <div className={style.box}>
-      <InputText search label="Search" placeholder="Provide your text" />
+      <InputText search label="Search" placeholder="Provide your text" {...props} />
     </div>
   )
 }

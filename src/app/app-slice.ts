@@ -2,8 +2,8 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { handleServerNetworkError } from '../common/utils/handleNetworkError'
+import { login } from '../features/auth'
 import { authAPI } from '../features/auth/auth-api'
-import { login } from '../features/auth/auth-slice'
 
 export const initializedAppTC = createAsyncThunk('app/initializedApp', async (_, { dispatch }) => {
   try {
