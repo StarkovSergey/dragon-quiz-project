@@ -40,10 +40,12 @@ export const Learn = () => {
   }
 
   const nextQuestionHandler = () => {
-    setCard(getCard(cards))
-    dispatch(setGradeTC(grade, card._id))
-    setCollapsedAnswer(false)
-    setGrade(0)
+    if (grade !== 0) {
+      setCard(getCard(cards))
+      dispatch(setGradeTC(grade, card._id))
+      setCollapsedAnswer(false)
+      setGrade(0)
+    }
   }
 
   return (
@@ -69,7 +71,9 @@ export const Learn = () => {
                 <GradeList grade={grade} setGrade={setGrade} />
               </div>
               <div className={style.button}>
-                <Button onClick={nextQuestionHandler}>Next</Button>
+                <Button onClick={nextQuestionHandler} disabled={grade === 0}>
+                  Next
+                </Button>
               </div>
             </div>
           )}

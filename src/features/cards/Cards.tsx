@@ -69,7 +69,9 @@ export const Cards = () => {
 
   let emptyText = ''
 
-  if (searchText !== '') {
+  if (appStatus === 'loading') {
+    emptyText = ''
+  } else if (searchText !== '') {
     emptyText = 'Nothing is found'
   } else {
     if (isMyPack) {
@@ -95,7 +97,7 @@ export const Cards = () => {
         )}
       </div>
       {(searchText || cardsTotalCount !== 0) && <SearchBar search={searchCard} className={style.search} />}
-      {cardsTotalCount !== 0 ? (
+      {appStatus !== 'loading' && cardsTotalCount !== 0 ? (
         <>
           <TableContainer component={Paper}>
             <Table className={tableStyles['table']} aria-label="customized table">

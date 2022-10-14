@@ -13,3 +13,10 @@
 .search {
   margin-bottom: 25px;
 }
+
+.loader {
+  display: block;
+
+  width: fit-content;
+  margin: 50px auto 0;
+}
