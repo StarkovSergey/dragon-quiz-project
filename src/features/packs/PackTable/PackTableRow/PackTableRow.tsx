@@ -10,7 +10,6 @@ import { DeleteModal } from '../../../../common/components/modals/DeleteModal/De
 import { SaveNameModal } from '../../../../common/components/modals/SaveNameModal/SaveNameModal'
 import { useAppDispatch } from '../../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../../common/hooks/useAppSelector'
-import tableStyle from '../../../../styles/study-table.module.css'
 import tableStyles from '../../../../styles/study-table.module.css'
 import { deletePackTC, editPackTC, PackDomainType } from '../../packs-reducer'
 import style from '../../packs.module.css'
@@ -84,10 +83,10 @@ export const PackTableRow = ({ pack }: PropsType) => {
         </TableCell>
 
         <TableCell align="center">{pack.cardsCount}</TableCell>
-        <TableCell align="center" className={tableStyle['sorting-cell']}>
+        <TableCell align="center" className={tableStyles['sorting-cell']}>
           {pack.updated.slice(0, 10)}
         </TableCell>
-        <TableCell align="right" className={tableStyle['created-cell']}>
+        <TableCell align="right" className={tableStyles['created-cell']}>
           {pack.user_name}
         </TableCell>
 
