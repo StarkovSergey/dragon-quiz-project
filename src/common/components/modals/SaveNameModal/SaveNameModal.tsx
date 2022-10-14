@@ -16,6 +16,7 @@ type PropsType = {
   saveName: (param: { name: string; imagePack: string }) => void
   isAddNewItem?: boolean
   itemTitle?: string
+  image?: string
 }
 
 export const SaveNameModal: React.FC<PropsType> = ({
@@ -25,9 +26,10 @@ export const SaveNameModal: React.FC<PropsType> = ({
   saveName,
   itemTitle = '',
   isAddNewItem = false,
+  ...props
 }) => {
   const [name, setText] = useState(itemTitle)
-  const [imagePack, setImagePack] = useState<any>()
+  const [imagePack, setImagePack] = useState<any>(props.image || '')
 
   const dispatch = useAppDispatch()
   const inputChangeHandler = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +43,10 @@ export const SaveNameModal: React.FC<PropsType> = ({
   }
 
   const saveButtonHandler = () => {
-    saveName({ name, imagePack })
+    saveName({
+      name,
+      imagePack,
+    })
     if (isAddNewItem) {
       setText('')
     }

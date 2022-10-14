@@ -73,10 +73,14 @@ export const PackTableRow = ({ pack }: PropsType) => {
         onClick={getPackId}
       >
         <TableCell onClick={getPackId} component="th" scope="row">
-          <div className={tableStyles['table-image']}>
-            <img src={pack.deckCover} alt="img" />
+          <div className={tableStyles['cell-box']}>
+            {pack.deckCover && (
+              <div className={tableStyles['table-image']}>
+                <img src={pack.deckCover} alt="img" />
+              </div>
+            )}
+            {pack.name}
           </div>
-          {pack.name}
         </TableCell>
 
         <TableCell align="center">{pack.cardsCount}</TableCell>
@@ -114,6 +118,7 @@ export const PackTableRow = ({ pack }: PropsType) => {
             open={openModal}
             toggleOpenMode={setOpenModal}
             saveName={editPack}
+            image={pack.deckCover}
           />
           <DeleteModal
             title="Delete Card"

@@ -14,6 +14,13 @@
   background-color: var(--color-brand-light);
 }
 
+.cell-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
 .sorting-header-cell {
   cursor: pointer;
 
@@ -58,6 +65,7 @@
   position: relative;
 
   width: 100%;
+  max-width: 300px;
   height: 40px;
 }
 
