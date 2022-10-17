@@ -17,6 +17,7 @@ import { createCardTC, searchCardsTC, setCardsTC, setPackID } from './cards-slic
 import style from './Cards.module.css'
 import { CardTableHead } from './CardTableHead/CardTableHead'
 import { CardTableRow } from './CardTableRow/CardTableRow'
+import { CardTableSetting } from './CardTableSetting/CardTableSetting'
 
 export const Cards = () => {
   const dispatch = useAppDispatch()
@@ -24,8 +25,7 @@ export const Cards = () => {
   const isMyPack = useAppSelector(state => state.cards.isMyPack)
   const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
   const searchText = useAppSelector(state => state.cards.search)
-  const appStatus = useAppSelector(state => state.app.status)
-  const navigate = useNavigate()
+  const isCardsLoading = useAppSelector(state => state.cards.isCardsLoading)
 
   const { packID } = useParams()
   const pack = useAppSelector(state => state.packs.packs.find(pack => pack._id === packID))
@@ -57,14 +57,7 @@ export const Cards = () => {
   }
 
   const searchCard = (text: string) => {
-    console.log('searchCard')
     dispatch(searchCardsTC(text))
-  }
-
-  const onClickNavigateHandler = () => {
-    if (pack !== undefined) {
-      navigate(`/learn/${pack._id}`)
-    }
   }
 
   let emptyText = ''
@@ -79,23 +72,18 @@ export const Cards = () => {
     }
   }
 
-  const possibleLearnButton = cards.cards.length ? <Button onClick={onClickNavigateHandler}>Learn to pack</Button> : ''
-
   return (
     <div>
       <BackLink to="/" linkText="Back to Packs List" />
-      <div className={tableStyles.header}>
-        <h1 className={style.title}>{pack?.name}</h1>
-        {isMyPack ? (
-          <Button onClick={addNewCardButtonHandler} art disabled={appStatus === 'loading'}>
-            Add new card
-          </Button>
-        ) : (
-          possibleLearnButton
-        )}
-      </div>
+      <CardTableSetting
+        pack={pack}
+        isMyPack={isMyPack}
+        addNewCardButtonHandler={addNewCardButtonHandler}
+        cards={cards}
+      />
+
       {(searchText || cardsTotalCount !== 0) && <SearchBar search={searchCard} className={style.search} />}
-      {cardsTotalCount !== 0 ? (
+      {cardsTotalCount !== 0 && !isCardsLoading ? (
         <>
           <TableContainer component={Paper}>
             <Table className={tableStyles['table']} aria-label="customized table">

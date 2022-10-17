@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { RequestStatusType, setAppStatus } from '../../app/app-slice'
-import { AppThunk } from '../../app/store'
+import { AppRootStateType, AppThunk } from '../../app/store'
 import { handleServerNetworkError } from '../../common/utils/handleNetworkError'
 import { SortType } from '../packs/packs-api'
 
@@ -18,19 +18,48 @@ const initialState = {
   page: 1,
   pageCount: 8,
   cardsTotalCount: 0,
+  isCardsLoading: false,
 }
+
+export const setCardsTC = createAsyncThunk('cards/setCards', async (_, { dispatch, rejectWithValue, getState }) => {
+  dispatch(setAppStatus({ status: 'loading' }))
+  const state = getState() as AppRootStateType
+
+  const { search, sortCards, max, min, page, pageCount, packID } = state.cards
+
+  try {
+    const res = await cardsAPI.getCards(packID!, {
+      search,
+      sortCards,
+      max,
+      min,
+      page,
+      pageCount,
+    })
+    const userID = state.auth.profile?._id
+
+    const isMyPack = res.data.packUserId === userID
+
+    dispatch(changeCardsTotalCount({ cardsTotalCount: res.data.cardsTotalCount }))
+
+    if (packID) {
+      dispatch(setPackID({ packID }))
+    }
+    dispatch(setIsMyPack({ isMyPack }))
+
+    dispatch(setAppStatus({ status: 'succeeded' }))
+
+    return { cards: res.data.cards }
+  } catch (e) {
+    handleServerNetworkError(e, dispatch)
+    rejectWithValue(null)
+  }
+})
 
 export const slice = createSlice({
   name: 'cards',
   initialState,
   reducers: {
-    setCards(state, action: PayloadAction<{ cards: CardType[] }>) {
-      state.cards = action.payload.cards.map(card => ({
-        ...card,
-        status: 'idle',
-        type: card.type ? card.type : 'card',
-      }))
-    },
     changeCardStatus(state, action: PayloadAction<{ cardID: string; status: RequestStatusType }>) {
       return {
         ...state,
@@ -63,12 +92,27 @@ export const slice = createSlice({
       state.sortCards = action.payload.sort
     },
   },
+  extraReducers: builder => {
+    builder.addCase(setCardsTC.fulfilled, (state, action) => {
+      state.cards = action.payload!.cards.map(card => ({
+        ...card,
+        status: 'idle',
+        type: card.type ? card.type : 'card',
+      }))
+      state.isCardsLoading = false
+    })
+    builder.addCase(setCardsTC.pending, state => {
+      state.isCardsLoading = true
+    })
+    builder.addCase(setCardsTC.rejected, state => {
+      state.isCardsLoading = false
+    })
+  },
 })
 
 export const cardsSlice = slice.reducer
 
 export const {
-  setCards,
   setPackID,
   setIsMyPack,
   searchCards,
@@ -79,37 +123,6 @@ export const {
 } = slice.actions
 
 // thunks
-export const setCardsTC = (): AppThunk => async (dispatch, getState) => {
-  dispatch(setAppStatus({ status: 'loading' }))
-  const { search, sortCards, max, min, page, pageCount, packID } = getState().cards
-
-  try {
-    const res = await cardsAPI.getCards(packID!, {
-      search,
-      sortCards,
-      max,
-      min,
-      page,
-      pageCount,
-    })
-    const userID = getState().auth.profile?._id
-
-    const isMyPack = res.data.packUserId === userID
-
-    dispatch(setCards({ cards: res.data.cards }))
-    dispatch(changeCardsTotalCount({ cardsTotalCount: res.data.cardsTotalCount }))
-
-    if (packID) {
-      dispatch(setPackID({ packID }))
-    }
-    dispatch(setIsMyPack({ isMyPack }))
-
-    dispatch(setAppStatus({ status: 'succeeded' }))
-  } catch (e) {
-    handleServerNetworkError(e, dispatch)
-  }
-}
-
 export const updateCardTC =
   (cardModel: UpdateCardModelType): AppThunk =>
   async dispatch => {
@@ -141,7 +154,7 @@ export const createCardTC =
   async dispatch => {
     dispatch(setAppStatus({ status: 'loading' }))
     try {
-      const result = await cardsAPI.createCard(cardModel)
+      await cardsAPI.createCard(cardModel)
 
       dispatch(setCardsTC())
       dispatch(setAppStatus({ status: 'succeeded' }))
@@ -218,3 +231,5 @@ export type CardDomainType = CardType & {
   status: RequestStatusType
   type: QuestionType
 }
+
+export type CardStateType = typeof initialState
