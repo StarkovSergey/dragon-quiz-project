@@ -61,7 +61,9 @@ export const Cards = () => {
 
   let emptyText = ''
 
-  if (searchText !== '') {
+  if (isCardsLoading) {
+    emptyText = 'Pack is loading'
+  } else if (searchText !== '') {
     emptyText = 'Nothing is found'
   } else {
     if (isMyPack) {
