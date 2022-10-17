@@ -27,8 +27,14 @@ export const Learn = () => {
   }
 
   useEffect(() => {
+    if (!cards) {
+      dispatch(setCardsTC)
+    }
+  })
+
+  useEffect(() => {
     setCard(getCard(cards))
-  }, [])
+  }, [cards])
 
   useEffect(() => {
     if (packID) dispatch(setPackID({ packID }))
