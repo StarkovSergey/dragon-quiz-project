@@ -28,7 +28,7 @@ export const Learn = () => {
 
   useEffect(() => {
     setCard(getCard(cards))
-  }, [cards])
+  }, [])
 
   useEffect(() => {
     if (packID) dispatch(setPackID({ packID }))
@@ -55,7 +55,9 @@ export const Learn = () => {
         <h2 className="section-title"> {pack?.name}</h2>
         <div>
           {card.type === 'card' ? (
-            <p className={style.text}> Question: {card.question}</p>
+            <p className={style.text}>
+              <b>Question</b>: {card.question}
+            </p>
           ) : (
             <img src={card.questionImg} alt="question image" />
           )}
@@ -67,7 +69,9 @@ export const Learn = () => {
           {collapsedAnswer && (
             <div>
               <div className={style.text}>
-                <h4>Answer: {card.answer}</h4>
+                <p>
+                  <b>Answer</b>: {card.answer}
+                </p>
                 <GradeList grade={grade} setGrade={setGrade} />
               </div>
               <div className={style.button}>

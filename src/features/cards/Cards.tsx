@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 
 import { Paper, Table, TableBody, TableContainer } from '@mui/material'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 import { BackLink } from '../../common/components/BackLink/BackLink'
-import { Button } from '../../common/components/Button/Button'
 import { SearchBar } from '../../common/components/SearchBar/SearchBar'
 import { useAppDispatch } from '../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../common/hooks/useAppSelector'
