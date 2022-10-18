@@ -21,6 +21,20 @@ const initialState = {
   isCardsLoading: false,
 }
 
+export const setGrade = createAsyncThunk(
+  'cards/setGrate',
+  async (param: { grade: number; cardID: string }, { dispatch, rejectWithValue }) => {
+    dispatch(setAppStatus({ status: 'loading' }))
+    try {
+      await cardsAPI.getGrade(param.grade, param.cardID)
+      dispatch(setCardsTC())
+    } catch (e) {
+      handleServerNetworkError(e, dispatch)
+      rejectWithValue(null)
+    }
+  }
+)
+
 export const setCardsTC = createAsyncThunk('cards/setCards', async (_, { dispatch, rejectWithValue, getState }) => {
   dispatch(setAppStatus({ status: 'loading' }))
   const state = getState() as AppRootStateType
@@ -106,6 +120,9 @@ export const slice = createSlice({
     })
     builder.addCase(setCardsTC.rejected, state => {
       state.isCardsLoading = false
+    })
+    builder.addCase(setGrade.pending, state => {
+      state.isCardsLoading = true
     })
   },
 })
@@ -214,17 +231,6 @@ export const changeSortCardTC =
   async dispatch => {
     dispatch(changeSortCards({ sort }))
     dispatch(setCardsTC())
-  }
-
-export const setGradeTC =
-  (grade: number, card_id: string): AppThunk =>
-  async dispatch => {
-    try {
-      await cardsAPI.getGrade(grade, card_id)
-      dispatch(setCardsTC())
-    } catch (e) {
-      handleServerNetworkError(e, dispatch)
-    }
   }
 
 export type CardDomainType = CardType & {

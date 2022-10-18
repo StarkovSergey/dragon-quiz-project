@@ -39,7 +39,7 @@ export const Cards = () => {
     dispatch(setCardsTC())
   }, [])
 
-  const addNewCardButtonHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const addNewCardButtonHandler = () => {
     setOpenModal(true)
   }
 

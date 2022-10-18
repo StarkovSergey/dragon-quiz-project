@@ -38,21 +38,6 @@ export const slice = createSlice({
     searchPacks(state, action: PayloadAction<{ search: string }>) {
       state.search = action.payload.search
     },
-    // updatePack(
-    //   state,
-    //   action: PayloadAction<{
-    //     param: {
-    //       _id: string
-    //       name: string
-    //     }
-    //   }>
-    // ) {
-    //   console.log(action.payload.param._id)
-    //   console.log(action.payload.param.name)
-    //   const index = state.packs.findIndex(pack => pack._id === action.payload.param._id)
-    //
-    //   state.packs[index].name = action.payload.param.name
-    // },
     changePage(state, action: PayloadAction<{ page: number }>) {
       state.page = action.payload.page
     },

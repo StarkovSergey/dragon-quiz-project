@@ -7,7 +7,7 @@ import { Button } from '../../common/components/Button/Button'
 import { useAppDispatch } from '../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../common/hooks/useAppSelector'
 import { getCard } from '../../common/utils/getCard'
-import { setCardsTC, setGradeTC, setPackID } from '../cards'
+import { selectIsCardsLoading, setCardsTC, setGrade, setPackID } from '../cards'
 import { CardType } from '../cards/cards-api'
 
 import { GradeList } from './GradeList/GradeList'
@@ -20,7 +20,8 @@ export const Learn = () => {
   const dispatch = useAppDispatch()
   const [collapsedAnswer, setCollapsedAnswer] = useState(false)
   const [card, setCard] = useState<CardType | null>(null)
-  const [grade, setGrade] = useState(0)
+  const [localGrade, setLocalGrade] = useState(0)
+  const isCardsLoading = useAppSelector(selectIsCardsLoading)
 
   const collapsedHandler = () => {
     setCollapsedAnswer(!collapsedAnswer)
@@ -46,11 +47,15 @@ export const Learn = () => {
   }
 
   const nextQuestionHandler = () => {
-    if (grade !== 0) {
-      setCard(getCard(cards))
-      dispatch(setGradeTC(grade, card._id))
+    if (localGrade !== 0) {
+      dispatch(
+        setGrade({
+          grade: localGrade,
+          cardID: card._id,
+        })
+      )
       setCollapsedAnswer(false)
-      setGrade(0)
+      setLocalGrade(0)
     }
   }
 
@@ -59,35 +64,40 @@ export const Learn = () => {
       <BackLink to="/" linkText="Back to Packs List" />
       <div className={style.learnBlock}>
         <h2 className="section-title"> {pack?.name}</h2>
-        <div>
-          {card.type === 'card' ? (
-            <p className={style.text}>
-              <b>Question</b>: {card.question}
-            </p>
-          ) : (
-            <img src={card.questionImg} alt="question image" />
-          )}
-          <div className={style.button}>
-            <Button onClick={collapsedHandler}>Show Answer</Button>
-          </div>
-        </div>
-        <div>
-          {collapsedAnswer && (
+
+        {!isCardsLoading && (
+          <div>
             <div>
-              <div className={style.text}>
-                <p>
-                  <b>Answer</b>: {card.answer}
+              {card.type === 'card' ? (
+                <p className={style.text}>
+                  <b>Question</b>: {card.question}
                 </p>
-                <GradeList grade={grade} setGrade={setGrade} />
-              </div>
+              ) : (
+                <img src={card.questionImg} alt="question image" />
+              )}
               <div className={style.button}>
-                <Button onClick={nextQuestionHandler} disabled={grade === 0}>
-                  Next
-                </Button>
+                <Button onClick={collapsedHandler}>Show Answer</Button>
               </div>
             </div>
-          )}
-        </div>
+            <div>
+              {collapsedAnswer && (
+                <div>
+                  <div className={style.text}>
+                    <p>
+                      <b>Answer</b>: {card.answer}
+                    </p>
+                    <GradeList grade={localGrade} setGrade={setLocalGrade} />
+                  </div>
+                  <div className={style.button}>
+                    <Button onClick={nextQuestionHandler} disabled={localGrade === 0}>
+                      Next
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
