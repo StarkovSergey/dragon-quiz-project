@@ -61,9 +61,7 @@ export const Cards = () => {
 
   let emptyText = ''
 
-  if (isCardsLoading) {
-    emptyText = 'Pack is loading'
-  } else if (searchText !== '') {
+  if (searchText !== '') {
     emptyText = 'Nothing is found'
   } else {
     if (isMyPack) {
@@ -76,31 +74,36 @@ export const Cards = () => {
   return (
     <div>
       <BackLink to="/" linkText="Back to Packs List" />
-      <CardTableSetting
-        pack={pack}
-        isMyPack={isMyPack}
-        addNewCardButtonHandler={addNewCardButtonHandler}
-        cards={cards}
-      />
-
-      {(searchText || cardsTotalCount !== 0) && <SearchBar search={searchCard} className={style.search} />}
-      {cardsTotalCount !== 0 && !isCardsLoading ? (
+      {!isCardsLoading && (
         <>
-          <TableContainer component={Paper}>
-            <Table className={tableStyles['table']} aria-label="customized table">
-              <CardTableHead />
-              <TableBody>
-                {cards.cards.map(card => {
-                  return <CardTableRow key={card._id} packID={packID!} card={card} isMyPack={isMyPack} />
-                })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <CardPagination />
+          <CardTableSetting
+            pack={pack}
+            isMyPack={isMyPack}
+            addNewCardButtonHandler={addNewCardButtonHandler}
+            cards={cards}
+          />
+
+          {(searchText || cardsTotalCount !== 0) && <SearchBar search={searchCard} className={style.search} />}
+          {cardsTotalCount !== 0 ? (
+            <>
+              <TableContainer component={Paper}>
+                <Table className={tableStyles['table']} aria-label="customized table">
+                  <CardTableHead />
+                  <TableBody>
+                    {cards.cards.map(card => {
+                      return <CardTableRow key={card._id} packID={packID!} card={card} isMyPack={isMyPack} />
+                    })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <CardPagination />
+            </>
+          ) : (
+            <p className="text">{emptyText}</p>
+          )}
         </>
-      ) : (
-        <p className="text">{emptyText}</p>
       )}
+
       <CardModal title="Add new card" open={openModal} toggleOpenMode={setOpenModal} saveCard={saveCard} />
     </div>
   )

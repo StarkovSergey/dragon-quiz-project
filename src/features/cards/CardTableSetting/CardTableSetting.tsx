@@ -32,6 +32,11 @@ export const CardTableSetting = ({ pack, isMyPack, addNewCardButtonHandler, card
   return (
     <div className={tableStyles.header}>
       <h1 className={style.title}>{pack?.name}</h1>
+      {pack?.deckCover && (
+        <div className={style['pack-cover']}>
+          <img src={pack.deckCover} alt="pack cover" />
+        </div>
+      )}
       {isMyPack ? (
         <Button onClick={addNewCardButtonHandler} art disabled={appStatus === 'loading'}>
           Add new card
