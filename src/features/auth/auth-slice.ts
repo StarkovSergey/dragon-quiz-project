@@ -37,12 +37,11 @@ export const login = createAsyncThunk(
 
 export const forgotPassword = createAsyncThunk(
   'auth/forgotPassword',
-  async (param: { email: string; navigate: () => void }, { dispatch, rejectWithValue }) => {
+  async (param: { email: string }, { dispatch, rejectWithValue }) => {
     dispatch(setAppStatus({ status: 'loading' }))
 
     try {
       await authAPI.forgotPassword(param.email)
-      param.navigate()
       dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e) {
       handleServerNetworkError(e, dispatch)
@@ -71,12 +70,11 @@ export const updateProfile = createAsyncThunk(
 
 export const setNewPassword = createAsyncThunk(
   'auth/setNewPassword',
-  async (param: { password: string; token: string; navigateInSuccess: () => void }, { dispatch, rejectWithValue }) => {
+  async (param: { password: string; token: string }, { dispatch, rejectWithValue }) => {
     dispatch(setAppStatus({ status: 'loading' }))
 
     try {
       await authAPI.setNewPassword(param.password, param.token)
-      param.navigateInSuccess()
       dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e) {
       handleServerNetworkError(e, dispatch)
@@ -87,13 +85,12 @@ export const setNewPassword = createAsyncThunk(
 
 export const setRegisteredIn = createAsyncThunk(
   'auth/setRegisteredInTC',
-  async (param: { data: signUpType; navigate: () => void }, { dispatch, rejectWithValue }) => {
+  async (param: { data: signUpType }, { dispatch, rejectWithValue }) => {
     dispatch(setAppStatus({ status: 'loading' }))
 
     try {
       await authAPI.signUp(param.data)
 
-      param.navigate()
       dispatch(setAppStatus({ status: 'succeeded' }))
     } catch (e) {
       handleServerNetworkError(e, dispatch)

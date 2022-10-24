@@ -26,17 +26,16 @@ export const NewPassword = () => {
         setNewPassword({
           password,
           token,
-          navigateInSuccess,
         })
       )
+        .unwrap()
+        .then(() => {
+          navigate(Paths.SingIn)
+        })
   }
 
   const inputPasswordHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.currentTarget.value)
-  }
-
-  const navigateInSuccess = () => {
-    navigate(Paths.SingIn)
   }
 
   return (

@@ -36,15 +36,14 @@ export const SignUp = () => {
       dispatch(
         setRegisteredIn({
           data: values,
-          navigate: navigateInSuccess,
         })
       )
+        .unwrap()
+        .then(() => {
+          navigateSignUp(Paths.SingIn)
+        })
     },
   })
-
-  const navigateInSuccess = () => {
-    navigateSignUp(Paths.SingIn)
-  }
 
   return (
     <div className={authStyle.container}>

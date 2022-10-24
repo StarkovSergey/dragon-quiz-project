@@ -1,10 +1,8 @@
 import React from 'react'
 
 import { useFormik } from 'formik'
-import { useSelector } from 'react-redux'
 import { Navigate, NavLink } from 'react-router-dom'
 
-import { AppRootStateType } from '../../../app/store'
 import eyeImg from '../../../assets/icons/eye.webp'
 import { Button } from '../../../common/components/Button/Button'
 import { Checkbox } from '../../../common/components/Checkbox/Checkbox'

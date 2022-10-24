@@ -19,17 +19,16 @@ export const ForgotPassword = () => {
     dispatch(
       forgotPassword({
         email,
-        navigate: navigateInSuccess,
       })
     )
+      .unwrap()
+      .then(() => {
+        navigate(Paths.CheckEmail)
+      })
   }
 
   const inputEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.currentTarget.value)
-  }
-
-  const navigateInSuccess = () => {
-    navigate(Paths.CheckEmail)
   }
 
   const keyDownEmailHandler = (e: KeyboardEvent<HTMLInputElement>) => {
